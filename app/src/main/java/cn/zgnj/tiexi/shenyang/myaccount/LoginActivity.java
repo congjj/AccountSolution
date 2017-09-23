@@ -2,6 +2,7 @@ package cn.zgnj.tiexi.shenyang.myaccount;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -11,4 +12,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
     }
+    Button mbtnLogin;
+
+
+
+
+
+
 }
