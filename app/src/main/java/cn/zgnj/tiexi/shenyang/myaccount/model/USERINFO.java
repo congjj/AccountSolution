@@ -6,7 +6,7 @@ import com.orm.SugarRecord;
  * Created by CJJ on 2017/9/25.
  */
 
-public class USERINFO extends SugarRecord
+public class USERINFO extends SugarRecord<USERINFO>
 {
 
     long ID;
