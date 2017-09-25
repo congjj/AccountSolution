@@ -35,7 +35,7 @@ public class LoginActivityController extends LoginActivity
      */
     public void loginAcivity_Load()
     {
-       // _TelephInfo =(TelephonyManager)getSystemService(Context .TELEPHONY_SERVICE) ;
+        //_TelephInfo =(TelephonyManager)getSystemService(Context .TELEPHONY_SERVICE) ;
 
         //this.mtxvTelNO .setText( _TelephInfo .getLine1Number() ) ;
     }
