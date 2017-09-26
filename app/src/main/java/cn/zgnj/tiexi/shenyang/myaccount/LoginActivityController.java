@@ -7,7 +7,10 @@ import android.service.autofill.FillEventHistory;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 
@@ -16,41 +19,47 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
  * Created by Administrator on 2017/9/23.
  */
 
-public class LoginActivityController extends LoginActivity
+public class LoginActivityController
 {
-    private View mView;
-    private Context mContext;
-    private Bundle mBundle;
+
+    Button btnLogin;
+    TextView txvTelNO;
+    Context loginActivity ;
+
+
     private TelephonyManager _TelephInfo;
 
-    public LoginActivityController (Context context , View view,Bundle bundle)
+    public LoginActivityController (Context loginActivity ,Button btnLogin , TextView txvTelNO)
     {
-        mView =view ;
-        mContext =context;
-        mBundle =bundle;
+        this.loginActivity  =loginActivity;
+        this.btnLogin =btnLogin ;
+        this.txvTelNO =txvTelNO;
     }
 
     /**
      * 载入时发生
      */
-    public void loginAcivity_Load()
+    public void loginAcivity_Load(Bundle Send)
     {
-        //_TelephInfo =(TelephonyManager)getSystemService(Context .TELEPHONY_SERVICE) ;
 
-        //this.mtxvTelNO .setText( _TelephInfo .getLine1Number() ) ;
+        _TelephInfo =(TelephonyManager)loginActivity .getSystemService(Context .TELEPHONY_SERVICE) ;
+        this.txvTelNO .setText( _TelephInfo .getLine1Number() ) ;
+        //this.txvTelNO .setText( "adfasd") ;
     }
 
     /**
      * 系统登录按钮
      */
-    public void btnLogin_Click()
+    public void btnLogin_Click(View Send)
     {
         //new USERINFO() ;
         //USERINFO a =  new USERINFO(1, "a","f","f","d");
         //a.save() ;
 
        // USERINFO  book = USERINFO.findById(USERINFO .class ,(long)1) ;
-        Toast.makeText(mContext , "成功", Toast.LENGTH_SHORT).show();
+        this.txvTelNO .setText( _TelephInfo .getLine1Number() +"aaa") ;
+        Toast.makeText(loginActivity  , "成功1", Toast.LENGTH_SHORT).show();
+
 
     }
 
