@@ -41,10 +41,13 @@ public class LoginActivityController
      */
     public void loginAcivity_Load(Bundle Send)
     {
-
         _TelephInfo =(TelephonyManager)loginActivity .getSystemService(Context .TELEPHONY_SERVICE) ;
-        this.txvTelNO .setText( _TelephInfo .getLine1Number() ) ;
-        //this.txvTelNO .setText( "adfasd") ;
+        String id =_TelephInfo .getLine1Number().trim() .length() ==0 ? _TelephInfo .getSubscriberId()
+                :_TelephInfo .getLine1Number() ;
+        this.txvTelNO .setText( id) ;
+
+
+
     }
 
     /**
@@ -56,8 +59,8 @@ public class LoginActivityController
         //USERINFO a =  new USERINFO(1, "a","f","f","d");
         //a.save() ;
 
-       // USERINFO  book = USERINFO.findById(USERINFO .class ,(long)1) ;
-        this.txvTelNO .setText( _TelephInfo .getLine1Number() +"aaa") ;
+       USERINFO  book = USERINFO.findById(USERINFO .class ,(long)1) ;
+
         Toast.makeText(loginActivity  , "成功1", Toast.LENGTH_SHORT).show();
 
 
