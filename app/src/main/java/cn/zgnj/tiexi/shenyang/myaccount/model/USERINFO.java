@@ -5,19 +5,19 @@ import com.orm.dsl.* ;
 
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Queue;
+
+import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 
 /**
  * Created by CJJ on 2017/9/25.
  */
 
 @Table
-public class USERINFO extends SugarRecord
+public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
 {
-    /**
-     * ID 主键
-     */
-    @Column(name = "ID",unique = true ,notNull = true)
-    long ID;
+
     /**
      * 用户编码
      */
@@ -49,10 +49,11 @@ public class USERINFO extends SugarRecord
     @Column(name = "REMARK")
     String REMARK;
 
-    public USERINFO (long ID,String USERCODE ,String USERNAME ,String SIM_ISMI ,String USERPASSWORD,String REMARK)
+
+    public USERINFO (String USERCODE ,String USERNAME ,String USERTEL_NO ,String SIM_ISMI ,String USERPASSWORD,String REMARK)
     {
-        this.ID =ID ;
         this.USERCODE =USERCODE ;
+        this.USERTEL_NO =USERTEL_NO ;
         this.USERNAME  =USERNAME  ;
         this.SIM_ISMI  =SIM_ISMI ;
         this.USERNAME  = USERNAME;
@@ -63,6 +64,21 @@ public class USERINFO extends SugarRecord
 
 
 
+    @Override
+    public long Insert()
+    {
+        List<USERINFO> list=USERINFO.find(USERINFO .class ,"SIM_ISMI=?",this.SIM_ISMI  );
 
+        //或者// findWithQuery(USERINFO .class ,"select * from USERINFO where USERTEL_NO ?",this.USERTEL_NO) ;
+        if( list .size() ==0)
+        {
+            return this.save() ;
+        }
+        else
+        {
+            return ((USERINFO)list.toArray() [0]).getId();
+        }
+
+    }
 
 }

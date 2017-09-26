@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.List;
+
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 
 
@@ -59,9 +61,14 @@ public class LoginActivityController
         //USERINFO a =  new USERINFO(1, "a","f","f","d");
         //a.save() ;
 
-        USERINFO  book = USERINFO.findById(USERINFO .class ,(long)1) ;
+        IModelHelper a=new USERINFO("","",_TelephInfo .getLine1Number(),_TelephInfo .getSubscriberId(),"","");
+        String cc=_TelephInfo .getSubscriberId();
+        List <USERINFO > list = USERINFO .find(USERINFO .class ,"SIM_ISMI=?",cc) ;
 
-        Toast.makeText(loginActivity  , "成功1", Toast.LENGTH_SHORT).show();
+        long c = a.Insert() ;
+       // USERINFO  book = USERINFO.findById(USERINFO .class ,(long)1) ;
+
+        Toast.makeText(loginActivity  , "成功"+ c , Toast.LENGTH_SHORT).show();
 
     }
 
