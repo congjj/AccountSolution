@@ -59,10 +59,9 @@ public class LoginActivityController
         //USERINFO a =  new USERINFO(1, "a","f","f","d");
         //a.save() ;
 
-       USERINFO  book = USERINFO.findById(USERINFO .class ,(long)1) ;
+        USERINFO  book = USERINFO.findById(USERINFO .class ,(long)1) ;
 
         Toast.makeText(loginActivity  , "成功1", Toast.LENGTH_SHORT).show();
-
 
     }
 
