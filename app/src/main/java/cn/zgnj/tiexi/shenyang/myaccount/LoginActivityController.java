@@ -2,6 +2,7 @@ package cn.zgnj.tiexi.shenyang.myaccount;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.service.autofill.FillEventHistory;
 import android.telephony.TelephonyManager;
@@ -64,8 +65,12 @@ public class LoginActivityController
         IModelHelper a=new USERINFO("","",_TelephInfo .getLine1Number(),_TelephInfo .getSubscriberId(),"",
                 df.format(new Date()) ,df.format(new Date()) ,"");
         long returnid = a.Insert() ;
+        Toast.makeText(loginActivity  , "成功"+ returnid , Toast.LENGTH_LONG ).show();
 
-        Toast.makeText(loginActivity  , "成功"+ returnid , Toast.LENGTH_SHORT).show();
+        Intent i=new Intent(loginActivity ,OperateActivity.class);
+
+        i.putExtra("data",returnid);
+        loginActivity . startActivity(i);
     }
 
 
