@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.orm.query.Select;
+
 import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
@@ -48,8 +50,6 @@ public class LoginActivityController
                 :_TelephInfo .getLine1Number() ;
         this.txvTelNO .setText( id) ;
 
-
-
     }
 
     /**
@@ -57,19 +57,11 @@ public class LoginActivityController
      */
     public void btnLogin_Click(View Send)
     {
-        //new USERINFO() ;
-        //USERINFO a =  new USERINFO(1, "a","f","f","d");
-        //a.save() ;
-
         IModelHelper a=new USERINFO("","",_TelephInfo .getLine1Number(),_TelephInfo .getSubscriberId(),"","");
-        String cc=_TelephInfo .getSubscriberId();
-        List <USERINFO > list = USERINFO .find(USERINFO .class ,"SIM_ISMI=?",cc) ;
+        long returnid = a.Insert() ;
 
-        long c = a.Insert() ;
-       // USERINFO  book = USERINFO.findById(USERINFO .class ,(long)1) ;
 
-        Toast.makeText(loginActivity  , "成功"+ c , Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(loginActivity  , "成功"+ returnid , Toast.LENGTH_SHORT).show();
     }
 
 

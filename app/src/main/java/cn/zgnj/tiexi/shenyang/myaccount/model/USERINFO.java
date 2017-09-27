@@ -5,6 +5,7 @@ import com.orm.dsl.* ;
 
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 
@@ -13,7 +14,6 @@ import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 /**
  * Created by CJJ on 2017/9/25.
  */
-
 @Table
 public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
 {
@@ -49,6 +49,7 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
     @Column(name = "REMARK")
     String REMARK;
 
+    public USERINFO (){}
 
     public USERINFO (String USERCODE ,String USERNAME ,String USERTEL_NO ,String SIM_ISMI ,String USERPASSWORD,String REMARK)
     {
@@ -63,12 +64,10 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
 
 
 
-
     @Override
     public long Insert()
     {
         List<USERINFO> list=USERINFO.find(USERINFO .class ,"SIM_ISMI=?",this.SIM_ISMI  );
-
         //或者// findWithQuery(USERINFO .class ,"select * from USERINFO where USERTEL_NO ?",this.USERTEL_NO) ;
         if( list .size() ==0)
         {
