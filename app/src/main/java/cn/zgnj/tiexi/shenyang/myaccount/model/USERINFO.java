@@ -2,12 +2,9 @@ package cn.zgnj.tiexi.shenyang.myaccount.model;
 
 import com.orm.SugarRecord;
 import com.orm.dsl.* ;
-
-
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Queue;
+
 
 import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 
@@ -61,7 +58,6 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
         this.USERPASSWORD  =USERPASSWORD;
         this.REMARK = REMARK;
     }
-
 
 
     @Override
