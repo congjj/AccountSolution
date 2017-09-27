@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Created by CJJ on 2017/9/27.
  */
 
-@Table
+
 public class ACCOUNTBOOK extends SugarRecord implements Serializable
 {
     /**

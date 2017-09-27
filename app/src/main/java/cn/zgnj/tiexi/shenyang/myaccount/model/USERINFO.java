@@ -3,6 +3,10 @@ package cn.zgnj.tiexi.shenyang.myaccount.model;
 import com.orm.SugarRecord;
 import com.orm.dsl.* ;
 import java.io.Serializable;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -11,7 +15,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 /**
  * Created by CJJ on 2017/9/25.
  */
-@Table
+
 public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
 {
 
@@ -41,6 +45,16 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
     @Column(name = "USERPASSWORD")
     String USERPASSWORD;
     /**
+     * 注册日期
+     */
+    @Column(name = "LOGINTIME",unique = true ,notNull =true )
+    String LOGINTIME;
+    /**
+     * 最后登录日期
+     */
+    @Column(name = "LASTLOGINTIME",unique = true ,notNull =true )
+    String  LASTLOGINTIME;
+    /**
      * 备注
      */
     @Column(name = "REMARK")
@@ -48,7 +62,8 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
 
     public USERINFO (){}
 
-    public USERINFO (String USERCODE ,String USERNAME ,String USERTEL_NO ,String SIM_ISMI ,String USERPASSWORD,String REMARK)
+    public USERINFO (String USERCODE ,String USERNAME ,String USERTEL_NO ,String SIM_ISMI ,String USERPASSWORD,
+                     String LOGINTIME  ,String LASTLOGINTIME ,String REMARK)
     {
         this.USERCODE =USERCODE ;
         this.USERTEL_NO =USERTEL_NO ;
@@ -56,6 +71,8 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
         this.SIM_ISMI  =SIM_ISMI ;
         this.USERNAME  = USERNAME;
         this.USERPASSWORD  =USERPASSWORD;
+        this.LOGINTIME =LOGINTIME ;
+        this.LASTLOGINTIME =LASTLOGINTIME ;
         this.REMARK = REMARK;
     }
 
@@ -71,7 +88,14 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
         }
         else
         {
-            return ((USERINFO)list.toArray() [0]).getId();
+            //更新 登录时间
+            long userID = ((USERINFO)list.toArray() [0]).getId();
+            USERINFO userinfo =USERINFO .findById(USERINFO .class ,userID );
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") ;
+            userinfo .LASTLOGINTIME =dateFormat .format(new Date()) ;
+            userinfo .save() ;
+
+            return userID;
         }
 
     }

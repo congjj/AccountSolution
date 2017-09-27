@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.orm.query.Select;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
@@ -57,9 +60,10 @@ public class LoginActivityController
      */
     public void btnLogin_Click(View Send)
     {
-        IModelHelper a=new USERINFO("","",_TelephInfo .getLine1Number(),_TelephInfo .getSubscriberId(),"","");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        IModelHelper a=new USERINFO("","",_TelephInfo .getLine1Number(),_TelephInfo .getSubscriberId(),"",
+                df.format(new Date()) ,df.format(new Date()) ,"");
         long returnid = a.Insert() ;
-
 
         Toast.makeText(loginActivity  , "成功"+ returnid , Toast.LENGTH_SHORT).show();
     }

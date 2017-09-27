@@ -11,7 +11,6 @@ import java.io.Serializable;
  */
 
 
-@Table
 public class ACCOUNTSUBJECT extends SugarRecord  implements Serializable
 {
     /**
@@ -39,5 +38,4 @@ public class ACCOUNTSUBJECT extends SugarRecord  implements Serializable
      */
     @Column(name = "REMARK")
     String REMARK;
-
 }
