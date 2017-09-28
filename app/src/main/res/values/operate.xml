@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accountbook">选择记账簿</string>
+    <string name="createbook">创建账簿</string>
+    <string name="createsubject">创建记账科目</string>
+    <string name="accountstart">我要记账</string>
+</resources>

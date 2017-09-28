@@ -32,12 +32,12 @@ public class LoginActivityController
 
     Button btnLogin;
     TextView txvTelNO;
-    Context loginActivity ;
+    LoginActivity  loginActivity ;
 
 
     private TelephonyManager _TelephInfo;
 
-    public LoginActivityController (Context loginActivity ,Button btnLogin , TextView txvTelNO)
+    public LoginActivityController (LoginActivity  loginActivity ,Button btnLogin , TextView txvTelNO)
     {
         this.loginActivity  =loginActivity;
         this.btnLogin =btnLogin ;

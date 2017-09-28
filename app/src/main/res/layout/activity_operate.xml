@@ -8,25 +8,66 @@
     tools:context="cn.zgnj.tiexi.shenyang.myaccount.OperateActivity">
 
     <Button
-        android:id="@+id/btnOperate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:id="@+id/btnCreateBook"
+        android:layout_width="90dp"
+        android:layout_height="42dp"
+        android:background="@android:color/holo_orange_light"
+        android:text="@string/createbook"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintHorizontal_bias="0.979"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.745"/>
+        app:layout_constraintVertical_bias="0.155"/>
 
     <TextView
-        android:id="@+id/txvOperate"
+        android:id="@+id/txvBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/accountbook"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.372"/>
+        app:layout_constraintVertical_bias="0.111"/>
+
+    <Spinner
+        android:id="@+id/cmbBookTypeList"
+        android:layout_width="272dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.152"/>
+
+    <Button
+        android:id="@+id/btnCreateSubject"
+        android:layout_width="93dp"
+        android:layout_height="46dp"
+        android:background="@android:color/holo_orange_light"
+        android:text="@string/createsubject"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.275"
+        />
+
+    <Button
+        android:id="@+id/btnAccount"
+        android:layout_width="238dp"
+        android:layout_height="43dp"
+        android:background="@android:color/holo_red_light"
+        android:text="@string/accountstart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.198"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.273"
+        />
 </android.support.constraint.ConstraintLayout>

@@ -21,9 +21,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
-
-
     private LoginActivityController mThisController;
     Button mbtnLogin;
     TextView mtxvTelNO;
