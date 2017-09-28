@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.AndroidException;
 import android.view.View;
 
 
@@ -59,7 +60,7 @@ public class OperateActivityController
         List<String >list=new ArrayList<String>();
         list.add("fff") ;
         list .add("aaa") ;
-        ArrayAdapter<String > adp=new ArrayAdapter<String>(operateActivity,R.layout .support_simple_spinner_dropdown_item ,list);
+        ArrayAdapter<String > adp=new ArrayAdapter<String>(operateActivity, R.layout.support_simple_spinner_dropdown_item,list);
 
 
 
