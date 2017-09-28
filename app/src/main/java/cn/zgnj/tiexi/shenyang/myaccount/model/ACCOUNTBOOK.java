@@ -1,5 +1,7 @@
 package cn.zgnj.tiexi.shenyang.myaccount.model;
 
+import android.widget.BaseAdapter;
+
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
 import com.orm.dsl.Table;

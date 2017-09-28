@@ -65,11 +65,10 @@ public class LoginActivityController
         IModelHelper a=new USERINFO("","",_TelephInfo .getLine1Number(),_TelephInfo .getSubscriberId(),"",
                 df.format(new Date()) ,df.format(new Date()) ,"");
         long returnid = a.Insert() ;
-        Toast.makeText(loginActivity  , "成功"+ returnid , Toast.LENGTH_LONG ).show();
+        Toast.makeText(loginActivity  , "成功", Toast.LENGTH_LONG ).show();
 
         Intent i=new Intent(loginActivity ,OperateActivity.class);
-
-        i.putExtra("data",returnid);
+        i.putExtra("sendUserID",returnid);
         loginActivity . startActivity(i);
     }
 
