@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,6 +79,7 @@ public class OperateActivity extends AppCompatActivity
     Button mbtnCreateSubject;
     Button mbtnAccount;
     TextView mtxvOperatet;
+    Spinner mcmbBookTypeList;
 
     private OperateActivityController  mThisController;
 
@@ -99,8 +101,12 @@ public class OperateActivity extends AppCompatActivity
         //ntxvTelNO
         //
         this.mtxvOperatet =(TextView)findViewById(R .id.txvBook) ;
+        //
+        //mcmbBookTypeList
+        //
+        this.mcmbBookTypeList =(Spinner)findViewById(R.id .cmbBookTypeList) ;
         mThisController =new OperateActivityController(OperateActivity.this,this.mtxvOperatet ,this.mbtnCreateBook,this.mbtnCreateSubject ,
-                this.mbtnAccount ) ;
+                this.mbtnAccount,this.mcmbBookTypeList ) ;
 
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -16,16 +17,19 @@ public class OperateActivityController
     Button btnCreateSubject;
     Button btnAccount;
     TextView txvOperatet;
+    Spinner cmbBookTypeList;
     OperateActivity  operateActivity ;
 
+
     public OperateActivityController (OperateActivity  operateActivity , TextView txvOperatet ,Button btnCreateBook ,Button btnCreateSubject
-    ,Button btnAccount)
+    ,Button btnAccount,Spinner cmbBookTypeList)
     {
         this.operateActivity  =operateActivity ;
         this.btnCreateBook = btnCreateBook;
         this.btnCreateSubject = btnCreateSubject ;
         this.btnAccount =btnAccount ;
         this.txvOperatet =txvOperatet;
+        this.cmbBookTypeList =cmbBookTypeList ;
     }
 
 
