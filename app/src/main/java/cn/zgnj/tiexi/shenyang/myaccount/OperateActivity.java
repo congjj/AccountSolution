@@ -1,5 +1,6 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -80,6 +81,8 @@ public class OperateActivity extends AppCompatActivity
     Button mbtnAccount;
     TextView mtxvOperatet;
     Spinner mcmbBookTypeList;
+    ConstraintLayout mpnlCreateBookType;
+
 
     private OperateActivityController  mThisController;
 
@@ -105,8 +108,12 @@ public class OperateActivity extends AppCompatActivity
         //mcmbBookTypeList
         //
         this.mcmbBookTypeList =(Spinner)findViewById(R.id .cmbBookTypeList) ;
+        //
+        //mpnlCreateBookType
+        //
+        this.mpnlCreateBookType =(ConstraintLayout)  findViewById(R .id .pnlCreateBookType) ;
         mThisController =new OperateActivityController(OperateActivity.this,this.mtxvOperatet ,this.mbtnCreateBook,this.mbtnCreateSubject ,
-                this.mbtnAccount,this.mcmbBookTypeList ) ;
+                this.mbtnAccount,this.mcmbBookTypeList,mpnlCreateBookType ) ;
 
     }
 
