@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -94,9 +95,11 @@ public class OperateActivityController
     //创建一个记账簿
     public void btnBookType_Click(View view)
     {
-
-        ACCOUNTBOOK book=new ACCOUNTBOOK(_UserInfo ,this.edtBookName .getText().toString() ,this.edtBookRemark .getText().toString()) ;
-        book._Insert() ;
+        ACCOUNTBOOK book=new ACCOUNTBOOK(_UserInfo ,this.edtBookName .getText().toString().toUpperCase(),this.edtBookRemark .getText().toString()) ;
+        if( book._Insert()==-1)
+        {
+            Toast.makeText(operateActivity,"记账簿名称：" + this.edtBookName .getText() +" 重复，请换用其它名称！", Toast.LENGTH_LONG ).show();
+        }
         loadBookTypelist(_UserInfo .getACCOUNTBOOKList()) ;
         doSuccess() ;
     }

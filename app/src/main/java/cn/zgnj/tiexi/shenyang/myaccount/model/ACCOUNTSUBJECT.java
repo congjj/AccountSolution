@@ -24,15 +24,10 @@ public class ACCOUNTSUBJECT extends SugarRecord  implements Serializable
     @Column(name = "NAME",unique = true ,notNull = true)
     String NAME;
     /**
-     * 条码编号
+     * 是否支出 “True”支出 “False”收入
      */
-    @Column(name = "BARCODE")
-    String BARCODE;
-    /**
-     * 默认单价
-     */
-    @Column(name = "DEFAULTPRICE")
-    double DEFAULTPRICE;
+    @Column(name = "ISOUT" ,notNull = true)
+    boolean ISOUT;
     /**
      * 备注
      */

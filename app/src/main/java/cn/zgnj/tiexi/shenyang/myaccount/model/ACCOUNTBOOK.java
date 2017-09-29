@@ -1,5 +1,7 @@
 package cn.zgnj.tiexi.shenyang.myaccount.model;
 
+import android.widget.Toast;
+
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
 
@@ -42,7 +44,16 @@ public class ACCOUNTBOOK extends SugarRecord implements Serializable,IModelHelpe
     @Override
     public long _Insert()
     {
-        return this.save() ;
+        List<ACCOUNTBOOK>list = ACCOUNTBOOK .find(ACCOUNTBOOK .class ,"USERINFO_ID=? and NAME=?",this.userinfo .getId().toString() ,this.NAME .toUpperCase()) ;
+        if(list .size() ==0)
+        {
+            return this.save() ;
+        }
+        else
+        {
+
+            return -1;//((ACCOUNTBOOK )list.toArray() [0]).getId() ;
+        }
     }
 
     @Override

@@ -9,8 +9,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/pnlCreateBookType"
-        android:layout_width="322dp"
-        android:layout_height="246dp"
+        android:layout_width="318dp"
+        android:layout_height="260dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -24,11 +24,11 @@
             android:layout_height="40dp"
             android:text="@string/createbooktype"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.551"
+            app:layout_constraintHorizontal_bias="0.572"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.924"/>
+            app:layout_constraintVertical_bias="0.968"/>
 
         <Button
             android:id="@+id/btnExit"
@@ -41,21 +41,22 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.921"
-            tools:layout_editor_absoluteY="191dp"/>
+            app:layout_constraintVertical_bias="0.963"
+            />
 
         <EditText
             android:id="@+id/edtBookName"
-            android:layout_width="293dp"
-            android:layout_height="37dp"
+            android:layout_width="289dp"
+            android:layout_height="49dp"
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.157"
-            app:layout_constraintHorizontal_bias="0.517"/>
+            app:layout_constraintVertical_bias="0.163"
+            app:layout_constraintHorizontal_bias="0.516"
+            />
 
         <EditText
             android:id="@+id/edtBookRemark"
@@ -68,7 +69,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.622"/>
+            app:layout_constraintVertical_bias="0.68"/>
 
         <TextView
             android:id="@+id/textView3"
@@ -92,7 +93,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.393"/>
+            app:layout_constraintVertical_bias="0.436"/>
     </android.support.constraint.ConstraintLayout>
 
     <TextView
