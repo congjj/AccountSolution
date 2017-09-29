@@ -8,5 +8,8 @@
     <string name="labremark">备注信息</string>
     <string name="createbooktype">生成账簿</string>
     <string name="exit">退出维护</string>
+    <string name="chkOut">支出</string>
+    <string name="chkIn">收入</string>
+    <string name="createSubject">创建科目</string>
 
 </resources>

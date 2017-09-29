@@ -41,6 +41,27 @@ public class ACCOUNTBOOK extends SugarRecord implements Serializable,IModelHelpe
         this.REMARK =REMARK;
     }
 
+    /**
+     * 获取名称
+     * @return String
+     */
+    public String getNAME ()
+    {
+        return this.NAME ;
+    }
+
+    /**
+     * 获取备注
+     * @return String
+     */
+    public String getREMARK()
+    {
+        return this.REMARK;
+    }
+
+
+
+
     @Override
     public long _Insert()
     {

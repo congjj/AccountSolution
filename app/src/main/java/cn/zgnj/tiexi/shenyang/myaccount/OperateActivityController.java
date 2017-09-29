@@ -1,32 +1,22 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
 import android.content.Context;
-import android.database.DataSetObserver;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.util.AndroidException;
 import android.view.View;
-
-
-import android.view.ViewAnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 
-import static android.R.id.accessibilityActionContextClick;
-import static android.R.id.list;
 
 /**
  * Created by Administrator on 2017/9/23.
@@ -64,8 +54,6 @@ public class OperateActivityController
         this.edtBookRemark =edtBookRemark ;
     }
 
-
-
     //载入
     public void operateAcivity_Load(Bundle savedInstanceState)
     {
@@ -74,7 +62,6 @@ public class OperateActivityController
         _UserInfo =USERINFO.findById(USERINFO.class ,id) ;
         this.loadBookTypelist(_UserInfo .getACCOUNTBOOKList()) ;
     }
-
 
     //显示创建账簿
     public void btnCreateBook_Click(View send)
@@ -85,6 +72,14 @@ public class OperateActivityController
     //显示账目科目
     public void btnCreateSubject_Click(View send)
     {
+        ACCOUNTBOOK book = (ACCOUNTBOOK)this.cmbBookTypeList .getSelectedItem() ;
+        Intent i=new Intent(operateActivity ,SubjectActivity .class );
+        Bundle bundle = new Bundle() ;
+        bundle.putString("name",book .getNAME()) ;
+        bundle .putString("remark",book .getREMARK()) ;
+        bundle .putLong("book_ID",book .getId()) ;
+        i.putExtra("sendBookType",bundle);
+        operateActivity . startActivity(i);
     }
 
     //开始记账
@@ -95,7 +90,7 @@ public class OperateActivityController
     //创建一个记账簿
     public void btnBookType_Click(View view)
     {
-        ACCOUNTBOOK book=new ACCOUNTBOOK(_UserInfo ,this.edtBookName .getText().toString().toUpperCase(),this.edtBookRemark .getText().toString()) ;
+        IModelHelper book=new ACCOUNTBOOK(_UserInfo ,this.edtBookName .getText().toString().toUpperCase(),this.edtBookRemark .getText().toString()) ;
         if( book._Insert()==-1)
         {
             Toast.makeText(operateActivity,"记账簿名称：" + this.edtBookName .getText() +" 重复，请换用其它名称！", Toast.LENGTH_LONG ).show();
