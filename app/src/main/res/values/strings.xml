@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">个人记账系统</string>
+    <string name="accountbook">选择记账簿</string>
+    <string name="createbook">创建账簿</string>
+    <string name="createsubject">创建记账科目</string>
+    <string name="accountstart">我要记账</string>
+    <string name="lablebook">*填写账簿名称</string>
+    <string name="labremark">备注信息</string>
+    <string name="createbooktype">生成账簿</string>
+    <string name="exit">退出维护</string>
 
 </resources>
