@@ -74,9 +74,19 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
         this.REMARK = REMARK;
     }
 
+    /**
+     * 获取账户下的记账簿
+     * @return List<ACCOUNTBOOK>
+     */
+    public List<ACCOUNTBOOK>getACCOUNTBOOKList()
+    {
+        List<ACCOUNTBOOK> list=ACCOUNTBOOK.find(ACCOUNTBOOK.class ,"USERINFO_ID=?",this.getId() .toString());
+        return list;
+    }
+
 
     @Override
-    public long Insert()
+    public long _Insert()
     {
         List<USERINFO> list=USERINFO.find(USERINFO .class ,"SIM_ISMI=?",this.SIM_ISMI  );
         //或者// findWithQuery(USERINFO .class ,"select * from USERINFO where USERTEL_NO ?",this.USERTEL_NO) ;
@@ -95,7 +105,8 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
 
             return userID;
         }
-
     }
+
+
 
 }

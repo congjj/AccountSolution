@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,12 +74,38 @@ public class OperateActivity extends AppCompatActivity
                 mThisController .btnAccount_Click(view);
             }
         }) ;
+        /**
+         * 创建一个记账簿
+         */
+        this.mbtnBookType .setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+               mThisController. btnBookType_Click(view);
+            }
+        }) ;
+        /**
+         * 退出账簿操作
+         */
+        this.mbtnExit .setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+               mThisController . btnExit_Click(view);
+            }
+        }) ;
     }
 
 
     Button mbtnCreateBook;
     Button mbtnCreateSubject;
     Button mbtnAccount;
+    Button mbtnBookType;
+    Button mbtnExit;
+    EditText medtBookName;
+    EditText medtBookRemark;
     TextView mtxvOperatet;
     Spinner mcmbBookTypeList;
     ConstraintLayout mpnlCreateBookType;
@@ -112,8 +139,25 @@ public class OperateActivity extends AppCompatActivity
         //mpnlCreateBookType
         //
         this.mpnlCreateBookType =(ConstraintLayout)  findViewById(R .id .pnlCreateBookType) ;
+        //
+        //mbtnBookType;
+        //
+        this.mbtnBookType =(Button)findViewById(R.id .btnBookType) ;
+        //
+        //mbtnExit
+        //
+        this.mbtnExit =(Button)  findViewById(R.id .btnExit) ;
+        //
+        //medtBookName
+        //
+        this.medtBookName =(EditText) findViewById(R .id .edtBookName) ;
+        //
+        //medtBookRemark
+        //
+        this.medtBookRemark =(EditText) findViewById(R.id .edtBookRemark ) ;
+
         mThisController =new OperateActivityController(OperateActivity.this,this.mtxvOperatet ,this.mbtnCreateBook,this.mbtnCreateSubject ,
-                this.mbtnAccount,this.mcmbBookTypeList,mpnlCreateBookType ) ;
+                this.mbtnAccount,this.mcmbBookTypeList,mpnlCreateBookType,this.mbtnBookType ,this.mbtnExit ,this.medtBookName ,this.medtBookRemark ) ;
 
     }
 

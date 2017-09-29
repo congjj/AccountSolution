@@ -15,48 +15,50 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.675">
+        app:layout_constraintVertical_bias="0.498">
 
         <Button
             android:id="@+id/btnBookType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@android:style/Widget.Button"
+            android:layout_width="89dp"
+            android:layout_height="40dp"
             android:text="@string/createbooktype"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.551"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.921"/>
+            app:layout_constraintVertical_bias="0.924"/>
 
         <Button
             android:id="@+id/btnExit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="82dp"
+            android:layout_height="39dp"
             android:text="@string/exit"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.936"
+            app:layout_constraintHorizontal_bias="0.932"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.921"/>
+            app:layout_constraintVertical_bias="0.921"
+            tools:layout_editor_absoluteY="191dp"/>
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/edtBookName"
             android:layout_width="293dp"
             android:layout_height="37dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.173"
-            />
+            app:layout_constraintVertical_bias="0.157"
+            app:layout_constraintHorizontal_bias="0.517"/>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/edtBookRemark"
             android:layout_width="291dp"
             android:layout_height="74dp"
             android:ems="10"
@@ -74,11 +76,11 @@
             android:layout_height="wrap_content"
             android:text="@string/lablebook"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.056"
+            app:layout_constraintHorizontal_bias="0.069"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.085"/>
+            app:layout_constraintVertical_bias="0.069"/>
 
         <TextView
             android:id="@+id/textView2"
@@ -100,16 +102,16 @@
         android:text="@string/accountbook"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111"/>
+        app:layout_constraintVertical_bias="0.058"/>
 
     <Spinner
         android:id="@+id/cmbBookTypeList"
-        style="@android:style/Widget.Holo.Light.Spinner"
-        android:layout_width="356dp"
+        style="@android:style/Widget.Spinner.DropDown"
+        android:layout_width="333dp"
         android:layout_height="34dp"
         android:spinnerMode="dialog"
         android:theme="@android:style/Theme.Holo.Light"
@@ -117,8 +119,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15"
-        tools:spinnerMode="dialog"/>
+        app:layout_constraintVertical_bias="0.095"
+        tools:spinnerMode="dialog"
+        app:layout_constraintHorizontal_bias="0.527"/>
 
     <LinearLayout
         android:layout_width="358dp"
@@ -127,8 +130,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.236">
+        app:layout_constraintVertical_bias="0.914"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/pnlCreateBookType">
 
         <Button
             android:id="@+id/btnCreateBook"
@@ -160,6 +164,7 @@
 
         <Button
             android:id="@+id/btnAccount"
+            style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:background="@android:color/holo_red_light"

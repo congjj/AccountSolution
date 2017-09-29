@@ -64,8 +64,8 @@ public class LoginActivityController
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         IModelHelper a=new USERINFO("","",_TelephInfo .getLine1Number(),_TelephInfo .getSubscriberId(),"",
                 df.format(new Date()) ,df.format(new Date()) ,"");
-        long returnid = a.Insert() ;
-        Toast.makeText(loginActivity  , "成功", Toast.LENGTH_LONG ).show();
+        long returnid = a._Insert() ;
+        Toast.makeText(loginActivity  , "登录成功-欢迎试用", Toast.LENGTH_LONG ).show();
 
         Intent i=new Intent(loginActivity ,OperateActivity.class);
         i.putExtra("sendUserID",returnid);

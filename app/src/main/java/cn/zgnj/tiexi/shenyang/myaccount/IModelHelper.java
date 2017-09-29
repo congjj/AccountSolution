@@ -4,6 +4,9 @@ import android.support.annotation.NonNull;
 import android.widget.BaseAdapter;
 
 import java.util.GregorianCalendar;
+import java.util.List;
+
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 
 /**
  * Created by CJJ on 2017/9/26.
@@ -11,10 +14,6 @@ import java.util.GregorianCalendar;
 
 public interface IModelHelper
 {
-    public long Insert();
-
-    //public <T> T[] toArray(@NonNull T[] ts);
-
-
+    public long _Insert();
 
 }
