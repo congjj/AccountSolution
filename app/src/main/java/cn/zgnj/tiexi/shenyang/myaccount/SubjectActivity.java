@@ -52,7 +52,7 @@ public class SubjectActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b)
             {
-
+                SubjectActivityController .RbdInChecked(SubjectActivity.this,compoundButton ,b);
             }
         }) ;
         /**
@@ -63,7 +63,7 @@ public class SubjectActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b)
             {
-
+                SubjectActivityController .RbdOutChecked(SubjectActivity.this,compoundButton ,b);
             }
         }) ;
     }
@@ -72,6 +72,10 @@ public class SubjectActivity extends AppCompatActivity
     public TextView getTxvSubjectTitle()
     {
         return mTxvSubjectTitle;
+    }
+    public RadioButton getRdbOut()
+    {
+        return mRdbOut;
     }
 
     public RadioButton getRdbIn()

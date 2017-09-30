@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -25,8 +26,16 @@ public class SubjectActivityController
         TextView titleView = subjectActivity .getTxvSubjectTitle() ;
         titleView .setText(bundle .getString("name") +"【" +bundle.getString("remark") +"】") ;
 
-
     }
 
 
+    public static void RbdInChecked(SubjectActivity subjectActivity,CompoundButton compoundButton, boolean b)
+    {
+        subjectActivity .getRdbOut() .setChecked(!b) ;
+    }
+
+    public static void RbdOutChecked(SubjectActivity subjectActivity,CompoundButton compoundButton, boolean b)
+    {
+        subjectActivity .getRdbIn().setChecked(!b) ;
+    }
 }

@@ -70,7 +70,7 @@ public class OperateActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                mThisController .btnAccount_Click(view);
+                OperateActivityController . StartAccount(view);
             }
         }) ;
         /**
@@ -155,9 +155,6 @@ public class OperateActivity extends AppCompatActivity
         //
         this.mEdtBookRemark =(EditText) findViewById(R.id .edtBookRemark ) ;
 
-        mThisController =new OperateActivityController(OperateActivity.this,this.mTxvOperatet ,this.mBtnCreateBook,this.mBtnCreateSubject ,
-                this.mBtnAccount,this.mCmbBookTypeList,mPnlCreateBookType,this.mBtnBookType ,this.mBtnExit ,this.mEdtBookName ,
-                this.mEdtBookRemark ) ;
 
     }
 
@@ -172,7 +169,7 @@ public class OperateActivity extends AppCompatActivity
     private TextView mTxvOperatet;
     private Spinner mCmbBookTypeList;
     private ConstraintLayout mPnlCreateBookType;
-    private OperateActivityController  mThisController;
+
 
     public Button getBtnCreateBook()
     {
@@ -213,10 +210,6 @@ public class OperateActivity extends AppCompatActivity
     public TextView getTxvOperatet()
     {
         return mTxvOperatet;
-    }
-    public OperateActivityController getThisController()
-    {
-        return mThisController;
     }
     public Spinner getCmbBookTypeList()
     {

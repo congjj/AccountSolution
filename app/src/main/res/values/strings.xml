@@ -11,5 +11,6 @@
     <string name="chkOut">支出</string>
     <string name="chkIn">收入</string>
     <string name="createSubject">创建科目</string>
+    <string name="subjectname">科目名称</string>
 
 </resources>

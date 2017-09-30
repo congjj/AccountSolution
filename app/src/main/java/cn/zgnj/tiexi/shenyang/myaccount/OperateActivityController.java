@@ -26,36 +26,6 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 
 public class OperateActivityController
 {
-    Button btnCreateBook;
-    Button btnCreateSubject;
-    Button btnAccount;
-    Button btnBookType;
-    Button btnExit;
-    EditText edtBookName;
-    EditText edtBookRemark;
-    TextView txvOperatet;
-    Spinner cmbBookTypeList;
-    Context operateActivity ;
-    ConstraintLayout pnlCreateBookType;
-    USERINFO  _UserInfo;
-
-    public OperateActivityController (OperateActivity  operateActivity , TextView txvOperatet ,Button btnCreateBook ,Button btnCreateSubject
-    ,Button btnAccount,Spinner cmbBookTypeList,ConstraintLayout pnlCreateBookType,Button btnBookType ,Button btnExit ,EditText edtBookName ,
-                                      EditText edtBookRemark )
-    {
-        this.operateActivity  =operateActivity ;
-        this.btnCreateBook = btnCreateBook;
-        this.btnCreateSubject = btnCreateSubject ;
-        this.btnAccount =btnAccount ;
-        this.txvOperatet =txvOperatet;
-        this.cmbBookTypeList =cmbBookTypeList ;
-        this.pnlCreateBookType =pnlCreateBookType ;
-        this.btnBookType =btnBookType ;
-        this.btnExit =btnExit ;
-        this.edtBookName =edtBookName ;
-        this.edtBookRemark =edtBookRemark ;
-    }
-
     //载入
     public static void Load(OperateActivity operateActivity)
     {
@@ -85,7 +55,7 @@ public class OperateActivityController
     }
 
     //开始记账
-    public void btnAccount_Click(View send)
+    public static void StartAccount(View view)
     {
     }
 
