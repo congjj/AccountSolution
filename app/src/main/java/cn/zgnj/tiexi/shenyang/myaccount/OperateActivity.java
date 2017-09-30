@@ -1,15 +1,20 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.zgnj.tiexi.shenyang.myaccount.model.* ;
+
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 
 public class OperateActivity extends AppCompatActivity
 {
@@ -19,13 +24,9 @@ public class OperateActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operate);
-
         this.InitializeComponent( savedInstanceState) ;
 
-
-
         long id = getIntent() .getLongExtra("data",-1) ;
-        //Toast.makeText(OperateActivity.class , "成功"+ id , Toast.LENGTH_LONG ).show();
     }
 
 
@@ -36,7 +37,6 @@ public class OperateActivity extends AppCompatActivity
          * 载入View
          */
         this.LoadView();
-
         /**
          * 载入
          */
@@ -96,7 +96,25 @@ public class OperateActivity extends AppCompatActivity
                mThisController . btnExit_Click(view);
             }
         }) ;
+        /**
+         *AccountBook 选择时发生
+         */
+        this.mcmbBookTypeList .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                mThisController.cmbBookTypeList_ItemSelected(adapterView ,view,i,l);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
+
+            }
+        }) ;
     }
+
 
 
     Button mbtnCreateBook;
@@ -109,7 +127,6 @@ public class OperateActivity extends AppCompatActivity
     TextView mtxvOperatet;
     Spinner mcmbBookTypeList;
     ConstraintLayout mpnlCreateBookType;
-
 
     private OperateActivityController  mThisController;
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,7 +73,7 @@ public class OperateActivityController
     //显示账目科目
     public void btnCreateSubject_Click(View send)
     {
-        ACCOUNTBOOK book = (ACCOUNTBOOK)this.cmbBookTypeList .getSelectedItem() ;
+        ACCOUNTBOOK book = (ACCOUNTBOOK)this.cmbBookTypeList.getSelectedItem() ;
         Intent i=new Intent(operateActivity ,SubjectActivity .class );
         Bundle bundle = new Bundle() ;
         bundle.putString("name",book .getNAME()) ;
@@ -106,15 +107,18 @@ public class OperateActivityController
         this.pnlCreateBookType .setVisibility(View.INVISIBLE) ;
     }
 
+    //记账簿选项发生改变是发生
+    public void cmbBookTypeList_ItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+    {
+
+    }
+
+
+
     //载入记账簿
     void loadBookTypelist(List<ACCOUNTBOOK > booklist)
     {
-        List<String >list=new ArrayList<String>();
-        for(ACCOUNTBOOK temp :booklist )
-        {
-            list .add(temp.toString()) ;
-        }
-        ArrayAdapter<String > adp=new ArrayAdapter<String>(operateActivity, R.layout.support_simple_spinner_dropdown_item,list);
+        ArrayAdapter<ACCOUNTBOOK> adp=new ArrayAdapter<ACCOUNTBOOK>(operateActivity, R.layout.support_simple_spinner_dropdown_item,booklist);
         cmbBookTypeList.setAdapter(adp);
     }
 
@@ -123,6 +127,7 @@ public class OperateActivityController
         this.edtBookName.setText("") ;
         this.edtBookRemark .setText("") ;
     }
+
 
 
 }
