@@ -18,37 +18,32 @@ public class LoginActivity extends AppCompatActivity {
         this.InitializeComponent( savedInstanceState) ;
     }
 
-
-
-
     private LoginActivityController mThisController;
-    Button mbtnLogin;
-    TextView mtxvTelNO;
+    private  Button mbtnLogin;
+    private  TextView mtxvTelNO;
 
     private void InitializeComponent(Bundle savedInstanceState)
     {
-        /**
-         * 载入View
-         */
+        //载入View
         this.LoadView();
-
-        /**
-         * 载入
-         */
-        mThisController .loginAcivity_Load(savedInstanceState);
-        /**
-         * 登录按钮单击
-         */
+        //载入电话或ID
+        LoginActivityController .Load(LoginActivity.this) ;
+        //登录按钮单击
         this.mbtnLogin .setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                mThisController .btnLogin_Click (view);
+                LoginActivityController.Login (LoginActivity.this);
             }
         }) ;
-
     }
+
+    TextView  gettxvTelNO()
+    {
+        return this.mtxvTelNO ;
+    }
+
 
     private void LoadView()
     {
@@ -60,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
         //ntxvTelNO
         //
         mtxvTelNO =(TextView)findViewById(R .id.txvTelNO) ;
-        mThisController =new LoginActivityController(LoginActivity.this,this.mbtnLogin ,this.mtxvTelNO) ;
     }
 
 

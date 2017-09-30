@@ -3,23 +3,10 @@ package cn.zgnj.tiexi.shenyang.myaccount;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.service.autofill.FillEventHistory;
 import android.telephony.TelephonyManager;
-import android.view.View;
-import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
-
-import com.orm.query.Select;
-
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 
 
@@ -30,40 +17,24 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 public class LoginActivityController
 {
 
-    Button btnLogin;
-    TextView txvTelNO;
-    LoginActivity  loginActivity ;
-
-
-    private TelephonyManager _TelephInfo;
-
-    public LoginActivityController (LoginActivity  loginActivity ,Button btnLogin , TextView txvTelNO)
+    //载入电话号码或ID
+    public static void Load(LoginActivity loginActivity)
     {
-        this.loginActivity  =loginActivity;
-        this.btnLogin =btnLogin ;
-        this.txvTelNO =txvTelNO;
-    }
-
-    /**
-     * 载入时发生
-     */
-    public void loginAcivity_Load(Bundle Send)
-    {
-        _TelephInfo =(TelephonyManager)loginActivity .getSystemService(Context .TELEPHONY_SERVICE) ;
+        TelephonyManager _TelephInfo =getTelephoneManager(loginActivity) ;
         String id =_TelephInfo .getLine1Number().trim() .length() ==0 ? _TelephInfo .getSubscriberId()
                 :_TelephInfo .getLine1Number() ;
-        this.txvTelNO .setText( id) ;
-
+        loginActivity .gettxvTelNO() .setText( id) ;
     }
+
 
     /**
      * 系统登录按钮
      */
-    public void btnLogin_Click(View Send)
+    public static void Login(LoginActivity loginActivity)
     {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        IModelHelper a=new USERINFO("","",_TelephInfo .getLine1Number(),_TelephInfo .getSubscriberId(),"",
-                df.format(new Date()) ,df.format(new Date()) ,"");
+        IModelHelper a=new USERINFO("","",getTelephoneManager( loginActivity).getLine1Number(),
+                getTelephoneManager(loginActivity).getSubscriberId(),"",df.format(new Date()) ,df.format(new Date()) ,"");
         long returnid = a._Insert() ;
         Toast.makeText(loginActivity  , "登录成功-欢迎试用", Toast.LENGTH_LONG ).show();
 
@@ -75,8 +46,10 @@ public class LoginActivityController
 
 
 
-
-
+    private static TelephonyManager getTelephoneManager(LoginActivity loginActivity)
+    {
+        return (TelephonyManager)loginActivity .getSystemService(Context .TELEPHONY_SERVICE) ;
+    }
 
 
 

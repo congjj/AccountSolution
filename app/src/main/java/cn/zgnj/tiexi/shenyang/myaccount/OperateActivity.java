@@ -44,7 +44,7 @@ public class OperateActivity extends AppCompatActivity
         /**
          * 生成账簿
          */
-        this.mbtnCreateBook .setOnClickListener(new View.OnClickListener()
+        this.mBtnCreateBook .setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -55,7 +55,7 @@ public class OperateActivity extends AppCompatActivity
         /**
          * 生成记账科目
          */
-        this.mbtnCreateSubject .setOnClickListener(new View.OnClickListener()
+        this.mBtnCreateSubject .setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -66,7 +66,7 @@ public class OperateActivity extends AppCompatActivity
         /**
          * 开始记账
          */
-        this.mbtnAccount .setOnClickListener(new View.OnClickListener()
+        this.mBtnAccount .setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -77,7 +77,7 @@ public class OperateActivity extends AppCompatActivity
         /**
          * 创建一个记账簿
          */
-        this.mbtnBookType .setOnClickListener(new View.OnClickListener()
+        this.mBtnBookType .setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -88,7 +88,7 @@ public class OperateActivity extends AppCompatActivity
         /**
          * 退出账簿操作
          */
-        this.mbtnExit .setOnClickListener(new View.OnClickListener()
+        this.mBtnExit .setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -99,7 +99,7 @@ public class OperateActivity extends AppCompatActivity
         /**
          *AccountBook 选择时发生
          */
-        this.mcmbBookTypeList .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        this.mCmbBookTypeList .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
@@ -116,65 +116,109 @@ public class OperateActivity extends AppCompatActivity
     }
 
 
+    public Button getBtnCreateBook()
+    {
+        return mBtnCreateBook;
+    }
 
-    Button mbtnCreateBook;
-    Button mbtnCreateSubject;
-    Button mbtnAccount;
-    Button mbtnBookType;
-    Button mbtnExit;
-    EditText medtBookName;
-    EditText medtBookRemark;
-    TextView mtxvOperatet;
-    Spinner mcmbBookTypeList;
-    ConstraintLayout mpnlCreateBookType;
+    public Button getBtnCreateSubject()
+    {
+        return mBtnCreateSubject;
+    }
 
+    public Button getBtnAccount()
+    {
+        return mBtnAccount;
+    }
+
+    public Button getBtnExit()
+    {
+        return mBtnExit;
+    }
+
+    public Button getBtnBookType()
+    {
+        return mBtnBookType;
+    }
+    public EditText getEdtBookName()
+    {
+        return mEdtBookName;
+    }
+    public EditText getEdtBookRemark()
+    {
+        return mEdtBookRemark;
+    }
+    public ConstraintLayout getPnlCreateBookType()
+    {
+        return mPnlCreateBookType;
+    }
+    public TextView getTxvOperatet()
+    {
+        return mTxvOperatet;
+    }
+    public OperateActivityController getThisController()
+    {
+        return mThisController;
+    }
+
+    private Button mBtnCreateBook;
+    private Button mBtnCreateSubject;
+    private Button mBtnAccount;
+    private Button mBtnBookType;
+    private Button mBtnExit;
+    private EditText mEdtBookName;
+    private EditText mEdtBookRemark;
+    private TextView mTxvOperatet;
+    private Spinner mCmbBookTypeList;
+    private ConstraintLayout mPnlCreateBookType;
     private OperateActivityController  mThisController;
+
+
 
     private void LoadView()
     {
-        //
-        //mbtnCreateBook;
-        //
-        this.mbtnCreateBook  =(Button)findViewById(R.id.btnCreateBook) ;
+
+        this.mBtnCreateBook  =(Button)findViewById(R.id.btnCreateBook) ;
         //
         //mbtnCreateSubject
         //
-        this.mbtnCreateSubject =(Button) findViewById(R.id.btnCreateSubject) ;
+        this.mBtnCreateSubject =(Button) findViewById(R.id.btnCreateSubject) ;
         //
         //mbtnAccount
         //
-        this.mbtnAccount =(Button) findViewById(R.id .btnAccount) ;
+        this.mBtnAccount =(Button) findViewById(R.id .btnAccount) ;
         //
         //ntxvTelNO
         //
-        this.mtxvOperatet =(TextView)findViewById(R .id.txvBook) ;
+        this.mTxvOperatet =(TextView)findViewById(R .id.txvBook) ;
         //
         //mcmbBookTypeList
         //
-        this.mcmbBookTypeList =(Spinner)findViewById(R.id .cmbBookTypeList) ;
+        this.mCmbBookTypeList =(Spinner)findViewById(R.id .cmbBookTypeList) ;
         //
         //mpnlCreateBookType
         //
-        this.mpnlCreateBookType =(ConstraintLayout)  findViewById(R .id .pnlCreateBookType) ;
+        this.mPnlCreateBookType =(ConstraintLayout)  findViewById(R .id .pnlCreateBookType) ;
         //
         //mbtnBookType;
         //
-        this.mbtnBookType =(Button)findViewById(R.id .btnBookType) ;
+        this.mBtnBookType =(Button)findViewById(R.id .btnBookType) ;
         //
         //mbtnExit
         //
-        this.mbtnExit =(Button)  findViewById(R.id .btnExit) ;
+        this.mBtnExit =(Button)  findViewById(R.id .btnExit) ;
         //
         //medtBookName
         //
-        this.medtBookName =(EditText) findViewById(R .id .edtBookName) ;
+        this.mEdtBookName =(EditText) findViewById(R .id .edtBookName) ;
         //
         //medtBookRemark
         //
-        this.medtBookRemark =(EditText) findViewById(R.id .edtBookRemark ) ;
+        this.mEdtBookRemark =(EditText) findViewById(R.id .edtBookRemark ) ;
 
-        mThisController =new OperateActivityController(OperateActivity.this,this.mtxvOperatet ,this.mbtnCreateBook,this.mbtnCreateSubject ,
-                this.mbtnAccount,this.mcmbBookTypeList,mpnlCreateBookType,this.mbtnBookType ,this.mbtnExit ,this.medtBookName ,this.medtBookRemark ) ;
+        mThisController =new OperateActivityController(OperateActivity.this,this.mTxvOperatet ,this.mBtnCreateBook,this.mBtnCreateSubject ,
+                this.mBtnAccount,this.mCmbBookTypeList,mPnlCreateBookType,this.mBtnBookType ,this.mBtnExit ,this.mEdtBookName ,
+                this.mEdtBookRemark ) ;
 
     }
 
