@@ -71,7 +71,7 @@ public class OperateActivityController
     }
 
 
-    //显示账目科目
+    //调用创建科目窗口并传送 账簿参数
     public static void CreateSubjct(OperateActivity operateActivity)
     {
         ACCOUNTBOOK book = (ACCOUNTBOOK)operateActivity .getCmbBookTypeList().getSelectedItem() ;

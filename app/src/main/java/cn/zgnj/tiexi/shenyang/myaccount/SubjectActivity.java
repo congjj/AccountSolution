@@ -23,13 +23,6 @@ public class SubjectActivity extends AppCompatActivity
     }
 
 
-
-
-
-
-
-
-
     private void InitializeComponent(Bundle savedInstanceState)
     {
         /**
@@ -39,22 +32,22 @@ public class SubjectActivity extends AppCompatActivity
         /**
          * 载入
          */
-        mSubjectActivityController.subjectActivity_Load(savedInstanceState);
+         SubjectActivityController .Load(getIntent(),SubjectActivity .this) ;
         /**
          * 按钮生成
          */
-        this.mbtnSubjectCreate .setOnClickListener(new View.OnClickListener()
+        this.mBtnSubjectCreate .setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                mSubjectActivityController .btnSubjectCreate_Click(view)   ;
+
             }
         }) ;
         /**
          * rdbIn
          */
-        this.mrdbIn .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        this.mRdbIn .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b)
@@ -65,7 +58,7 @@ public class SubjectActivity extends AppCompatActivity
         /**
          * rdbOut
          */
-        this.mrdbOut .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        this.mRdbOut .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b)
@@ -73,32 +66,49 @@ public class SubjectActivity extends AppCompatActivity
 
             }
         }) ;
-
-
     }
 
 
+    public TextView getTxvSubjectTitle()
+    {
+        return mTxvSubjectTitle;
+    }
 
+    public RadioButton getRdbIn()
+    {
+        return mRdbIn;
+    }
 
+    public EditText getEdtSubjectName()
+    {
+        return mEdtSubjectName;
+    }
 
+    public EditText getEdtSubjectRemark()
+    {
+        return mEdtSubjectRemark;
+    }
 
-    private SubjectActivityController mSubjectActivityController;
-    TextView  mtxvSubjectTitle;
-    RadioButton mrdbIn;
-    RadioButton mrdbOut;
-    EditText medtSubjectName;
-    EditText medtSubjectRemark;
-    Button mbtnSubjectCreate;
+    public Button getBtnSubjectCreate()
+    {
+        return mBtnSubjectCreate;
+    }
+
+    private TextView  mTxvSubjectTitle;
+    private EditText mEdtSubjectRemark;
+    private EditText mEdtSubjectName;
+    private Button mBtnSubjectCreate;
+    private RadioButton mRdbIn;
+    private RadioButton mRdbOut;
+
     private void LoadView()
     {
-        this.mtxvSubjectTitle =(TextView )findViewById(R.id .txvSubjectTitle) ;
-        this.mrdbIn =(RadioButton )findViewById(R .id .rdbIn) ;
-        this.mrdbOut =(RadioButton)findViewById(R.id .rdbOut ) ;
-        this.medtSubjectName =(EditText)findViewById(R.id .edtSubjectName) ;
-        this.medtSubjectRemark =(EditText )findViewById(R.id .edtBookRemark ) ;
-        this.mbtnSubjectCreate =(Button )findViewById(R.id .btnSubjectCreate) ;
-        mSubjectActivityController =new SubjectActivityController(SubjectActivity.this ,mtxvSubjectTitle ,mrdbIn ,mrdbOut ,medtSubjectName ,
-                medtSubjectRemark ,mbtnSubjectCreate )  ;
+        this.mTxvSubjectTitle =(TextView )findViewById(R.id .txvSubjectTitle) ;
+        this.mRdbIn =(RadioButton )findViewById(R .id .rdbIn) ;
+        this.mRdbOut =(RadioButton)findViewById(R.id .rdbOut ) ;
+        this.mEdtSubjectName =(EditText)findViewById(R.id .edtSubjectName) ;
+        this.mEdtSubjectRemark =(EditText )findViewById(R.id .edtBookRemark ) ;
+        this.mBtnSubjectCreate =(Button)findViewById(R.id .btnSubjectCreate) ;
     }
 
 

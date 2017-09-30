@@ -1,6 +1,7 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,32 +15,18 @@ import android.widget.TextView;
 
 public class SubjectActivityController
 {
-    Context subjectActivity;
-    TextView txvSubjectTitle;
-    RadioButton rdbIn;
-    RadioButton rdbOut; 
-    EditText edtSubjectName;
-    EditText edtSubjectRemark;
-    Button btnSubjectCreate;
-    
-    public SubjectActivityController(SubjectActivity  msubjectActivity, TextView mtxvSubjectTitle, RadioButton mrdbIn, RadioButton mrdbOut,
-                                     EditText medtSubjectName, EditText medtSubjectRemark, Button mbtnSubjectCreate)
+
+
+
+    public static void Load(Intent intent,SubjectActivity subjectActivity )
     {
-        this.subjectActivity =msubjectActivity ;
-        this.txvSubjectTitle =mtxvSubjectTitle;
-        rdbIn =mrdbIn;
-        rdbOut =mrdbOut ;
-        edtSubjectName =medtSubjectName ;
-        edtSubjectRemark =medtSubjectRemark;
-        btnSubjectCreate =mbtnSubjectCreate;
+        Bundle bundle =new Bundle() ;
+        bundle =intent.getBundleExtra("sendBookType") ;
+        TextView titleView = subjectActivity .getTxvSubjectTitle() ;
+        titleView .setText(bundle .getString("name") +"【" +bundle.getString("remark") +"】") ;
+
+
     }
 
 
-    public void subjectActivity_Load(Bundle savedInstanceState)
-    {
-    }
-
-    public void btnSubjectCreate_Click(View view)
-    {
-    }
 }
