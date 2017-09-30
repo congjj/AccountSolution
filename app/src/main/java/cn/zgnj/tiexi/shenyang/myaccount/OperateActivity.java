@@ -26,9 +26,8 @@ public class OperateActivity extends AppCompatActivity
         setContentView(R.layout.activity_operate);
         this.InitializeComponent( savedInstanceState) ;
 
-        long id = getIntent() .getLongExtra("data",-1) ;
+        //long id = getIntent() .getLongExtra("data",-1) ;
     }
-
 
 
     private void InitializeComponent(Bundle savedInstanceState)
@@ -40,7 +39,7 @@ public class OperateActivity extends AppCompatActivity
         /**
          * 载入
          */
-        mThisController .operateAcivity_Load(savedInstanceState);
+        OperateActivityController.Load(OperateActivity .this);
         /**
          * 生成账簿
          */
@@ -49,7 +48,7 @@ public class OperateActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                mThisController.btnCreateBook_Click(view);
+                OperateActivityController .ShowBookTypeView(OperateActivity .this);
             }
         }) ;
         /**
@@ -60,7 +59,7 @@ public class OperateActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                mThisController .btnCreateSubject_Click(view);
+                OperateActivityController .CreateSubjct(OperateActivity.this);
             }
         }) ;
         /**
@@ -82,7 +81,7 @@ public class OperateActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-               mThisController. btnBookType_Click(view);
+                OperateActivityController.CreateBookType(OperateActivity.this);
             }
         }) ;
         /**
@@ -93,7 +92,7 @@ public class OperateActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-               mThisController . btnExit_Click(view);
+                OperateActivityController .HideBookTypeView(OperateActivity .this);
             }
         }) ;
         /**
@@ -104,7 +103,7 @@ public class OperateActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                mThisController.cmbBookTypeList_ItemSelected(adapterView ,view,i,l);
+                OperateActivityController.BookTypeListItemSelected(adapterView ,view,i,l);
             }
 
             @Override
@@ -114,66 +113,6 @@ public class OperateActivity extends AppCompatActivity
             }
         }) ;
     }
-
-
-    public Button getBtnCreateBook()
-    {
-        return mBtnCreateBook;
-    }
-
-    public Button getBtnCreateSubject()
-    {
-        return mBtnCreateSubject;
-    }
-
-    public Button getBtnAccount()
-    {
-        return mBtnAccount;
-    }
-
-    public Button getBtnExit()
-    {
-        return mBtnExit;
-    }
-
-    public Button getBtnBookType()
-    {
-        return mBtnBookType;
-    }
-    public EditText getEdtBookName()
-    {
-        return mEdtBookName;
-    }
-    public EditText getEdtBookRemark()
-    {
-        return mEdtBookRemark;
-    }
-    public ConstraintLayout getPnlCreateBookType()
-    {
-        return mPnlCreateBookType;
-    }
-    public TextView getTxvOperatet()
-    {
-        return mTxvOperatet;
-    }
-    public OperateActivityController getThisController()
-    {
-        return mThisController;
-    }
-
-    private Button mBtnCreateBook;
-    private Button mBtnCreateSubject;
-    private Button mBtnAccount;
-    private Button mBtnBookType;
-    private Button mBtnExit;
-    private EditText mEdtBookName;
-    private EditText mEdtBookRemark;
-    private TextView mTxvOperatet;
-    private Spinner mCmbBookTypeList;
-    private ConstraintLayout mPnlCreateBookType;
-    private OperateActivityController  mThisController;
-
-
 
     private void LoadView()
     {
@@ -221,6 +160,69 @@ public class OperateActivity extends AppCompatActivity
                 this.mEdtBookRemark ) ;
 
     }
+
+
+    private Button mBtnCreateBook;
+    private Button mBtnCreateSubject;
+    private Button mBtnAccount;
+    private Button mBtnBookType;
+    private Button mBtnExit;
+    private EditText mEdtBookName;
+    private EditText mEdtBookRemark;
+    private TextView mTxvOperatet;
+    private Spinner mCmbBookTypeList;
+    private ConstraintLayout mPnlCreateBookType;
+    private OperateActivityController  mThisController;
+
+    public Button getBtnCreateBook()
+    {
+        return mBtnCreateBook;
+    }
+
+    public Button getBtnCreateSubject()
+    {
+        return mBtnCreateSubject;
+    }
+
+    public Button getBtnAccount()
+    {
+        return mBtnAccount;
+    }
+
+    public Button getBtnExit()
+    {
+        return mBtnExit;
+    }
+
+    public Button getBtnBookType()
+    {
+        return mBtnBookType;
+    }
+    public EditText getEdtBookName()
+    {
+        return mEdtBookName;
+    }
+    public EditText getEdtBookRemark()
+    {
+        return mEdtBookRemark;
+    }
+    public ConstraintLayout getPnlCreateBookType()
+    {
+        return mPnlCreateBookType;
+    }
+    public TextView getTxvOperatet()
+    {
+        return mTxvOperatet;
+    }
+    public OperateActivityController getThisController()
+    {
+        return mThisController;
+    }
+    public Spinner getCmbBookTypeList()
+    {
+        return mCmbBookTypeList;
+    }
+
 
 
 }

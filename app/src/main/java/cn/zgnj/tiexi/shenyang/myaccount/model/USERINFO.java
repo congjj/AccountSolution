@@ -75,6 +75,16 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
     }
 
     /**
+     * 获取一个USERINFO
+     * @param ID USERINFO ID
+     * @return     USERINFO
+     */
+    public static USERINFO getOne(long ID)
+    {
+        return USERINFO .findById(USERINFO .class ,ID) ;
+    }
+
+    /**
      * 获取账户下的记账簿
      * @return List<ACCOUNTBOOK>
      */

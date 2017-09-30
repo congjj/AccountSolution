@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,24 +57,24 @@ public class OperateActivityController
     }
 
     //载入
-    public void operateAcivity_Load(Bundle savedInstanceState)
+    public static void Load(OperateActivity operateActivity)
     {
-        long id = ((OperateActivity)operateActivity).getIntent().getLongExtra("sendUserID",-1) ;
-        this.pnlCreateBookType .setVisibility(View.INVISIBLE) ;
-        _UserInfo =USERINFO.findById(USERINFO.class ,id) ;
-        this.loadBookTypelist(_UserInfo .getACCOUNTBOOKList()) ;
+        long id = operateActivity.getIntent().getLongExtra("sendUserID",-1) ;
+        operateActivity .getPnlCreateBookType() .setVisibility(View.INVISIBLE) ;
+        loadBookTypelist(operateActivity,USERINFO.getOne(id).getACCOUNTBOOKList()) ;
     }
 
-    //显示创建账簿
-    public void btnCreateBook_Click(View send)
+    //显示账簿创建窗口
+    public static void ShowBookTypeView(OperateActivity operateActivity)
     {
-        this.pnlCreateBookType .setVisibility(View.VISIBLE) ;
+        operateActivity .getPnlCreateBookType() .setVisibility(View.VISIBLE) ;
     }
+
 
     //显示账目科目
-    public void btnCreateSubject_Click(View send)
+    public static void CreateSubjct(OperateActivity operateActivity)
     {
-        ACCOUNTBOOK book = (ACCOUNTBOOK)this.cmbBookTypeList.getSelectedItem() ;
+        ACCOUNTBOOK book = (ACCOUNTBOOK)operateActivity .getCmbBookTypeList().getSelectedItem() ;
         Intent i=new Intent(operateActivity ,SubjectActivity .class );
         Bundle bundle = new Bundle() ;
         bundle.putString("name",book .getNAME()) ;
@@ -89,43 +90,45 @@ public class OperateActivityController
     }
 
     //创建一个记账簿
-    public void btnBookType_Click(View view)
+    public static void CreateBookType(OperateActivity operateActivity)
     {
-        IModelHelper book=new ACCOUNTBOOK(_UserInfo ,this.edtBookName .getText().toString().toUpperCase(),this.edtBookRemark .getText().toString()) ;
+        long id = operateActivity.getIntent().getLongExtra("sendUserID",-1) ;
+        USERINFO userinfo =USERINFO.getOne(id);
+        IModelHelper book=new ACCOUNTBOOK(userinfo,operateActivity.getEdtBookName().getText().toString().toUpperCase(),
+                operateActivity .getEdtBookRemark().getText().toString()) ;
         if( book._Insert()==-1)
         {
-            Toast.makeText(operateActivity,"记账簿名称：" + this.edtBookName .getText() +" 重复，请换用其它名称！", Toast.LENGTH_LONG ).show();
+            Toast.makeText(operateActivity,"记账簿名称：" + operateActivity.getEdtBookName().getText()+" 重复，请换用其它名称！", Toast.LENGTH_LONG ).show();
         }
-        loadBookTypelist(_UserInfo .getACCOUNTBOOKList()) ;
-        doSuccess() ;
+        loadBookTypelist(operateActivity ,userinfo.getACCOUNTBOOKList()) ;
+        doSuccess(operateActivity) ;
     }
 
     //退出创建记账簿
-    public void btnExit_Click(View view)
+    public static void HideBookTypeView(OperateActivity operateActivity)
     {
-        doSuccess() ;
-        this.pnlCreateBookType .setVisibility(View.INVISIBLE) ;
+        doSuccess(operateActivity) ;
+        operateActivity .getPnlCreateBookType() .setVisibility(View.INVISIBLE) ;
     }
 
     //记账簿选项发生改变是发生
-    public void cmbBookTypeList_ItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+    public static void BookTypeListItemSelected(AdapterView<?> adapterView, View view, int i, long l)
     {
 
     }
-
 
 
     //载入记账簿
-    void loadBookTypelist(List<ACCOUNTBOOK > booklist)
+    private static void loadBookTypelist(OperateActivity operateActivity,List<ACCOUNTBOOK > booklist)
     {
         ArrayAdapter<ACCOUNTBOOK> adp=new ArrayAdapter<ACCOUNTBOOK>(operateActivity, R.layout.support_simple_spinner_dropdown_item,booklist);
-        cmbBookTypeList.setAdapter(adp);
+        operateActivity .getCmbBookTypeList() .setAdapter(adp);
     }
 
-    void doSuccess()
+    static void doSuccess(OperateActivity operateActivity)
     {
-        this.edtBookName.setText("") ;
-        this.edtBookRemark .setText("") ;
+        operateActivity .getEdtBookName() .setText("") ;
+        operateActivity .getEdtBookRemark() .setText("") ;
     }
 
 
