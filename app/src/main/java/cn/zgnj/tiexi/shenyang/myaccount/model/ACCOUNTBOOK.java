@@ -60,6 +60,11 @@ public class ACCOUNTBOOK extends SugarRecord implements Serializable,IModelHelpe
     }
 
 
+    public static  ACCOUNTBOOK getItSelf(long thisID)
+    {
+        return ACCOUNTBOOK .findById(ACCOUNTBOOK.class ,thisID);
+    }
+
 
 
     @Override

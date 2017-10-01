@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -41,7 +42,7 @@ public class SubjectActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-
+                SubjectActivityController .createOneSubject(SubjectActivity .this,view);
             }
         }) ;
         /**
@@ -98,12 +99,18 @@ public class SubjectActivity extends AppCompatActivity
         return mBtnSubjectCreate;
     }
 
+    public GridView getmGridView()
+    {
+        return mGridView;
+    }
+
     private TextView  mTxvSubjectTitle;
     private EditText mEdtSubjectRemark;
     private EditText mEdtSubjectName;
     private Button mBtnSubjectCreate;
     private RadioButton mRdbIn;
     private RadioButton mRdbOut;
+    private GridView mGridView;
 
     private void LoadView()
     {
@@ -111,8 +118,9 @@ public class SubjectActivity extends AppCompatActivity
         this.mRdbIn =(RadioButton )findViewById(R .id .rdbIn) ;
         this.mRdbOut =(RadioButton)findViewById(R.id .rdbOut ) ;
         this.mEdtSubjectName =(EditText)findViewById(R.id .edtSubjectName) ;
-        this.mEdtSubjectRemark =(EditText )findViewById(R.id .edtBookRemark ) ;
+        this.mEdtSubjectRemark =(EditText )findViewById(R.id .edtSubjectRemark ) ;
         this.mBtnSubjectCreate =(Button)findViewById(R.id .btnSubjectCreate) ;
+        this.mGridView =(GridView)findViewById(R.id .dgvList ) ;
     }
 
 

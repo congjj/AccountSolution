@@ -45,6 +45,11 @@ public class OperateActivityController
     public static void CreateSubjct(OperateActivity operateActivity)
     {
         ACCOUNTBOOK book = (ACCOUNTBOOK)operateActivity .getCmbBookTypeList().getSelectedItem() ;
+        if(book==null)
+        {
+            Toast.makeText(operateActivity , "请选择账簿或创建一个账簿！", Toast.LENGTH_LONG ).show();
+            return ;
+        }
         Intent i=new Intent(operateActivity ,SubjectActivity .class );
         Bundle bundle = new Bundle() ;
         bundle.putString("name",book .getNAME()) ;
@@ -84,6 +89,7 @@ public class OperateActivityController
     //记账簿选项发生改变是发生
     public static void BookTypeListItemSelected(AdapterView<?> adapterView, View view, int i, long l)
     {
+
 
     }
 

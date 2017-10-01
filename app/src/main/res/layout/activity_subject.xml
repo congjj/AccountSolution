@@ -8,29 +8,6 @@
     tools:context="cn.zgnj.tiexi.shenyang.myaccount.SubjectActivity">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/pnlGridList"
-        android:layout_width="359dp"
-        android:layout_height="328dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pnlCreateSubject"
-        app:layout_constraintVertical_bias="0.0">
-
-        <GridView
-            android:id="@+id/dgvList"
-            android:layout_width="348dp"
-            android:layout_height="319dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.555"/>
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
         android:layout_width="360dp"
         android:layout_height="153dp"
         android:id="@+id/pnlCreateSubject"
@@ -44,11 +21,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/chkIn"
+            android:text="@string/accountIn"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btnSubjectCreate"
-            app:layout_constraintLeft_toRightOf="@+id/rdbOut"
             app:layout_constraintHorizontal_bias="0.852"
+            app:layout_constraintLeft_toRightOf="@+id/rdbOut"
+            app:layout_constraintRight_toLeftOf="@+id/btnSubjectCreate"
             app:layout_constraintTop_toBottomOf="@+id/edtSubjectRemark"
             app:layout_constraintVertical_bias="0.428"/>
 
@@ -56,13 +33,13 @@
             android:id="@+id/rdbOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chkOut"
+            android:text="@string/accountOut"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtSubjectRemark"
-            app:layout_constraintVertical_bias="0.428"
-            app:layout_constraintRight_toLeftOf="@+id/rdbIn"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread"/>
+            app:layout_constraintRight_toLeftOf="@+id/rdbIn"
+            app:layout_constraintTop_toBottomOf="@+id/edtSubjectRemark"
+            app:layout_constraintVertical_bias="0.428"/>
 
         <Button
             android:id="@+id/btnSubjectCreate"
@@ -141,5 +118,28 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/pnlGridList"
+        android:layout_width="359dp"
+        android:layout_height="328dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pnlCreateSubject"
+        app:layout_constraintVertical_bias="0.0">
+
+        <GridView
+            android:id="@+id/dgvList"
+            android:layout_width="348dp"
+            android:layout_height="319dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.555"/>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

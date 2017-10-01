@@ -1,17 +1,21 @@
 package cn.zgnj.tiexi.shenyang.myaccount.model;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
 import com.orm.dsl.Table;
 
 import java.io.Serializable;
+import java.util.List;
+
+import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 
 /**
  * Created by CJJ on 2017/9/26.
  */
 
 
-public class ACCOUNTSUBJECT extends SugarRecord  implements Serializable
+public class ACCOUNTSUBJECT extends SugarRecord  implements Serializable,IModelHelper
 {
     /**
      * 外键 账本信息 ID
@@ -33,4 +37,41 @@ public class ACCOUNTSUBJECT extends SugarRecord  implements Serializable
      */
     @Column(name = "REMARK")
     String REMARK;
+
+    public ACCOUNTSUBJECT ()
+    {}
+    public ACCOUNTSUBJECT (ACCOUNTBOOK accountbook ,String NAME ,String REMARK,boolean ISOUT  )
+    {
+        this.accountbook =accountbook ;
+        this.NAME =NAME;
+        this.REMARK =REMARK;
+        this.ISOUT =ISOUT;
+    }
+
+
+    /**
+     * 返回账簿下的所有 记账科目
+     * @param bookID ACCOUNTBOOK 的ID
+     * @return List <ACCOUNTSUBJECT >
+     */
+    public static List <ACCOUNTSUBJECT >getList4Book(long bookID)
+    {
+        return ACCOUNTSUBJECT.find(ACCOUNTSUBJECT .class ,"ACCOUNTBOOK_ID=?"
+                , String.valueOf(bookID));
+    }
+
+    @Override
+    public long _Insert()
+    {
+        List<ACCOUNTSUBJECT> list=ACCOUNTSUBJECT.find(ACCOUNTSUBJECT .class ,"NAME=? and ACCOUNTBOOK_ID=?"
+                ,this.NAME ,this.accountbook .getId().toString());
+        if(list.size() ==0)
+        {
+            return  this.save() ;
+        }
+        else
+        {
+            return -1;
+        }
+    }
 }
