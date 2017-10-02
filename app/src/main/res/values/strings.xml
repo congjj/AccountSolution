@@ -12,4 +12,5 @@
     <string name="accountIn">收入</string>
     <string name="createSubject">创建科目</string>
     <string name="subjectname">科目名称</string>
+    <string name="subject">记账科目</string>
 </resources>
