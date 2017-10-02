@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon, android:theme">
+        tools:replace="android:icon, android:theme"
+        >
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -48,6 +49,7 @@
         </activity>
         <activity android:name=".AccountActivity">
         </activity>
+
     </application>
 
 </manifest>

@@ -3,13 +3,19 @@ package cn.zgnj.tiexi.shenyang.myaccount;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.CursorAdapter;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
@@ -20,10 +26,8 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 
 public class SubjectActivityController
 {
-
-
-
     private static  long accountBookID;
+
     public static void Load(Intent intent,SubjectActivity subjectActivity )
     {
         Bundle bundle =new Bundle() ;
@@ -58,7 +62,32 @@ public class SubjectActivityController
          }
          else
          {
+             doSuccess(subjectActivity) ;
              Toast.makeText(subjectActivity , "成功！", Toast.LENGTH_LONG ).show();
          }
+    }
+
+
+
+    static void showSubjectList(SubjectActivity subjectActivity)
+    {
+        List<ACCOUNTSUBJECT>accountsubjectList = ACCOUNTSUBJECT .getList4Book(accountBookID ) ;
+        ArrayAdapter<ACCOUNTSUBJECT> adp=new ArrayAdapter<ACCOUNTSUBJECT>(subjectActivity, R.layout.support_simple_spinner_dropdown_item,accountsubjectList);
+        GridView gridView = subjectActivity .getmGridView() ;
+        //gridView .setAdapter(accountsubjectList) ;
+        //CursorAdapter
+
+    }
+
+
+
+
+
+
+
+    static void doSuccess(SubjectActivity subjectActivity)
+    {
+        subjectActivity .getEdtSubjectRemark() .setText("") ;
+        subjectActivity .getEdtSubjectName().setText("") ;
     }
 }
