@@ -75,18 +75,20 @@ public class SubjectActivityController
          showSubjectList(subjectActivity) ;
     }
 
-
-
     static void showSubjectList(SubjectActivity subjectActivity)
     {
         List<ACCOUNTSUBJECT>list = ACCOUNTSUBJECT .getList4Book(accountBookID ) ;
-        List<String > mDatas = new ArrayList<String>();
+        List<String > mDatasName = new ArrayList<String>();
+        List<String > mDatasRemark = new ArrayList<String>();
+        List<String > mDatasOut = new ArrayList<String>();
         for(ACCOUNTSUBJECT temp:list )
         {
             String outin=temp .getISOUT() ?"支出":"收入";
-            mDatas.add(temp .getNAME()+"【"+temp .getREMARK() +"】-"+outin );
+            mDatasOut .add(outin);
+            mDatasName .add(temp .getNAME() );
+            mDatasRemark  .add(temp .getREMARK() );
         }
-        SubjectItmeAdapter mAdapter = new SubjectItmeAdapter(mDatas ,subjectActivity ) ;
+        SubjectItmeAdapter mAdapter = new SubjectItmeAdapter(mDatasName ,mDatasRemark ,mDatasOut  ,subjectActivity ) ;
         subjectActivity .getRecyclerView().setLayoutManager(new LinearLayoutManager(subjectActivity));
         subjectActivity .getRecyclerView().setAdapter(mAdapter );
     }

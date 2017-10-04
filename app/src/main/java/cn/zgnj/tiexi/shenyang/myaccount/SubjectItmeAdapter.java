@@ -15,11 +15,16 @@ import java.util.List;
 
 public class SubjectItmeAdapter extends RecyclerView.Adapter<SubjectItmeAdapter.SubjectItemView>
 {
-    List<String> mDatas;
+    List<String> mDatasName;
+    List<String> mDatasRemark;
+    List <String>mDatasOut;
     Context mContext ;
-    public SubjectItmeAdapter (List <String>subjectList,Context showClassConText)
+    public SubjectItmeAdapter (List <String>subjectListName,List<String > subjectListRemark,
+                               List<String>subjectListOut,Context showClassConText)
     {
-        this.mDatas =subjectList;
+        this.mDatasName =subjectListName;
+        this.mDatasRemark =subjectListRemark ;
+        this.mDatasOut =subjectListOut ;
         mContext =showClassConText ;
     }
 
@@ -35,23 +40,29 @@ public class SubjectItmeAdapter extends RecyclerView.Adapter<SubjectItmeAdapter.
     @Override
     public void onBindViewHolder(SubjectItemView holder ,int posision)
     {
-        holder .mTextView .setText(mDatas .get(posision)) ;
+        holder .mTextView .setText(mDatasName  .get(posision)) ;
+        holder .mTextView1 .setText(mDatasRemark  .get(posision)) ;
+        holder .mTextView2 .setText(mDatasOut  .get(posision)) ;
     }
 
     @Override
     public int getItemCount()
     {
-        return mDatas.size();
+        return mDatasName .size();
     }
 
 
     public class SubjectItemView extends RecyclerView.ViewHolder
     {
         TextView mTextView ;
+        TextView mTextView1;
+        TextView mTextView2;
         public SubjectItemView (View view)
         {
             super(view);
-            mTextView =(TextView)view.findViewById(R.id .item_subject  ) ;
+            mTextView =(TextView)view.findViewById(R.id .item_subjectcode   ) ;
+            mTextView1 =(TextView)view.findViewById(R.id .item_subjectremark    ) ;
+            mTextView2 =(TextView)view.findViewById(R.id .item_subjectout    ) ;
         }
     }
 }
