@@ -41,14 +41,7 @@ public class SubjectActivityController
         titleView .setText(bundle .getString("name") +"【" +bundle.getString("remark") +"】") ;
         accountBookID =bundle .getLong("book_ID") ;
 
-        List<String > mDatas = new ArrayList<String>();
-        for (int i = 'A'; i < 'z'; i++)
-        {
-            mDatas.add("dddd" + (char) i);
-        }
-        SubjectItmeAdapter mAdapter = new SubjectItmeAdapter(mDatas ,subjectActivity ) ;
-        subjectActivity .getRecyclerView().setLayoutManager(new LinearLayoutManager(subjectActivity));
-        subjectActivity .getRecyclerView().setAdapter(mAdapter );
+        showSubjectList(subjectActivity ) ;
     }
 
 
@@ -79,18 +72,23 @@ public class SubjectActivityController
              doSuccess(subjectActivity) ;
              Toast.makeText(subjectActivity , "成功！", Toast.LENGTH_LONG ).show();
          }
+         showSubjectList(subjectActivity) ;
     }
 
 
 
     static void showSubjectList(SubjectActivity subjectActivity)
     {
-        List<ACCOUNTSUBJECT>accountsubjectList = ACCOUNTSUBJECT .getList4Book(accountBookID ) ;
-        ArrayAdapter<ACCOUNTSUBJECT> adp=new ArrayAdapter<ACCOUNTSUBJECT>(subjectActivity, R.layout.support_simple_spinner_dropdown_item,accountsubjectList);
-
-        //gridView .setAdapter(accountsubjectList) ;
-        //CursorAdapter
-
+        List<ACCOUNTSUBJECT>list = ACCOUNTSUBJECT .getList4Book(accountBookID ) ;
+        List<String > mDatas = new ArrayList<String>();
+        for(ACCOUNTSUBJECT temp:list )
+        {
+            String outin=temp .getISOUT() ?"支出":"收入";
+            mDatas.add(temp .getNAME()+"【"+temp .getREMARK() +"】-"+outin );
+        }
+        SubjectItmeAdapter mAdapter = new SubjectItmeAdapter(mDatas ,subjectActivity ) ;
+        subjectActivity .getRecyclerView().setLayoutManager(new LinearLayoutManager(subjectActivity));
+        subjectActivity .getRecyclerView().setAdapter(mAdapter );
     }
 
 

@@ -22,16 +22,34 @@ public class ACCOUNTSUBJECT extends SugarRecord  implements Serializable,IModelH
      */
     @Column(name = "ACCOUNTBOOK_ID",notNull = true)
     ACCOUNTBOOK  accountbook;
+
+    public String getNAME()
+    {
+        return NAME;
+    }
+
     /**
      * 记账项目名称
      */
     @Column(name = "NAME",unique = true ,notNull = true)
     String NAME;
+
+    public boolean getISOUT()
+    {
+        return ISOUT;
+    }
+
     /**
      * 是否支出 “True”支出 “False”收入
      */
     @Column(name = "ISOUT" ,notNull = true)
     boolean ISOUT;
+
+    public String getREMARK()
+    {
+        return REMARK;
+    }
+
     /**
      * 备注
      */
