@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
@@ -38,6 +40,15 @@ public class SubjectActivityController
         TextView titleView = subjectActivity .getTxvSubjectTitle() ;
         titleView .setText(bundle .getString("name") +"【" +bundle.getString("remark") +"】") ;
         accountBookID =bundle .getLong("book_ID") ;
+
+        List<String > mDatas = new ArrayList<String>();
+        for (int i = 'A'; i < 'z'; i++)
+        {
+            mDatas.add("dddd" + (char) i);
+        }
+        SubjectItmeAdapter mAdapter = new SubjectItmeAdapter(mDatas ,subjectActivity ) ;
+        subjectActivity .getRecyclerView().setLayoutManager(new LinearLayoutManager(subjectActivity));
+        subjectActivity .getRecyclerView().setAdapter(mAdapter );
     }
 
 

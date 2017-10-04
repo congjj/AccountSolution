@@ -137,8 +137,8 @@ public class SubjectActivity extends AppCompatActivity
             mDatas.add("" + (char) i);
         }
         this.mRecyclerView =(RecyclerView)findViewById(R.id .revSubjectList) ;
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter = new HomeAdapter());
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //mRecyclerView.setAdapter(mAdapter = new HomeAdapter());
     }
 
     class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
