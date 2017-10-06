@@ -42,6 +42,11 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
      */
     @Column(name = "ISCHECKED",notNull = true)
     Double mISCHECKED;
+    /**
+     * 是否有效
+     */
+    @Column(name = "ISACTIVED",notNull = true)
+    boolean  mISACTIVED;
 
     /**
      * 备注
