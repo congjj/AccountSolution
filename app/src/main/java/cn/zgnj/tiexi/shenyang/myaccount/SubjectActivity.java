@@ -130,12 +130,6 @@ public class SubjectActivity extends AppCompatActivity
         this.mEdtSubjectName =(EditText)findViewById(R.id .edtSubjectName) ;
         this.mEdtSubjectRemark =(EditText )findViewById(R.id .edtSubjectRemark ) ;
         this.mBtnSubjectCreate =(Button)findViewById(R.id .btnSubjectCreate) ;
-
-        mDatas = new ArrayList<String>();
-        for (int i = 'A'; i < 'z'; i++)
-        {
-            mDatas.add("" + (char) i);
-        }
         this.mRecyclerView =(RecyclerView)findViewById(R.id .revSubjectList) ;
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         //mRecyclerView.setAdapter(mAdapter = new HomeAdapter());

@@ -60,8 +60,21 @@ public class OperateActivityController
     }
 
     //开始记账
-    public static void StartAccount(View view)
+    public static void StartAccount(OperateActivity operateActivity)
     {
+        ACCOUNTBOOK book = (ACCOUNTBOOK)operateActivity .getCmbBookTypeList().getSelectedItem() ;
+        if(book==null)
+        {
+            Toast.makeText(operateActivity , "请选择账簿或创建一个账簿！", Toast.LENGTH_LONG ).show();
+            return ;
+        }
+        Intent i=new Intent(operateActivity ,AccountActivity.class );
+        Bundle bundle = new Bundle() ;
+        bundle.putString("name",book .getNAME()) ;
+        bundle .putString("remark",book .getREMARK()) ;
+        bundle .putLong("book_ID",book .getId()) ;
+        i.putExtra("sendBookType",bundle);
+        operateActivity . startActivity(i);
     }
 
     //创建一个记账簿

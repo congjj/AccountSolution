@@ -70,7 +70,7 @@ public class OperateActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                OperateActivityController . StartAccount(view);
+                OperateActivityController . StartAccount(OperateActivity.this);
             }
         }) ;
         /**

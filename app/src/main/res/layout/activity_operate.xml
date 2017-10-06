@@ -117,12 +117,12 @@
         android:spinnerMode="dialog"
         android:theme="@android:style/Theme.Holo.Light"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095"
-        tools:spinnerMode="dialog"
-        app:layout_constraintHorizontal_bias="0.527"/>
+        app:layout_constraintVertical_bias="0.096"
+        tools:spinnerMode="dialog"/>
 
     <LinearLayout
         android:layout_width="358dp"

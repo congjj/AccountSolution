@@ -13,4 +13,9 @@
     <string name="createSubject">创建科目</string>
     <string name="subjectname">科目名称</string>
     <string name="subject">记账科目</string>
+    <string name="accountname">记账名称</string>
+    <string name="count">数量</string>
+    <string name="price">单价</string>
+    <string name="check">直接对账</string>
+    <string name="account">记账</string>
 </resources>
