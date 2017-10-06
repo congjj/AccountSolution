@@ -119,8 +119,6 @@ public class SubjectActivity extends AppCompatActivity
     private RadioButton mRdbIn;
     private RadioButton mRdbOut;
     private RecyclerView mRecyclerView ;
-    private List<String> mDatas;
-    private  HomeAdapter mAdapter;
 
     private void LoadView()
     {
@@ -131,46 +129,6 @@ public class SubjectActivity extends AppCompatActivity
         this.mEdtSubjectRemark =(EditText )findViewById(R.id .edtSubjectRemark ) ;
         this.mBtnSubjectCreate =(Button)findViewById(R.id .btnSubjectCreate) ;
         this.mRecyclerView =(RecyclerView)findViewById(R.id .revSubjectList) ;
-        //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //mRecyclerView.setAdapter(mAdapter = new HomeAdapter());
     }
-
-    class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
-    {
-
-        @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-        {
-            MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                    SubjectActivity .this).inflate(R.layout.home_itme , parent,
-                    false));
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(MyViewHolder holder, int position)
-        {
-            holder.tv.setText(mDatas.get(position));
-        }
-
-        @Override
-        public int getItemCount()
-        {
-            return mDatas.size();
-        }
-
-        class MyViewHolder extends RecyclerView.ViewHolder
-        {
-
-            TextView tv;
-
-            public MyViewHolder(View view)
-            {
-                super(view);
-                tv = (TextView) view.findViewById(R.id.item_tv);
-            }
-        }
-    }
-
 
 }

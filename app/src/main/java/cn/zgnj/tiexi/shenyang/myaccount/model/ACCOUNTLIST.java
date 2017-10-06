@@ -1,9 +1,12 @@
 package cn.zgnj.tiexi.shenyang.myaccount.model;
 
+import android.provider.ContactsContract;
+
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 
@@ -47,6 +50,17 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
      */
     @Column(name = "ISACTIVED",notNull = true)
     boolean  mISACTIVED;
+    /**
+     * 操作时间
+     */
+    @Column(name = "CREATETIME",notNull = true)
+    Date  mCREATETIME;
+
+    /**
+     * 入账日期
+     */
+    @Column(name = "ACCOUNTTIME",notNull = true)
+    Date  mACCOUNTTIME;
 
     /**
      * 备注
