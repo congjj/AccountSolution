@@ -84,7 +84,7 @@ public class AccountActivity extends AppCompatActivity
     }
 
     void  display() {
-        mTvDate.setText(new StringBuffer().append(mMonth + 1).append("-").append(mDay).append("-").append(mYear).append(" "));
+        mTvDate.setText(new StringBuffer().append(mMonth ).append("-").append(mDay).append("-").append(mYear).append(" "));
     }
     private void LoadView()
     {
