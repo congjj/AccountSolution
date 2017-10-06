@@ -1,9 +1,12 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
-
+import android.app.Dialog;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -13,18 +16,6 @@ import java.util.Calendar;
 
 public class AccountActivityController
 {
-    static  final Calendar ca = Calendar.getInstance();
-    static  int mYear = ca.get(Calendar.YEAR);
-    static  int mMonth = ca.get(Calendar.MONTH);
-    static  int mDay = ca.get(Calendar.DAY_OF_MONTH);
-    public static void Load(Intent intent, AccountActivity accountActivity)
-    {
-         accountActivity .getTvDate() .setText(mYear +"-"+ mMonth +"-"+mDay ) ;
-    }
 
 
-    public static void SetAccountDate(AccountActivity accountActivity, View v)
-    {
-        //new DatePickerDialog()
-    }
 }
