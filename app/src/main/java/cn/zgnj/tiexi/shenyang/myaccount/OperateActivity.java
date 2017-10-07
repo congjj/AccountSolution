@@ -116,7 +116,9 @@ public class OperateActivity extends AppCompatActivity
         i.putExtra("sendBookType",bundle);
         startActivity(i);
     }
-
+    private void BookTypeListItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+    {
+    }
 
     void doSuccess()
     {
@@ -197,7 +199,7 @@ public class OperateActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                OperateActivityController.BookTypeListItemSelected(adapterView ,view,i,l);
+                BookTypeListItemSelected(adapterView ,view,i,l);
             }
 
             @Override
@@ -207,6 +209,7 @@ public class OperateActivity extends AppCompatActivity
             }
         }) ;
     }
+
 
 
 
@@ -251,10 +254,6 @@ public class OperateActivity extends AppCompatActivity
         //
         this.mEdtBookRemark =(EditText) findViewById(R.id .edtBookRemark ) ;
 
-
     }
-
-
-
 
 }
