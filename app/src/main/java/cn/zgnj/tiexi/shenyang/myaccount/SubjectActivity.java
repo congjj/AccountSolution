@@ -21,15 +21,6 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 public class SubjectActivity extends AppCompatActivity
 {
 
-    private long accountBookID;
-    private TextView mTxvSubjectTitle;
-    private EditText mEdtSubjectRemark;
-    private EditText mEdtSubjectName;
-    private Button mBtnSubjectCreate;
-    private RadioButton mRdbIn;
-    private RadioButton mRdbOut;
-    private RecyclerView mRecyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -39,80 +30,7 @@ public class SubjectActivity extends AppCompatActivity
         this.InitializeComponent(savedInstanceState);
     }
 
-
-    /**
-     * 载入时发生
-     *
-     * @param savedInstanceState
-     */
-    private void Load(Bundle savedInstanceState)
-    {
-        Bundle bundle = new Bundle();
-        bundle = getIntent().getBundleExtra("sendBookType");
-        mTxvSubjectTitle.setText(bundle.getString("name") + "【" + bundle.getString("remark") + "】");
-        accountBookID = bundle.getLong("book_ID");
-        showSubjectList();
-    }
-
-    /**
-     * 创建一个记账科目
-     *
-     * @param view
-     */
-    private void createOneSubject(View view)
-    {
-        boolean isout = mRdbOut.isChecked();
-        ACCOUNTBOOK accountbook = ACCOUNTBOOK.getItSelf(accountBookID);
-        String name = mTxvSubjectTitle.getText().toString();
-        String remark = mEdtSubjectRemark.getText().toString();
-        IModelHelper temp = new ACCOUNTSUBJECT(accountbook, name, remark, isout);
-        if (temp._Insert() == -1)
-        {
-            Toast.makeText(this, "记账科目重复", Toast.LENGTH_LONG).show();
-            return;
-        } else
-        {
-            doSuccess();
-            Toast.makeText(this, "成功！", Toast.LENGTH_LONG).show();
-        }
-        showSubjectList();
-    }
-
-    private void RbdInChecked(CompoundButton compoundButton, boolean b)
-    {
-        mRdbOut.setChecked(!b);
-    }
-
-    private void RbdOutChecked(CompoundButton compoundButton, boolean b)
-    {
-        mRdbIn.setChecked(!b);
-    }
-
-
-    private void showSubjectList()
-    {
-        List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
-        List<String> mDatasName = new ArrayList<String>();
-        List<String> mDatasRemark = new ArrayList<String>();
-        List<String> mDatasOut = new ArrayList<String>();
-        for (ACCOUNTSUBJECT temp : list)
-        {
-            String outin = temp.getISOUT() ? "支出" : "收入";
-            mDatasOut.add(outin);
-            mDatasName.add(temp.getNAME());
-            mDatasRemark.add(temp.getREMARK());
-        }
-        SubjectItmeAdapter mAdapter = new SubjectItmeAdapter(mDatasName, mDatasRemark, mDatasOut, this);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    void doSuccess()
-    {
-        mEdtSubjectRemark.setText("");
-        mEdtSubjectName.setText("");
-    }
-
+    //region description 初始化
     private void InitializeComponent(Bundle savedInstanceState)
     {
         /**
@@ -159,6 +77,14 @@ public class SubjectActivity extends AppCompatActivity
     }
 
 
+    private long accountBookID;
+    private TextView mTxvSubjectTitle;
+    private EditText mEdtSubjectRemark;
+    private EditText mEdtSubjectName;
+    private Button mBtnSubjectCreate;
+    private RadioButton mRdbIn;
+    private RadioButton mRdbOut;
+    private RecyclerView mRecyclerView;
     private void LoadView()
     {
         this.mTxvSubjectTitle = (TextView) findViewById(R.id.txvSubjectTitle);
@@ -169,5 +95,86 @@ public class SubjectActivity extends AppCompatActivity
         this.mBtnSubjectCreate = (Button) findViewById(R.id.btnSubjectCreate);
         this.mRecyclerView = (RecyclerView) findViewById(R.id.revSubjectList);
     }
+
+    //endregion
+
+    /**
+     * 载入时发生
+     *
+     * @param savedInstanceState
+     */
+    private void Load(Bundle savedInstanceState)
+    {
+        Bundle bundle = new Bundle();
+        bundle = getIntent().getBundleExtra("sendBookType");
+        mTxvSubjectTitle.setText(bundle.getString("name") + "【" + bundle.getString("remark") + "】");
+        accountBookID = bundle.getLong("book_ID");
+        showSubjectList();
+    }
+
+    /**
+     * 创建一个记账科目
+     *
+     * @param view
+     */
+    private void createOneSubject(View view)
+    {
+        boolean isout = mRdbOut.isChecked();
+        ACCOUNTBOOK accountbook = ACCOUNTBOOK.getItSelf(accountBookID);
+        String name = mEdtSubjectName.getText().toString();
+        String remark = mEdtSubjectRemark.getText().toString();
+        IModelHelper temp = new ACCOUNTSUBJECT(accountbook, name, remark, isout);
+        if (temp._Insert() == -1)
+        {
+            Toast.makeText(this, "记账科目重复", Toast.LENGTH_LONG).show();
+            return;
+        } else
+        {
+            doSuccess();
+            Toast.makeText(this, "成功！", Toast.LENGTH_LONG).show();
+        }
+        showSubjectList();
+    }
+
+    private void RbdInChecked(CompoundButton compoundButton, boolean b)
+    {
+        mRdbOut.setChecked(!b);
+    }
+
+    private void RbdOutChecked(CompoundButton compoundButton, boolean b)
+    {
+        mRdbIn.setChecked(!b);
+    }
+
+
+    private void showSubjectList()
+    {
+        List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
+        List<String> mDatasName = new ArrayList<String>();
+        List<String> mDatasRemark = new ArrayList<String>();
+        List<String> mDatasOut = new ArrayList<String>();
+        for (ACCOUNTSUBJECT temp : list)
+        {
+            String outin = temp.getISOUT() ? "支出" : "收入";
+            mDatasOut.add(outin);
+            mDatasName.add(temp.getNAME());
+            mDatasRemark.add(temp.getREMARK());
+        }
+        SubjectItmeAdapter mAdapter = new SubjectItmeAdapter(mDatasName, mDatasRemark, mDatasOut, this);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+
+    void doSuccess()
+    {
+        mEdtSubjectRemark.setText("");
+        mEdtSubjectName.setText("");
+    }
+
+
+
+
+
 
 }

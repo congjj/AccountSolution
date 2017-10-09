@@ -18,9 +18,6 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 public class LoginActivity extends AppCompatActivity
 {
 
-    private Button mbtnLogin;
-    private TextView mtxvTelNO;
-    private TelephonyManager _TelephInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,7 +28,42 @@ public class LoginActivity extends AppCompatActivity
         this.InitializeComponent(savedInstanceState);
     }
 
+    //region description 初始化
 
+    private void InitializeComponent(Bundle savedInstanceState)
+    {
+        //载入View
+        this.LoadView();
+        //载入电话或ID
+        Load(savedInstanceState);
+        //登录按钮单击
+        this.mbtnLogin.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Login(view);
+            }
+        });
+    }
+
+
+    private Button mbtnLogin;
+    private TextView mtxvTelNO;
+    private void LoadView()
+    {
+        //
+        //mbtnLogin
+        //
+        this.mbtnLogin = (Button) findViewById(R.id.btnLogin);
+        //
+        //ntxvTelNO
+        //
+        mtxvTelNO = (TextView) findViewById(R.id.txvTelNO);
+    }
+    //endregion
+
+    private TelephonyManager _TelephInfo;
     private void Load(Bundle savedInstanceState)
     {
         _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -53,42 +85,6 @@ public class LoginActivity extends AppCompatActivity
         startActivity(i);
     }
 
-
-    private void InitializeComponent(Bundle savedInstanceState)
-    {
-        //载入View
-        this.LoadView();
-        //载入电话或ID
-        Load(savedInstanceState);
-        //登录按钮单击
-        this.mbtnLogin.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Login(view);
-            }
-        });
-    }
-
-
-    TextView gettxvTelNO()
-    {
-        return this.mtxvTelNO;
-    }
-
-
-    private void LoadView()
-    {
-        //
-        //mbtnLogin
-        //
-        this.mbtnLogin = (Button) findViewById(R.id.btnLogin);
-        //
-        //ntxvTelNO
-        //
-        mtxvTelNO = (TextView) findViewById(R.id.txvTelNO);
-    }
 
 
 }

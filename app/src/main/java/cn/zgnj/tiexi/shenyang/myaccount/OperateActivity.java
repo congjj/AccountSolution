@@ -22,19 +22,6 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 
 public class OperateActivity extends AppCompatActivity
 {
-    private Button mBtnCreateBook;
-    private Button mBtnCreateSubject;
-    private Button mBtnAccount;
-    private Button mBtnBookType;
-    private Button mBtnExit;
-    private EditText mEdtBookName;
-    private EditText mEdtBookRemark;
-    private TextView mTxvOperatet;
-    private Spinner mCmbBookTypeList;
-    private ConstraintLayout mPnlCreateBookType;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -45,86 +32,7 @@ public class OperateActivity extends AppCompatActivity
         //long id = getIntent() .getLongExtra("data",-1) ;
     }
 
-    private void Load(Bundle savedInstanceState)
-    {
-        long id = getIntent().getLongExtra("sendUserID",-1) ;
-        mPnlCreateBookType.setVisibility(View.INVISIBLE) ;
-        loadBookTypelist(USERINFO.getOne(id).getACCOUNTBOOKList()) ;
-
-    }
-
-    private void CreateSubjct(View view)
-    {
-        ACCOUNTBOOK book = (ACCOUNTBOOK) mCmbBookTypeList.getSelectedItem() ;
-        if(book==null)
-        {
-            Toast.makeText(this, "请选择账簿或创建一个账簿！", Toast.LENGTH_LONG ).show();
-            return ;
-        }
-        Intent i=new Intent(this,SubjectActivity .class );
-        Bundle bundle = new Bundle() ;
-        bundle.putString("name",book .getNAME()) ;
-        bundle .putString("remark",book .getREMARK()) ;
-        bundle .putLong("book_ID",book .getId()) ;
-        i.putExtra("sendBookType",bundle);
-        startActivity(i);
-    }
-
-    private void CreateBookType(View view)
-    {
-        long id = getIntent().getLongExtra("sendUserID",-1) ;
-        USERINFO userinfo =USERINFO.getOne(id);
-        IModelHelper book=new ACCOUNTBOOK(userinfo,mEdtBookName.getText().toString().toUpperCase(),
-                mEdtBookRemark.getText().toString()) ;
-        if( book._Insert()==-1)
-        {
-            Toast.makeText(this,"记账簿名称：" + mEdtBookName.getText()+" 重复，请换用其它名称！", Toast.LENGTH_LONG ).show();
-        }
-        loadBookTypelist(userinfo.getACCOUNTBOOKList()) ;
-        doSuccess() ;
-    }
-
-    private  void loadBookTypelist(List<ACCOUNTBOOK > booklist)
-    {
-        ArrayAdapter<ACCOUNTBOOK> adp=new ArrayAdapter<ACCOUNTBOOK>(this , R.layout.support_simple_spinner_dropdown_item,booklist);
-        mCmbBookTypeList .setAdapter(adp);
-    }
-
-    private void ShowBookTypeView(View view)
-    {
-        mPnlCreateBookType.setVisibility(View.VISIBLE) ;
-    }
-    private void HideBookTypeView(View view)
-    {
-        doSuccess() ;
-        mPnlCreateBookType .setVisibility(View.INVISIBLE) ;
-    }
-
-    private void StartAccount(View view)
-    {
-        ACCOUNTBOOK book = (ACCOUNTBOOK)mCmbBookTypeList.getSelectedItem() ;
-        if(book==null)
-        {
-            Toast.makeText(this  , "请选择账簿或创建一个账簿！", Toast.LENGTH_LONG ).show();
-            return ;
-        }
-        Intent i=new Intent(this  ,AccountActivity.class );
-        Bundle bundle = new Bundle() ;
-        bundle.putString("name",book .getNAME()) ;
-        bundle .putString("remark",book .getREMARK()) ;
-        bundle .putLong("book_ID",book .getId()) ;
-        i.putExtra("sendBookType",bundle);
-        startActivity(i);
-    }
-    private void BookTypeListItemSelected(AdapterView<?> adapterView, View view, int i, long l)
-    {
-    }
-
-    void doSuccess()
-    {
-        mEdtBookName.setText("") ;
-        mEdtBookRemark.setText("") ;
-    }
+    //region description 初始化
 
     private void InitializeComponent(Bundle savedInstanceState)
     {
@@ -211,8 +119,16 @@ public class OperateActivity extends AppCompatActivity
     }
 
 
-
-
+    private Button mBtnCreateBook;
+    private Button mBtnCreateSubject;
+    private Button mBtnAccount;
+    private Button mBtnBookType;
+    private Button mBtnExit;
+    private EditText mEdtBookName;
+    private EditText mEdtBookRemark;
+    private TextView mTxvOperatet;
+    private Spinner mCmbBookTypeList;
+    private ConstraintLayout mPnlCreateBookType;
     private void LoadView()
     {
 
@@ -255,5 +171,93 @@ public class OperateActivity extends AppCompatActivity
         this.mEdtBookRemark =(EditText) findViewById(R.id .edtBookRemark ) ;
 
     }
+    //endregion
+
+
+
+    private void Load(Bundle savedInstanceState)
+    {
+        long id = getIntent().getLongExtra("sendUserID",-1) ;
+        mPnlCreateBookType.setVisibility(View.INVISIBLE) ;
+        loadBookTypelist(USERINFO.getOne(id).getACCOUNTBOOKList()) ;
+
+    }
+
+    private void CreateSubjct(View view)
+    {
+        ACCOUNTBOOK book = (ACCOUNTBOOK) mCmbBookTypeList.getSelectedItem() ;
+        if(book==null)
+        {
+            Toast.makeText(this, "请选择账簿或创建一个账簿！", Toast.LENGTH_LONG ).show();
+            return ;
+        }
+        Intent i=new Intent(this,SubjectActivity .class );
+        Bundle bundle = new Bundle() ;
+        bundle.putString("name",book .getNAME()) ;
+        bundle .putString("remark",book .getREMARK()) ;
+        bundle .putLong("book_ID",book .getId()) ;
+        i.putExtra("sendBookType",bundle);
+        startActivity(i);
+    }
+
+    private void CreateBookType(View view)
+    {
+        long id = getIntent().getLongExtra("sendUserID",-1) ;
+        USERINFO userinfo =USERINFO.getOne(id);
+        IModelHelper book=new ACCOUNTBOOK(userinfo,mEdtBookName.getText().toString().toUpperCase(),
+                mEdtBookRemark.getText().toString()) ;
+        if( book._Insert()==-1)
+        {
+            Toast.makeText(this,"记账簿名称：" + mEdtBookName.getText()+" 重复，请换用其它名称！", Toast.LENGTH_LONG ).show();
+        }
+        loadBookTypelist(userinfo.getACCOUNTBOOKList()) ;
+        doSuccess() ;
+    }
+
+    private  void loadBookTypelist(List<ACCOUNTBOOK > booklist)
+    {
+        ArrayAdapter<ACCOUNTBOOK> adp=new ArrayAdapter<ACCOUNTBOOK>(this , R.layout.support_simple_spinner_dropdown_item,booklist);
+        mCmbBookTypeList .setAdapter(adp);
+    }
+
+    private void ShowBookTypeView(View view)
+    {
+        mPnlCreateBookType.setVisibility(View.VISIBLE) ;
+    }
+    private void HideBookTypeView(View view)
+    {
+        doSuccess() ;
+        mPnlCreateBookType .setVisibility(View.INVISIBLE) ;
+    }
+
+    private void StartAccount(View view)
+    {
+        ACCOUNTBOOK book = (ACCOUNTBOOK)mCmbBookTypeList.getSelectedItem() ;
+        if(book==null)
+        {
+            Toast.makeText(this  , "请选择账簿或创建一个账簿！", Toast.LENGTH_LONG ).show();
+            return ;
+        }
+        Intent i=new Intent(this  ,AccountActivity.class );
+        Bundle bundle = new Bundle() ;
+        bundle.putString("name",book .getNAME()) ;
+        bundle .putString("remark",book .getREMARK()) ;
+        bundle .putLong("book_ID",book .getId()) ;
+        i.putExtra("sendBookType",bundle);
+        startActivity(i);
+    }
+    private void BookTypeListItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+    {
+    }
+
+    void doSuccess()
+    {
+        mEdtBookName.setText("") ;
+        mEdtBookRemark.setText("") ;
+    }
+
+
+
+
 
 }
