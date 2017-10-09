@@ -10,20 +10,6 @@
     tools:layout_editor_absoluteX="0dp">
 
 
-    <cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected
-        android:id="@+id/dateSelected"
-        android:layout_width="399dp"
-        android:layout_height="35dp"
-        android:layout_weight="0.17"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882"
-        >
-    </cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected>
-
     <Button
         android:id="@+id/btnDateSelect"
         android:layout_width="88dp"
@@ -262,5 +248,18 @@
             android:textStyle="bold"/>
 
     </LinearLayout>
+
+    <cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected
+        android:id="@+id/dateSelected"
+        android:layout_width="360dp"
+        android:layout_height="39dp"
+        android:layout_weight="0.17"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.86"
+        >
+    </cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected>
 
 </android.support.constraint.ConstraintLayout>
