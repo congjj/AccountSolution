@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
+import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
+
 public class AccountActivity extends AppCompatActivity
 {
 
@@ -23,7 +25,6 @@ public class AccountActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-
         this.InitializeComponent(savedInstanceState);
     }
 
@@ -108,6 +109,7 @@ public class AccountActivity extends AppCompatActivity
     private EditText mEdtName;
     private TextView mTvTitle;
     private Spinner mSpnSubject;
+    private DateSelected mDateSelected ;
     private void LoadView()
     {
         this.mSpnSubject = (Spinner) findViewById(R.id.spSubject);
@@ -122,6 +124,9 @@ public class AccountActivity extends AppCompatActivity
         this.mBtnAccountUpdate =(Button )findViewById(R.id.btnAccountUpdate) ;
         this.mBtnAccountCheck =(Button )findViewById(R.id.btnAccountCheck) ;
         this.mBtnAccountReport  =(Button )findViewById(R.id.btnAccountReport) ;
+        mDateSelected =(DateSelected)findViewById(R.id.dateSelected);
+
+
     }
 
 
