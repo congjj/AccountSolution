@@ -10,9 +10,6 @@
     <!--<cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected-->
         <!--android:layout_width="200dp"-->
         <!--android:layout_height="100dp"-->
-        <!--custom:titleText="3712"-->
-        <!--custom:titleTextColor="#ff0000"-->
-        <!--custom:titleTextSize="40sp"-->
         <!--/>-->
 
     <TextView

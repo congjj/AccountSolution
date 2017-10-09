@@ -1,6 +1,7 @@
 package cn.zgnj.tiexi.shenyang.myaccount.utility;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,18 @@ public class DateSelected extends View
         mBtnSelect =(Button)view.findViewById(R.id .btnSelectDate) ;
         mTvTitle =(TextView )view.findViewById(R.id .tvTitile);
         mTvDateValue =(TextView)view.findViewById(R.id .tvDateValue) ;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas)
+    {
+
     }
 
 
