@@ -17,6 +17,17 @@ import java.util.Calendar;
 public class AccountActivity extends AppCompatActivity
 {
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_account);
+
+        this.InitializeComponent(savedInstanceState);
+    }
+
+
     final Calendar ca = Calendar.getInstance();
     final int DATE_DIALOG = 1;
     int mYear = ca.get(Calendar.YEAR);
@@ -34,23 +45,7 @@ public class AccountActivity extends AppCompatActivity
             display();
         }
     };
-    private Button mBtnDateSelect;
-    private Button mBtnAccount;
-    private EditText mEditPrice;
-    private EditText mEditCount;
-    private EditText mEdtRemark;
-    private EditText mEdtName;
-    private TextView mTvTitle;
-    private Spinner mSpnSubject;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
-
-        this.InitializeComponent(savedInstanceState);
-    }
 
     /**
      * 载入时发生
@@ -63,6 +58,10 @@ public class AccountActivity extends AppCompatActivity
         display();
     }
 
+
+
+
+    //region description 初始化
     private void InitializeComponent(Bundle savedInstanceState)
     {
 
@@ -97,6 +96,18 @@ public class AccountActivity extends AppCompatActivity
         mTvDate.setText(new StringBuffer().append(mMonth).append("-").append(mDay).append("-").append(mYear).append(" "));
     }
 
+
+    private Button mBtnDateSelect;
+    private Button mBtnAccount;
+    private Button mBtnAccountUpdate;
+    private Button mBtnAccountCheck;
+    private Button mBtnAccountReport;
+    private EditText mEditPrice;
+    private EditText mEditCount;
+    private EditText mEdtRemark;
+    private EditText mEdtName;
+    private TextView mTvTitle;
+    private Spinner mSpnSubject;
     private void LoadView()
     {
         this.mSpnSubject = (Spinner) findViewById(R.id.spSubject);
@@ -108,51 +119,12 @@ public class AccountActivity extends AppCompatActivity
         this.mBtnAccount = (Button) findViewById(R.id.btnAccount);
         this.mBtnDateSelect = (Button) findViewById(R.id.btnDateSelect);
         this.mTvDate = (TextView) findViewById(R.id.tvDate);
+        this.mBtnAccountUpdate =(Button )findViewById(R.id.btnAccountUpdate) ;
+        this.mBtnAccountCheck =(Button )findViewById(R.id.btnAccountCheck) ;
+        this.mBtnAccountReport  =(Button )findViewById(R.id.btnAccountReport) ;
     }
 
-    public TextView getTvDate()
-    {
-        return mTvDate;
-    }
 
-    public Button getBtnDateSelect()
-    {
-        return mBtnDateSelect;
-    }
-
-    public Button getBtnAccount()
-    {
-        return mBtnAccount;
-    }
-
-    public EditText getEditPrice()
-    {
-        return mEditPrice;
-    }
-
-    public EditText getEditCount()
-    {
-        return mEditCount;
-    }
-
-    public EditText getEdtRemark()
-    {
-        return mEdtRemark;
-    }
-
-    public EditText getEdtName()
-    {
-        return mEdtName;
-    }
-
-    public TextView getTvTitle()
-    {
-        return mTvTitle;
-    }
-
-    public Spinner getSpnSubject()
-    {
-        return mSpnSubject;
-    }
+    //endregion
 
 }

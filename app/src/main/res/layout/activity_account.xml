@@ -19,7 +19,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.465"
+        app:layout_constraintVertical_bias="0.476"
         />
 
     <TextView
@@ -211,31 +211,41 @@
         android:id="@+id/llaybtn"
         android:layout_width="380dp"
         android:layout_height="51dp"
+        android:layout_marginBottom="-4dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btnAccountUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.17"
-            android:text="Button"/>
+            android:background="@android:color/holo_orange_light"
+            android:text="@string/accountupdate"
+            android:textSize="16sp"
+            android:textStyle="italic"/>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnAccountCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.42"
-            android:text="Button"/>
+            android:background="@android:color/holo_green_light"
+            android:text="@string/accountchecked"
+            android:textSize="16sp"
+            android:textStyle="italic"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnAccountReport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.58"
-            android:text="Button"/>
+            android:background="@color/colorAccent"
+            android:text="@string/accountreport"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
