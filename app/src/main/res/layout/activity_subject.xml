@@ -7,16 +7,6 @@
     android:layout_height="match_parent"
     tools:context="cn.zgnj.tiexi.shenyang.myaccount.SubjectActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/revSubjectList"
-        android:layout_width="362dp"
-        android:layout_height="330dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pnlCreateSubject"
-        app:layout_constraintVertical_bias="1.0"/>
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="360dp"
         android:layout_height="153dp"
@@ -67,7 +57,7 @@
         <EditText
             android:id="@+id/edtSubjectRemark"
             android:layout_width="255dp"
-            android:layout_height="34dp"
+            android:layout_height="41dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textSize="14sp"
@@ -81,7 +71,7 @@
         <EditText
             android:id="@+id/edtSubjectName"
             android:layout_width="255dp"
-            android:layout_height="34dp"
+            android:layout_height="41dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textSize="14sp"
@@ -90,7 +80,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.134"/>
+            app:layout_constraintVertical_bias="0.035"/>
 
         <TextView
             android:id="@+id/txvSubjectName"
@@ -98,11 +88,11 @@
             android:layout_height="wrap_content"
             android:text="@string/labremark"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.053"
+            app:layout_constraintHorizontal_bias="0.052"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.503"/>
+            />
 
         <TextView
             android:id="@+id/txvSubjectRemark"
@@ -110,25 +100,35 @@
             android:layout_height="wrap_content"
             android:text="@string/subjectname"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.053"
+            app:layout_constraintHorizontal_bias="0.052"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.204"/>
+            app:layout_constraintVertical_bias="0.117"/>
     </android.support.constraint.ConstraintLayout>
 
     <TextView
         android:id="@+id/txvSubjectTitle"
         android:layout_width="328dp"
-        android:layout_height="27dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/pnlCreateSubject"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/revSubjectList"
+        android:layout_width="362dp"
+        android:layout_height="330dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pnlCreateSubject"
+        app:layout_constraintVertical_bias="1.0"/>
 
 </android.support.constraint.ConstraintLayout>
