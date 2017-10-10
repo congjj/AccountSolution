@@ -22,7 +22,6 @@ import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
 
 public class AccountActivity extends AppCompatActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -45,7 +44,7 @@ public class AccountActivity extends AppCompatActivity
         bundle = intent.getBundleExtra("sendBookType");
         accountBookID = bundle.getLong("book_ID");
         mTvTitle .setText(bundle .getString("name")+"【"+bundle .getString("remark") +"】" ) ;
-
+        //java.util.UUID.randomUUID().toString();
         List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
         loadBookTypelist(list) ;
     }
@@ -57,7 +56,6 @@ public class AccountActivity extends AppCompatActivity
     private void CreateIitem(View v)
     {
     }
-
 
     private  void loadBookTypelist(List<ACCOUNTSUBJECT> booklist)
     {

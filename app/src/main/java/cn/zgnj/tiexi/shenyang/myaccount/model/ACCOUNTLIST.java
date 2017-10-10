@@ -23,6 +23,12 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
     ACCOUNTSUBJECT  mACCOUNTSUBJECT ;
 
     /**
+     * 唯一ID
+     */
+    @Column(name = "GUID",notNull = true,unique = true)
+    String GUID;
+
+    /**
      * 花销名称
      */
     @Column(name = "NAME",notNull = true)
