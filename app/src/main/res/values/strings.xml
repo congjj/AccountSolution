@@ -16,7 +16,7 @@
     <string name="accountname">记账名称</string>
     <string name="count">数量</string>
     <string name="price">单价</string>
-    <string name="check">直接对账</string>
+    <string name="check">需要对账</string>
     <string name="account">记账</string>
     <string name="accountupdate">修帐</string>
     <string name="accountchecked">对账</string>

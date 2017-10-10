@@ -55,21 +55,21 @@
 
     <LinearLayout
         android:id="@+id/llayAll"
-        android:layout_width="397dp"
-        android:layout_height="359dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.01"
-        tools:layout_editor_absoluteX="19dp">
+        >
 
         <TextView
             android:id="@+id/txvTitle"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
             android:textSize="26sp"
@@ -279,19 +279,33 @@
                 app:layout_constraintVertical_bias="0.645"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnAccount"
-            style="@android:style/Widget.Button.Inset"
+        <LinearLayout
+            android:id="@+id/llayAccount"
             android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:text="@string/account"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.897"
-            />
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="33dp"
+            tools:layout_editor_absoluteY="367dp">
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="102dp"
+                android:layout_height="match_parent"
+                android:text="@string/check"/>
+
+            <Button
+                android:id="@+id/btnAccount"
+                style="@android:style/Widget.Button.Inset"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/account"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.897"/>
+        </LinearLayout>
 
     </LinearLayout>
 
