@@ -5,130 +5,146 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.zgnj.tiexi.shenyang.myaccount.SubjectActivity">
+    tools:context="cn.zgnj.tiexi.shenyang.myaccount.SubjectActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="360dp"
-        android:layout_height="153dp"
-        android:id="@+id/pnlCreateSubject"
-        app:layout_constraintTop_toBottomOf="@+id/txvSubjectTitle"
+    <LinearLayout
+        android:id="@+id/llayAll"
+        android:layout_width="352dp"
+        android:layout_height="508dp"
+        android:orientation="vertical"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/revSubjectList"
-        >
-
-        <RadioButton
-            android:id="@+id/rdbIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/accountIn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.852"
-            app:layout_constraintLeft_toRightOf="@+id/rdbOut"
-            app:layout_constraintRight_toLeftOf="@+id/btnSubjectCreate"
-            app:layout_constraintTop_toBottomOf="@+id/edtSubjectRemark"
-            app:layout_constraintVertical_bias="0.428"/>
-
-        <RadioButton
-            android:id="@+id/rdbOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/accountOut"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/rdbIn"
-            app:layout_constraintTop_toBottomOf="@+id/edtSubjectRemark"
-            app:layout_constraintVertical_bias="0.428"/>
-
-        <Button
-            android:id="@+id/btnSubjectCreate"
-            style="@android:style/Widget.Button"
-            android:layout_width="93dp"
-            android:layout_height="48dp"
-            android:text="@string/createSubject"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.94"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtSubjectRemark"
-            app:layout_constraintVertical_bias="0.6"/>
-
-        <EditText
-            android:id="@+id/edtSubjectRemark"
-            android:layout_width="255dp"
-            android:layout_height="41dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.847"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtSubjectName"
-            app:layout_constraintVertical_bias="0.13"/>
-
-        <EditText
-            android:id="@+id/edtSubjectName"
-            android:layout_width="255dp"
-            android:layout_height="41dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.847"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.035"/>
-
-        <TextView
-            android:id="@+id/txvSubjectName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/labremark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/txvSubjectRemark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/subjectname"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.117"/>
-    </android.support.constraint.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/txvSubjectTitle"
-        android:layout_width="328dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/pnlCreateSubject"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/revSubjectList"
-        android:layout_width="362dp"
-        android:layout_height="330dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pnlCreateSubject"
-        app:layout_constraintVertical_bias="1.0"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/txvSubjectTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="35dp"
+            tools:layout_editor_absoluteY="307dp"/>
+
+        <LinearLayout
+            android:id="@+id/llayName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <TextView
+                android:id="@+id/txvSubjectRemark"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|end"
+                android:text="@string/subjectname"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.052"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.117"/>
+
+            <EditText
+                android:id="@+id/edtSubjectName"
+                android:layout_width="255dp"
+                android:layout_height="41dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.847"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.035"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llayRemark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="9dp"
+            tools:layout_editor_absoluteY="58dp">
+
+            <TextView
+                android:id="@+id/txvSubjectName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|end"
+                android:text="@string/labremark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.052"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:id="@+id/edtSubjectRemark"
+                android:layout_width="255dp"
+                android:layout_height="41dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="77dp"
+                tools:layout_editor_absoluteY="68dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llayRBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="9dp"
+            tools:layout_editor_absoluteY="126dp">
+
+            <RadioButton
+                android:id="@+id/rdbOut"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.88"
+                android:text="@string/accountOut"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="97dp"/>
+
+            <RadioButton
+                android:id="@+id/rdbIn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/accountIn"
+                tools:layout_editor_absoluteX="101dp"
+                tools:layout_editor_absoluteY="97dp"/>
+
+            <Button
+                android:id="@+id/btnSubjectCreate"
+                style="@android:style/Widget.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.38"
+                android:text="@string/createSubject"
+                tools:layout_editor_absoluteX="191dp"
+                tools:layout_editor_absoluteY="88dp"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/revSubjectList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="25dp"
+            tools:layout_editor_absoluteY="441dp"/>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
