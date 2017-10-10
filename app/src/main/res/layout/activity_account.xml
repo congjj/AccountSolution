@@ -10,204 +10,6 @@
     tools:layout_editor_absoluteX="0dp">
 
 
-    <Button
-        android:id="@+id/btnDateSelect"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:text="@string/selectdate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.974"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.476"
-        />
-
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="220dp"
-        android:layout_height="41dp"
-        android:background="@android:drawable/editbox_dropdown_light_frame"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.473"/>
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="69dp"
-        android:layout_height="20dp"
-        android:text="@string/accountdate"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"/>
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/labremark"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.582"
-        app:layout_constraintRight_toLeftOf="@+id/edtRemark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"/>
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/price"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357"
-        app:layout_constraintRight_toLeftOf="@+id/edtPrice"
-        app:layout_constraintLeft_toRightOf="@+id/edtCount"
-        app:layout_constraintHorizontal_bias="0.695"/>
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/count"
-        android:textSize="18sp"
-        app:layout_constraintRight_toLeftOf="@+id/edtCount"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.846"
-        app:layout_constraintVertical_bias="0.357"
-        />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/accountname"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/edtName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253"/>
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/subject"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13"
-        app:layout_constraintRight_toLeftOf="@+id/spSubject"
-        app:layout_constraintHorizontal_bias="0.466"/>
-
-    <EditText
-        android:id="@+id/edtPrice"
-        android:layout_width="116dp"
-        android:layout_height="43dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35"
-        app:layout_constraintHorizontal_bias="0.97"/>
-
-    <EditText
-        android:id="@+id/edtCount"
-        android:layout_width="113dp"
-        android:layout_height="43dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.324"/>
-
-    <EditText
-        android:id="@+id/edtName"
-        android:layout_width="288dp"
-        android:layout_height="41dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.916"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.238"/>
-
-    <EditText
-        android:id="@+id/edtRemark"
-        android:layout_width="287dp"
-        android:layout_height="82dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.917"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645"/>
-
-    <Spinner
-        android:id="@+id/spSubject"
-        android:layout_width="289dp"
-        android:layout_height="46dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dialog"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.915"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111"/>
-
-    <Button
-        android:id="@+id/btnAccount"
-        style="@android:style/Widget.Button.Inset"
-        android:layout_width="89dp"
-        android:layout_height="53dp"
-        android:text="@string/account"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.771"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
-        />
-
-    <TextView
-        android:id="@+id/txvTitle"
-        android:layout_width="371dp"
-        android:layout_height="43dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="24sp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
     <LinearLayout
         android:id="@+id/llaybtn"
         android:layout_width="380dp"
@@ -221,11 +23,13 @@
             android:id="@+id/btnAccountUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.17"
+            android:layout_weight="0.28"
             android:background="@android:color/holo_orange_light"
             android:text="@string/accountupdate"
             android:textSize="16sp"
-            android:textStyle="italic"/>
+            android:textStyle="italic"
+            tools:layout_editor_absoluteX="91dp"
+            tools:layout_editor_absoluteY="-203dp"/>
 
         <Button
             android:id="@+id/btnAccountCheck"
@@ -249,17 +53,245 @@
 
     </LinearLayout>
 
-    <cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected
-        android:id="@+id/dateSelected"
-        android:layout_width="360dp"
-        android:layout_height="39dp"
-        android:layout_weight="0.17"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+    <LinearLayout
+        android:id="@+id/llayAll"
+        android:layout_width="402dp"
+        android:layout_height="358dp"
+        android:orientation="vertical"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.86"
-        >
-    </cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected>
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintVertical_bias="0.01">
+
+        <TextView
+            android:id="@+id/txvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="26sp"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <LinearLayout
+            android:id="@+id/llaySubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.709"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.084">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|end"
+                android:text="@string/subject"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.557"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/spSubject"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1"/>
+
+            <Spinner
+                android:id="@+id/spSubject"
+                android:layout_width="301dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dialog"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.875"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.084"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llaySubjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.031">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|end"
+                android:text="@string/accountname"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.584"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/edtName"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.218"/>
+
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="288dp"
+                android:layout_height="41dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.886"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.205"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llayCountPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="25dp"
+            tools:layout_editor_absoluteY="16dp">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:text="@string/count"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.846"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/edtCount"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.357"/>
+
+            <EditText
+                android:id="@+id/edtCount"
+                android:layout_width="113dp"
+                android:layout_height="43dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.324"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.35"/>
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:text="@string/price"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.695"
+                app:layout_constraintLeft_toRightOf="@+id/edtCount"
+                app:layout_constraintRight_toLeftOf="@+id/edtPrice"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.357"/>
+
+            <EditText
+                android:id="@+id/edtPrice"
+                android:layout_width="116dp"
+                android:layout_height="43dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.97"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.35"/>
+        </LinearLayout>
+
+        <cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected
+            android:id="@+id/dateSelected"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.17"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.115">
+        </cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected>
+
+        <LinearLayout
+            android:id="@+id/llayRemark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="15dp"
+            tools:layout_editor_absoluteY="3dp">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/labremark"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.842"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/edtRemark"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.582"/>
+
+            <EditText
+                android:id="@+id/edtRemark"
+                android:layout_width="287dp"
+                android:layout_height="82dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.917"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.645"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAccount"
+            style="@android:style/Widget.Button.Inset"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:text="@string/account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.897"
+            />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import cn.zgnj.tiexi.shenyang.myaccount.R;
 
@@ -32,11 +33,10 @@ public class DateSelected extends LinearLayout
     private TextView mTvTitle;
     private TextView mTvDateValue;
     private Button mBtnSelect;
-
-
-
-
-    private static  Context mContext ;
+    private  Calendar mCa = Calendar.getInstance(Locale.CHINA);
+    private int mYear ;
+    private int mMonth ;
+    private int mDay ;
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
@@ -51,12 +51,12 @@ public class DateSelected extends LinearLayout
     }
 
     /**
-     * 获取本机时间
+     * 获取本机时间 注意：月份是从 0 月开始
      * @return
      */
-    public Date getNow()
+    public Calendar getNow()
     {
-        return new Date() ;
+        return Calendar.getInstance();
     }
 
     /**
@@ -66,6 +66,16 @@ public class DateSelected extends LinearLayout
     public void setTitleText(String text)
     {
         mTvTitle.setText(text) ;
+    }
+
+    /**
+     * 获取选择的日期 注意：月份是从 0 月开始
+     * @return
+     */
+    public Calendar getSelectDate()
+    {
+        mCa .set(mYear ,mMonth ,mDay) ;
+        return mCa;
     }
 
     public DateSelected (Context context)
@@ -86,16 +96,47 @@ public class DateSelected extends LinearLayout
         mBtnSelect =(Button)view.findViewById(R.id .btnSelectDate) ;
         mTvTitle =(TextView )view.findViewById(R.id .tvTitile);
         mTvDateValue =(TextView)view.findViewById(R.id .tvDateValue) ;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        mTvDateValue .setText(df.format(getNow())) ;
 
+        mYear = mCa.get(Calendar.YEAR);
+        mMonth =mCa.get(Calendar .MONTH );
+        mDay =mCa.get(Calendar .DAY_OF_MONTH );
+
+        setDate() ;
+        mBtnSelect.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showSelectDateDialog(context);
+            }
+        }) ;
+    }
+
+    private void showSelectDateDialog(Context context)
+    {
+        new DatePickerDialog(context ,mdateListener,mYear ,mMonth ,mDay).show();
     }
 
 
+    //设置时间
+    private DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener()
+    {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+        {
+            mYear = year;
+            mMonth = monthOfYear;
+            mDay = dayOfMonth;
+            setDate() ;
+        }
+    };
 
 
 
-
+    private void setDate()
+    {
+        mTvDateValue .setText(new StringBuffer().append(mYear).append("-").append(mMonth+1).append("-").append(mDay));
+    }
 
 
 }

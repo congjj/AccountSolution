@@ -29,23 +29,7 @@ public class AccountActivity extends AppCompatActivity
     }
 
 
-    final Calendar ca = Calendar.getInstance();
-    final int DATE_DIALOG = 1;
-    int mYear = ca.get(Calendar.YEAR);
-    int mMonth = ca.get(Calendar.MONTH);
-    int mDay = ca.get(Calendar.DAY_OF_MONTH);
-    private TextView mTvDate;
-    private DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener()
-    {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-        {
-            mYear = year;
-            mMonth = monthOfYear;
-            mDay = dayOfMonth;
-            display();
-        }
-    };
+
 
 
     /**
@@ -56,7 +40,7 @@ public class AccountActivity extends AppCompatActivity
      */
     private void Load(Intent intent, Bundle savedInstanceState)
     {
-        display();
+
     }
 
 
@@ -71,30 +55,7 @@ public class AccountActivity extends AppCompatActivity
          */
         this.LoadView();
         Load(getIntent(), savedInstanceState);
-        this.mBtnDateSelect.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                showDialog(DATE_DIALOG);
-            }
-        });
-    }
 
-    @Override
-    protected Dialog onCreateDialog(int id)
-    {
-        switch (id)
-        {
-            case DATE_DIALOG:
-                return new DatePickerDialog(this, mdateListener, mYear, mMonth, mDay);
-        }
-        return null;
-    }
-
-    void display()
-    {
-        mTvDate.setText(new StringBuffer().append(mMonth).append("-").append(mDay).append("-").append(mYear).append(" "));
     }
 
 
@@ -119,13 +80,10 @@ public class AccountActivity extends AppCompatActivity
         this.mEdtRemark = (EditText) findViewById(R.id.edtRemark);
         this.mEdtName = (EditText) findViewById(R.id.edtName);
         this.mBtnAccount = (Button) findViewById(R.id.btnAccount);
-        this.mBtnDateSelect = (Button) findViewById(R.id.btnDateSelect);
-        this.mTvDate = (TextView) findViewById(R.id.tvDate);
         this.mBtnAccountUpdate =(Button )findViewById(R.id.btnAccountUpdate) ;
         this.mBtnAccountCheck =(Button )findViewById(R.id.btnAccountCheck) ;
         this.mBtnAccountReport  =(Button )findViewById(R.id.btnAccountReport) ;
         mDateSelected =(DateSelected)findViewById(R.id.dateSelected);
-
 
     }
 
