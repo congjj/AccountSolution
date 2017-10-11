@@ -66,10 +66,20 @@ public class LoginActivity extends AppCompatActivity
     private TelephonyManager _TelephInfo;
     private void Load(Bundle savedInstanceState)
     {
-        _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String id = _TelephInfo.getLine1Number().trim().length() == 0 ? _TelephInfo.getSubscriberId()
-                : _TelephInfo.getLine1Number();
-        mtxvTelNO.setText(id);
+        try
+        {
+            _TelephInfo = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            String idb=_TelephInfo.getSubscriberId();
+            String ida = _TelephInfo.getLine1Number();
+            String id = _TelephInfo.getLine1Number().trim().length() == 0 ? _TelephInfo.getSubscriberId()
+                    : _TelephInfo.getLine1Number();
+            mtxvTelNO.setText(id);
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
     private void Login(View view)

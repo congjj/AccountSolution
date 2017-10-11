@@ -1,8 +1,11 @@
 package cn.zgnj.tiexi.shenyang.myaccount.model;
 
+import android.graphics.Bitmap;
+
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
 import java.io.Serializable;
+import java.sql.Blob;
 
 import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 
@@ -27,12 +30,20 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
     /**
      * 序号
      */
-    @Column(name = "COUNT",notNull = true)
+    @Column(name = "INDEX",notNull = true)
     int mINDEX;
 
+    /**
+     * 图片数据
+     */
+    @Column(name = "PIC",notNull = true)
+    Bitmap mPIC;
 
-
-
+    /**
+     * 是否有效
+     */
+    @Column(name = "ISACTIVED",notNull = true)
+    boolean  mISACTIVED;
 
 
     @Override

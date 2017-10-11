@@ -69,6 +69,11 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
     Date  mACCOUNTTIME;
 
     /**
+     * 是否已上传
+     */
+    @Column(name = "ISUPLOAD",notNull = true)
+    boolean  mISUPLOAD;
+    /**
      * 备注
      */
     @Column(name = "REMARK")

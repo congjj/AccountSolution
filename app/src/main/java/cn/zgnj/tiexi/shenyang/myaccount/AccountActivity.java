@@ -1,8 +1,10 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -59,8 +61,26 @@ public class AccountActivity extends AppCompatActivity
      */
     private void StartCamera(View v)
     {
+        Intent it = new Intent("android.media.action.IMAGE_CAPTURE");
+        startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
         this.mRcvPiclist .setVisibility(View.VISIBLE) ;
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        try{
+            Bundle extras = data.getExtras();
+            Bitmap b = (Bitmap) extras.get("data");
+             //take = b;
+            //ImageView img = (ImageView)findViewById(R.id.image);
+            //img.setImageBitmap(take);
+        }catch(Exception e){
+        }
+    }
+
 
     /**
      * 生成一条记账
