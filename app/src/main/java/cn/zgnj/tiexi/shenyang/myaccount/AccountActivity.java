@@ -5,11 +5,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import java.util.List;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
+
 
 public class AccountActivity extends AppCompatActivity
 {
@@ -47,6 +50,16 @@ public class AccountActivity extends AppCompatActivity
         //java.util.UUID.randomUUID().toString();
         List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
         loadBookTypelist(list) ;
+        this.mRcvPiclist .setVisibility(View.GONE) ;
+    }
+
+    /**
+     * 开始拍照
+     * @param v
+     */
+    private void StartCamera(View v)
+    {
+        this.mRcvPiclist .setVisibility(View.VISIBLE) ;
     }
 
     /**
@@ -79,11 +92,21 @@ public class AccountActivity extends AppCompatActivity
                 CreateIitem(v);
             }
         }) ;
+        this.mBtnCamera .setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                StartCamera(v);
+            }
+        }) ;
     }
 
 
     private Button mBtnDateSelect;
     private Button mBtnAccount;
+    private ImageButton mBtnCamera;
+    private RecyclerView mRcvPiclist;
     private Button mBtnAccountUpdate;
     private Button mBtnAccountCheck;
     private Button mBtnAccountReport;
@@ -106,8 +129,9 @@ public class AccountActivity extends AppCompatActivity
         this.mBtnAccountUpdate =(Button )findViewById(R.id.btnAccountUpdate) ;
         this.mBtnAccountCheck =(Button )findViewById(R.id.btnAccountCheck) ;
         this.mBtnAccountReport  =(Button )findViewById(R.id.btnAccountReport) ;
+        this.mBtnCamera =(ImageButton)findViewById(R.id .ibtnCamera ) ;
         mDateSelected =(DateSelected)findViewById(R.id.dateSelected);
-
+        this.mRcvPiclist =(RecyclerView)findViewById(R.id .rcvPiclist) ;
     }
 
 
