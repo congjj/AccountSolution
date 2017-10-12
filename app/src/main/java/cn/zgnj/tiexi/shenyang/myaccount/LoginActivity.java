@@ -1,5 +1,6 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.* ;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 
@@ -68,6 +70,10 @@ public class LoginActivity extends AppCompatActivity
     {
         try
         {
+            if(new PermissionsChecker(this).lacksPermissions(Manifest.permission.READ_PHONE_STATE ))
+            {
+                return;
+            }
             _TelephInfo = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
             String idb=_TelephInfo.getSubscriberId();
             String ida = _TelephInfo.getLine1Number();
