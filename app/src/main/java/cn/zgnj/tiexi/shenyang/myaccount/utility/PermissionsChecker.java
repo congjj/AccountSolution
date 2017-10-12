@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+
 
 /**
  * Created by CJJ on 2017/10/12.
@@ -50,7 +50,7 @@ public class PermissionsChecker
         if(verifyPermissions(permissions))
         {
             ActivityCompat.requestPermissions(
-                    (AppCompatActivity) mContext,
+                    (Activity) mContext,
                     permissions,
                     REQUEST_CODE
             );
@@ -67,8 +67,14 @@ public class PermissionsChecker
         {
             return true;
         }
-
     }
+
+
+
+
+
+
+
 
     // 判断是否缺少权限
     private boolean lacksPermission(String permission)

@@ -3,7 +3,10 @@ package cn.zgnj.tiexi.shenyang.myaccount;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -49,7 +52,7 @@ public class LoginActivity extends AppCompatActivity
         });
     }
 
-
+    int MY_PERMISSION_REQUEST_CODE=1000;
     private Button mbtnLogin;
     private TextView mtxvTelNO;
     private void LoadView()
@@ -68,11 +71,14 @@ public class LoginActivity extends AppCompatActivity
     private TelephonyManager _TelephInfo;
     private void Load(Bundle savedInstanceState)
     {
-        try
-        {
-            if(new PermissionsChecker(this).apllyPermissions(Manifest.permission.READ_PHONE_STATE ))
-            {
-
+//        try
+//        {
+//            if(new PermissionsChecker(this).apllyPermissions(Manifest.permission.READ_PHONE_STATE ))
+//            {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[] { Manifest.permission.READ_PHONE_STATE} ,
+                MY_PERMISSION_REQUEST_CODE);
 
                 _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
                 String idb = _TelephInfo.getSubscriberId();
@@ -80,13 +86,50 @@ public class LoginActivity extends AppCompatActivity
                 String id = _TelephInfo.getLine1Number().trim().length() == 0 ? _TelephInfo.getSubscriberId()
                         : _TelephInfo.getLine1Number();
                 mtxvTelNO.setText(id);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
+//            }
+//        }
+//        catch (Exception ex)
+//        {
+//            throw ex;
+//        }
     }
+
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        if (requestCode == MY_PERMISSION_REQUEST_CODE) {
+//            boolean isAllGranted = true;
+//
+//            // 判断是否所有的权限都已经授予了
+//            for (int grant : grantResults) {
+//                if (grant != PackageManager.PERMISSION_GRANTED) {
+//                    isAllGranted = false;
+//                    break;
+//                }
+//            }
+//
+//            if (isAllGranted) {
+//                // 如果所有的权限都授予了, 则执行备份代码
+//
+//
+//            } else {
+//                // 弹出对话框告诉用户需要权限的原因, 并引导用户去应用权限管理中手动打开权限按钮
+//
+//            }
+//        }
+//    }
+
+
+
+
+
+
+
+
+
+
 
     private void Login(View view)
     {
