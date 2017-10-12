@@ -70,17 +70,17 @@ public class LoginActivity extends AppCompatActivity
     {
         try
         {
-            if(new PermissionsChecker(this).lacksPermissions(Manifest.permission.READ_PHONE_STATE ))
+            if(new PermissionsChecker(this).apllyPermissions(Manifest.permission.READ_PHONE_STATE ))
             {
-                return;
-            }
-            _TelephInfo = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-            String idb=_TelephInfo.getSubscriberId();
-            String ida = _TelephInfo.getLine1Number();
-            String id = _TelephInfo.getLine1Number().trim().length() == 0 ? _TelephInfo.getSubscriberId()
-                    : _TelephInfo.getLine1Number();
-            mtxvTelNO.setText(id);
 
+
+                _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                String idb = _TelephInfo.getSubscriberId();
+                String ida = _TelephInfo.getLine1Number();
+                String id = _TelephInfo.getLine1Number().trim().length() == 0 ? _TelephInfo.getSubscriberId()
+                        : _TelephInfo.getLine1Number();
+                mtxvTelNO.setText(id);
+            }
         }
         catch (Exception ex)
         {
