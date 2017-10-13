@@ -37,18 +37,13 @@ public class Permissionhelper extends AppCompatActivity
         ActivityCompat.startActivityForResult(activity, intent, requestCode, null);
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState)
-//    {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_permissionhelper);
-//    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        if (getIntent() == null || !getIntent().hasExtra(EXTRA_PERMISSIONS)) {
+        if (getIntent() == null || !getIntent().hasExtra(EXTRA_PERMISSIONS))
+        {
             throw new RuntimeException("PermissionsActivity需要使用静态startActivityForResult方法启动!");
         }
         setContentView(R.layout.activity_permissionhelper);
@@ -108,7 +103,9 @@ public class Permissionhelper extends AppCompatActivity
         if (requestCode == PERMISSION_REQUEST_CODE && hasAllPermissionsGranted(grantResults)) {
             isRequireCheck = true;
             allPermissionsGranted();
-        } else {
+        }
+        else
+        {
             isRequireCheck = false;
             showMissingPermissionDialog();
         }
@@ -131,15 +128,19 @@ public class Permissionhelper extends AppCompatActivity
         builder.setMessage(R.string.string_help_text);
 
         // 拒绝, 退出应用
-        builder.setNegativeButton(R.string.quit, new DialogInterface.OnClickListener() {
-            @Override public void onClick(DialogInterface dialog, int which) {
+        builder.setNegativeButton(R.string.quit, new DialogInterface.OnClickListener()
+        {
+            @Override public void onClick(DialogInterface dialog, int which)
+            {
                 setResult(PERMISSIONS_DENIED);
                 finish();
             }
         });
 
-        builder.setPositiveButton(R.string.settings, new DialogInterface.OnClickListener() {
-            @Override public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton(R.string.settings, new DialogInterface.OnClickListener()
+        {
+            @Override public void onClick(DialogInterface dialog, int which)
+            {
                 startAppSettings();
             }
         });

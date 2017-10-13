@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity
         if(new PermissionsChecker(this).lacksPermissions(Manifest.permission.READ_PHONE_STATE))
         {
             //设置权限
-            Permissionhelper .startActivityForResult(this, REQUEST_CODE,Manifest.permission.READ_PHONE_STATE); ;
+            Permissionhelper.startActivityForResult(this, REQUEST_CODE,Manifest.permission.READ_PHONE_STATE); ;
         }
         _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         String id = _TelephInfo.getLine1Number().trim().length() == 0 ? _TelephInfo.getSubscriberId()
@@ -95,15 +95,28 @@ public class LoginActivity extends AppCompatActivity
 
     private void Login(View view)
     {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        IModelHelper a = new USERINFO("", "", _TelephInfo.getLine1Number(),
-                _TelephInfo.getSubscriberId(), "", df.format(new Date()), df.format(new Date()), "");
-        long returnid = a._Insert();
-        Toast.makeText(this, "登录成功-欢迎试用", Toast.LENGTH_LONG).show();
+        try
+        {
+            //无权限是设置权限
+            if(new PermissionsChecker(this).lacksPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+            {
+                //设置权限
+                Permissionhelper.startActivityForResult(this, REQUEST_CODE,Manifest.permission.WRITE_EXTERNAL_STORAGE); ;
+            }
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            IModelHelper a = new USERINFO("", "", _TelephInfo.getLine1Number(),
+                    _TelephInfo.getSubscriberId(), "", df.format(new Date()), df.format(new Date()), "");
+            long returnid = a._Insert();
+            Toast.makeText(this, "登录成功-欢迎试用", Toast.LENGTH_LONG).show();
 
-        Intent i = new Intent(this, OperateActivity.class);
-        i.putExtra("sendUserID", returnid);
-        startActivity(i);
+            Intent i = new Intent(this, OperateActivity.class);
+            i.putExtra("sendUserID", returnid);
+            startActivity(i);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
 
