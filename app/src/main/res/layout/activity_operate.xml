@@ -9,13 +9,15 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/pnlCreateBookType"
-        android:layout_width="318dp"
+        android:layout_width="0dp"
         android:layout_height="260dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498">
+        app:layout_constraintVertical_bias="0.498"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
 
         <Button
             android:id="@+id/btnBookType"
@@ -98,7 +100,7 @@
 
     <TextView
         android:id="@+id/txvBook"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/accountbook"
         android:textStyle="bold"
@@ -107,12 +109,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058"/>
+        app:layout_constraintVertical_bias="0.058"
+        android:layout_marginLeft="8dp"/>
 
     <Spinner
         android:id="@+id/cmbBookTypeList"
         style="@android:style/Widget.Spinner.DropDown"
-        android:layout_width="333dp"
+        android:layout_width="0dp"
         android:layout_height="34dp"
         android:spinnerMode="dialog"
         android:theme="@android:style/Theme.Holo.Light"
@@ -122,10 +125,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.096"
-        tools:spinnerMode="dialog"/>
+        tools:spinnerMode="dialog"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
 
     <LinearLayout
-        android:layout_width="358dp"
+        android:layout_width="0dp"
         android:layout_height="34dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
