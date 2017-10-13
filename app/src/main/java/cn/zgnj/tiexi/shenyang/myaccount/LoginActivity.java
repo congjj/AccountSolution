@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity
     }
 
     //region description 初始化
-
     private void InitializeComponent(Bundle savedInstanceState)
     {
         //载入View
@@ -52,7 +51,7 @@ public class LoginActivity extends AppCompatActivity
         });
     }
 
-    int MY_PERMISSION_REQUEST_CODE=1000;
+    int REQUEST_CODE=1000;
     private Button mbtnLogin;
     private TextView mtxvTelNO;
     private void LoadView()
@@ -71,65 +70,28 @@ public class LoginActivity extends AppCompatActivity
     private TelephonyManager _TelephInfo;
     private void Load(Bundle savedInstanceState)
     {
-//        try
-//        {
-//            if(new PermissionsChecker(this).apllyPermissions(Manifest.permission.READ_PHONE_STATE ))
-//            {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[] { Manifest.permission.READ_PHONE_STATE} ,
-                MY_PERMISSION_REQUEST_CODE);
-
-                _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-                String idb = _TelephInfo.getSubscriberId();
-                String ida = _TelephInfo.getLine1Number();
-                String id = _TelephInfo.getLine1Number().trim().length() == 0 ? _TelephInfo.getSubscriberId()
-                        : _TelephInfo.getLine1Number();
-                mtxvTelNO.setText(id);
-//            }
-//        }
-//        catch (Exception ex)
-//        {
-//            throw ex;
-//        }
+        //无权限是设置权限
+        if(new PermissionsChecker(this).lacksPermissions(Manifest.permission.READ_PHONE_STATE))
+        {
+            //设置权限
+            Permissionhelper .startActivityForResult(this, REQUEST_CODE,Manifest.permission.READ_PHONE_STATE); ;
+        }
+        _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String id = _TelephInfo.getLine1Number().trim().length() == 0 ? _TelephInfo.getSubscriberId()
+                : _TelephInfo.getLine1Number();
+        mtxvTelNO.setText(id);
     }
-
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//
-//        if (requestCode == MY_PERMISSION_REQUEST_CODE) {
-//            boolean isAllGranted = true;
-//
-//            // 判断是否所有的权限都已经授予了
-//            for (int grant : grantResults) {
-//                if (grant != PackageManager.PERMISSION_GRANTED) {
-//                    isAllGranted = false;
-//                    break;
-//                }
-//            }
-//
-//            if (isAllGranted) {
-//                // 如果所有的权限都授予了, 则执行备份代码
-//
-//
-//            } else {
-//                // 弹出对话框告诉用户需要权限的原因, 并引导用户去应用权限管理中手动打开权限按钮
-//
-//            }
-//        }
-//    }
-
-
-
-
-
-
-
-
-
-
+    //用户设置权限后的操作
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
+        if (requestCode == REQUEST_CODE && resultCode == Permissionhelper.PERMISSIONS_DENIED)
+        {
+            finish();
+        }
+    }
 
     private void Login(View view)
     {
