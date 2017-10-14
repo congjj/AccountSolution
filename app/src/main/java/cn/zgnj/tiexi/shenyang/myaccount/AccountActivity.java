@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,8 +19,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
@@ -39,7 +45,7 @@ public class AccountActivity extends AppCompatActivity
 
     private long accountBookID;
     private final  int CAMERA_REQUEST_CODE =100;
-
+    private List<Bitmap> billsItemlist=new ArrayList<>() ;
     /**
      * 载入时发生
      *
@@ -95,6 +101,10 @@ public class AccountActivity extends AppCompatActivity
                 //take = b;
 //                ImageView img = (ImageView)findViewById(R.id.imageView );
 //                img.setImageBitmap(b);
+                billsItemlist.add(b) ;
+                BillsitemAdapter mAdapter = new BillsitemAdapter(billsItemlist, this);
+                mRcvPiclist.setLayoutManager(new LinearLayoutManager(this));
+                mRcvPiclist.setAdapter(mAdapter);
             }
             catch(Exception e)
             {
