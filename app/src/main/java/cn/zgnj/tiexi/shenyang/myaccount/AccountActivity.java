@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -62,6 +63,10 @@ public class AccountActivity extends AppCompatActivity
         List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
         loadBookTypelist(list) ;
         this.mRcvPiclist .setVisibility(View.GONE) ;
+
+        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(0);
+        mRcvPiclist.setLayoutManager(linearLayoutManager);
     }
 
     /**
@@ -103,7 +108,7 @@ public class AccountActivity extends AppCompatActivity
 //                img.setImageBitmap(b);
                 billsItemlist.add(b) ;
                 BillsitemAdapter mAdapter = new BillsitemAdapter(billsItemlist, this);
-                mRcvPiclist.setLayoutManager(new LinearLayoutManager(this));
+
                 mRcvPiclist.setAdapter(mAdapter);
             }
             catch(Exception e)
