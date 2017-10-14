@@ -84,15 +84,15 @@ public class AccountActivity extends AppCompatActivity
         {
 
         }
-        else
+        else if(Activity.DEFAULT_KEYS_DIALER==requestCode)
         {
             try
             {
                 Bundle extras = data.getExtras();
                 Bitmap b = (Bitmap) extras.get("data");
                 //take = b;
-                ImageView img = (ImageView)findViewById(R.id.imageView );
-                img.setImageBitmap(b);
+//                ImageView img = (ImageView)findViewById(R.id.imageView );
+//                img.setImageBitmap(b);
             }
             catch(Exception e)
             {
