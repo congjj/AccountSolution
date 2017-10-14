@@ -38,7 +38,6 @@ public class BillsitemAdapter extends RecyclerView.Adapter<BillsitemAdapter.Bill
     public void onBindViewHolder(BillsitemAdapter.BillsItemView holder , int posision)
     {
         holder .mImageBills.setImageBitmap(mBillsList .get(posision)) ;
-
     }
 
     @Override

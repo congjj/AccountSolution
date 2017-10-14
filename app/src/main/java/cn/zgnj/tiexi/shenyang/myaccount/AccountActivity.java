@@ -80,10 +80,12 @@ public class AccountActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+        //拍照权限申请拒绝后
         if(CAMERA_REQUEST_CODE==requestCode  && resultCode == Permissionhelper.PERMISSIONS_DENIED)
         {
-
+                  finish() ;
         }
+        //拍照后返回照片
         else if(Activity.DEFAULT_KEYS_DIALER==requestCode)
         {
             try
