@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity
         });
     }
 
-    int REQUEST_CODE=1000;
+    private final  int READ_PHONE_REQUEST_CODE=1000;
     private Button mbtnLogin;
     private TextView mtxvTelNO;
     private void LoadView()
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity
         if(new PermissionsChecker(this).lacksPermissions(Manifest.permission.READ_PHONE_STATE))
         {
             //设置权限
-            Permissionhelper.startActivityForResult(this, REQUEST_CODE,Manifest.permission.READ_PHONE_STATE); ;
+            Permissionhelper.startActivityForResult(this, READ_PHONE_REQUEST_CODE,Manifest.permission.READ_PHONE_STATE); ;
         }
         _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         String id = _TelephInfo.getLine1Number().trim().length() == 0 ? _TelephInfo.getSubscriberId()
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
         // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
-        if (requestCode == REQUEST_CODE && resultCode == Permissionhelper.PERMISSIONS_DENIED)
+        if (requestCode == READ_PHONE_REQUEST_CODE && resultCode == Permissionhelper.PERMISSIONS_DENIED)
         {
             finish();
         }
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity
             if(new PermissionsChecker(this).lacksPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE))
             {
                 //设置权限
-                Permissionhelper.startActivityForResult(this, REQUEST_CODE,Manifest.permission.WRITE_EXTERNAL_STORAGE); ;
+                Permissionhelper.startActivityForResult(this,READ_PHONE_REQUEST_CODE,Manifest.permission.WRITE_EXTERNAL_STORAGE); ;
             }
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             IModelHelper a = new USERINFO("", "", _TelephInfo.getLine1Number(),

@@ -1,8 +1,7 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
+import android.Manifest;
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,6 +23,8 @@ import java.util.List;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.Permissionhelper;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.PermissionsChecker;
 
 
 public class AccountActivity extends AppCompatActivity
@@ -36,6 +38,7 @@ public class AccountActivity extends AppCompatActivity
     }
 
     private long accountBookID;
+    private final  int CAMERA_REQUEST_CODE =100;
 
     /**
      * 载入时发生
@@ -61,6 +64,12 @@ public class AccountActivity extends AppCompatActivity
      */
     private void StartCamera(View v)
     {
+        //无权限是设置权限
+        if(new PermissionsChecker(this).lacksPermissions(Manifest.permission.CAMERA))
+        {
+            //设置权限
+            Permissionhelper.startActivityForResult(this, CAMERA_REQUEST_CODE,Manifest.permission.CAMERA); ;
+        }
         Intent it = new Intent("android.media.action.IMAGE_CAPTURE");
         startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
         this.mRcvPiclist .setVisibility(View.VISIBLE) ;
@@ -71,13 +80,23 @@ public class AccountActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        try{
-            Bundle extras = data.getExtras();
-            Bitmap b = (Bitmap) extras.get("data");
-             //take = b;
-            //ImageView img = (ImageView)findViewById(R.id.image);
-            //img.setImageBitmap(take);
-        }catch(Exception e){
+        if(CAMERA_REQUEST_CODE==requestCode  && resultCode == Permissionhelper.PERMISSIONS_DENIED)
+        {
+
+        }
+        else
+        {
+            try
+            {
+                Bundle extras = data.getExtras();
+                Bitmap b = (Bitmap) extras.get("data");
+                //take = b;
+                ImageView img = (ImageView)findViewById(R.id.imageView );
+                img.setImageBitmap(b);
+            }
+            catch(Exception e)
+            {
+            }
         }
     }
 

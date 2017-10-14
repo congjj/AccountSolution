@@ -10,12 +10,21 @@
     tools:layout_editor_absoluteY="81dp">
 
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="219dp"
+        android:layout_height="71dp"
+        app:srcCompat="@android:drawable/alert_light_frame"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.868"/>
+
     <LinearLayout
         android:id="@+id/llaybtn"
         android:layout_width="0dp"
         android:layout_height="51dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -62,13 +71,11 @@
         android:orientation="vertical"
         android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp">
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/txvTitle"
