@@ -81,6 +81,20 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
 
     public ACCOUNTLIST(){}
 
+    /**
+     * 初始化
+     * @param mAccountSubject
+     * @param mUUID
+     * @param mName
+     * @param mCount
+     * @param mPrice
+     * @param mIsChecked
+     * @param mIsActived
+     * @param mCreateTime
+     * @param mAccountTime
+     * @param mIsUpload
+     * @param mRemark
+     */
     public ACCOUNTLIST (ACCOUNTSUBJECT mAccountSubject ,String mUUID,String mName ,double mCount,double mPrice, boolean mIsChecked,
             boolean mIsActived,Date mCreateTime,Date mAccountTime,boolean mIsUpload,String mRemark)
     {

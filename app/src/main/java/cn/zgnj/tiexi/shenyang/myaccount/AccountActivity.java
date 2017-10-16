@@ -13,21 +13,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTLIST;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Permissionhelper;
@@ -127,6 +131,20 @@ public class AccountActivity extends AppCompatActivity
      */
     private void CreateIitem(View v)
     {
+        if(!verify()) return ;
+        ACCOUNTSUBJECT subject = (ACCOUNTSUBJECT)this.mSpnSubject.getSelectedItem();
+        String accountName=this.mEdtName .getText().toString();
+        String accountCount=this.mEditCount .getText() .toString() ;
+        String accountPrice =this.mEditPrice .getText() .toString() ;
+        String accountRemark=this.mEdtRemark .getText() .toString() ;
+        boolean ischeck =this.mIsCheckAccount.isChecked() ;
+        Date createTime = mDateSelected .getNow().getTime();
+        Date accountTime = mDateSelected .getSelectDate() .getTime() ;
+        String itmeID=java.util.UUID.randomUUID().toString();
+        IModelHelper accountItem = new ACCOUNTLIST(subject,itmeID,accountName , Double .parseDouble(accountCount),
+                Double .parseDouble(accountPrice ),ischeck ,true ,createTime ,accountTime , false ,accountRemark  ) ;
+        accountItem ._Insert() ;
+
     }
 
     private void loadBookTypelist(List<ACCOUNTSUBJECT> booklist)
@@ -148,6 +166,30 @@ public class AccountActivity extends AppCompatActivity
         }
     }
 
+
+    //判断记账填写是否合法
+    private boolean verify()
+    {
+        if(this.mEdtName.getText().toString() .trim() .length() ==0)
+        {
+            Toast.makeText(this, "记账名称必须填写！", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else if(this.mEditPrice .getText() .toString() .trim().length()==0)
+        {
+            Toast.makeText(this, "单价必须填写！", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else if(this.mEditCount .getText() .toString() .trim() .length() ==0)
+        {
+            Toast.makeText(this, "数量必须填写！", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     //region description 初始化
     private void InitializeComponent(Bundle savedInstanceState)
@@ -190,6 +232,7 @@ public class AccountActivity extends AppCompatActivity
     private TextView mTvTitle;
     private Spinner mSpnSubject;
     private DateSelected mDateSelected ;
+    private CheckBox mIsCheckAccount;
     private void LoadView()
     {
         this.mSpnSubject = (Spinner) findViewById(R.id.spSubject);
@@ -205,6 +248,7 @@ public class AccountActivity extends AppCompatActivity
         this.mBtnCamera =(ImageButton)findViewById(R.id .ibtnCamera ) ;
         mDateSelected =(DateSelected)findViewById(R.id.dateSelected);
         this.mRcvPiclist =(RecyclerView)findViewById(R.id .rcvPiclist) ;
+        this.mIsCheckAccount =(CheckBox)findViewById(R.id .chkAccountCheck) ;
     }
 
 

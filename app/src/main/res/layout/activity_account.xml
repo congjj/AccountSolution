@@ -340,7 +340,7 @@
             tools:layout_editor_absoluteY="367dp">
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/chkAccountCheck"
                 android:layout_width="102dp"
                 android:layout_height="wrap_content"
                 android:text="@string/check"/>

@@ -18,37 +18,49 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
     /**
      * 外键 花销 ID
      */
-    @Column(name = "ACCOUNTLIST_ID",notNull = true)
-    ACCOUNTLIST mACCOUNTLIST ;
+    @Column(name = "ACCOUNTLIST_ID", notNull = true)
+    ACCOUNTLIST mACCOUNTLIST;
 
     /**
      * 票据名称
      */
-    @Column(name = "NAME",notNull = true)
+    @Column(name = "NAME", notNull = true)
     String mNAME;
 
     /**
      * 序号
      */
-    @Column(name = "INDEX",notNull = true)
+    @Column(name = "INDEX", notNull = true)
     int mINDEX;
 
     /**
      * 图片数据
      */
-    @Column(name = "PIC",notNull = true)
+    @Column(name = "PIC", notNull = true)
     Bitmap mPIC;
 
     /**
      * 是否有效
      */
-    @Column(name = "ISACTIVED",notNull = true)
-    boolean  mISACTIVED;
+    @Column(name = "ISACTIVED", notNull = true)
+    boolean mISACTIVED;
 
+    public ACCOUNTBILL()
+    {}
+
+    public ACCOUNTBILL(ACCOUNTLIST mAccountList,String mName,int mIndex,Bitmap mPic,boolean mIsActived)
+    {
+        this.mACCOUNTLIST =mAccountList ;
+        this.mNAME =mName ;
+        this.mINDEX =mIndex ;
+        this.mPIC =mPic ;
+        this.mISACTIVED =mIsActived ;
+    }
 
     @Override
     public long _Insert()
     {
-        return 0;
+        return this.save();
     }
+
 }
