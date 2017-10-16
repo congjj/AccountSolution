@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBILL;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTLIST;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
@@ -143,8 +144,19 @@ public class AccountActivity extends AppCompatActivity
         String itmeID=java.util.UUID.randomUUID().toString();
         IModelHelper accountItem = new ACCOUNTLIST(subject,itmeID,accountName , Double .parseDouble(accountCount),
                 Double .parseDouble(accountPrice ),ischeck ,true ,createTime ,accountTime , false ,accountRemark  ) ;
-        accountItem ._Insert() ;
+        if(accountItem ._Insert() >0)
+        {
+            if(mAdapter .getItemCount() >0)
+            {
+                ACCOUNTLIST temp = ACCOUNTLIST.getOne(itmeID) ;
+                int index=1;
+                for(Bitmap bitmap :billsItemlist)
+                {
+                    new ACCOUNTBILL(temp ,java.util.UUID.randomUUID().toString(),index ++,bitmap ,true) ._Insert() ;
+                }
+            }
 
+        }
     }
 
     private void loadBookTypelist(List<ACCOUNTSUBJECT> booklist)

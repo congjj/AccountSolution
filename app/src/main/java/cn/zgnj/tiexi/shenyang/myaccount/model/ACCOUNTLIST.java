@@ -111,6 +111,17 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
         this.mREMARK =mRemark ;
     }
 
+
+    /**
+     * 根据uuID查找一条记账记录
+     * @param uuID
+     * @return
+     */
+    public static  ACCOUNTLIST getOne(String uuID)
+    {
+        return (ACCOUNTLIST) ACCOUNTLIST.find(ACCOUNTLIST.class ,"UUID=?",uuID).toArray() [0];
+    }
+
     @Override
     public long _Insert()
     {
