@@ -46,7 +46,8 @@ public class AccountActivity extends AppCompatActivity
 
     private long accountBookID;
     private final  int CAMERA_REQUEST_CODE =100;
-    private List<Bitmap> billsItemlist=new ArrayList<>() ;
+    private List<Bitmap> billsItemlist ;
+    private BillsitemAdapter mAdapter;
     /**
      * 载入时发生
      *
@@ -62,8 +63,10 @@ public class AccountActivity extends AppCompatActivity
         //java.util.UUID.randomUUID().toString();
         List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
         loadBookTypelist(list) ;
-        this.mRcvPiclist .setVisibility(View.GONE) ;
+        billsItemlist =new ArrayList<>();
+        mAdapter =new BillsitemAdapter(billsItemlist ,this) ;
 
+        doCaremaSuccess() ;
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(0);
         mRcvPiclist.setLayoutManager(linearLayoutManager);
@@ -83,7 +86,7 @@ public class AccountActivity extends AppCompatActivity
         }
         Intent it = new Intent("android.media.action.IMAGE_CAPTURE");
         startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
-        this.mRcvPiclist .setVisibility(View.VISIBLE) ;
+
     }
 
 
@@ -94,7 +97,7 @@ public class AccountActivity extends AppCompatActivity
         //拍照权限申请拒绝后
         if(CAMERA_REQUEST_CODE==requestCode  && resultCode == Permissionhelper.PERMISSIONS_DENIED)
         {
-                  finish() ;
+            finish() ;
         }
         //拍照后返回照片
         else if(Activity.DEFAULT_KEYS_DIALER==requestCode)
@@ -107,9 +110,9 @@ public class AccountActivity extends AppCompatActivity
 //                ImageView img = (ImageView)findViewById(R.id.imageView );
 //                img.setImageBitmap(b);
                 billsItemlist.add(b) ;
-                BillsitemAdapter mAdapter = new BillsitemAdapter(billsItemlist, this);
-
+                mAdapter = new BillsitemAdapter(billsItemlist, this);
                 mRcvPiclist.setAdapter(mAdapter);
+                doCaremaSuccess();
             }
             catch(Exception e)
             {
@@ -126,11 +129,25 @@ public class AccountActivity extends AppCompatActivity
     {
     }
 
-    private  void loadBookTypelist(List<ACCOUNTSUBJECT> booklist)
+    private void loadBookTypelist(List<ACCOUNTSUBJECT> booklist)
     {
         ArrayAdapter<ACCOUNTSUBJECT> adp=new ArrayAdapter<ACCOUNTSUBJECT>(this , R.layout.support_simple_spinner_dropdown_item,booklist);
         this.mSpnSubject.setAdapter(adp);
     }
+
+    private void doCaremaSuccess()
+    {
+        //没有图片隐藏图片显示区域
+        if(mAdapter .getItemCount()==0)
+        {
+            this.mRcvPiclist .setVisibility(View.GONE) ;
+        }
+        else
+        {
+            this.mRcvPiclist .setVisibility(View.VISIBLE);
+        }
+    }
+
 
     //region description 初始化
     private void InitializeComponent(Bundle savedInstanceState)

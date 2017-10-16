@@ -40,6 +40,10 @@ public class BillsitemAdapter extends RecyclerView.Adapter<BillsitemAdapter.Bill
         holder .mImageBills.setImageBitmap(mBillsList .get(posision)) ;
     }
 
+    /**
+     * 获取项目个数
+     * @return
+     */
     @Override
     public int getItemCount()
     {

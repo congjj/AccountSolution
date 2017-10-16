@@ -26,7 +26,7 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
      * 唯一ID
      */
     @Column(name = "UUID",notNull = true,unique = true)
-    String UUID;
+    String mUUID;
 
     /**
      * 花销名称
@@ -50,7 +50,7 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
      * 是否已对账
      */
     @Column(name = "ISCHECKED",notNull = true)
-    Double mISCHECKED;
+    boolean mISCHECKED;
     /**
      * 是否有效
      */
@@ -79,10 +79,27 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
     @Column(name = "REMARK")
     String mREMARK;
 
+    public ACCOUNTLIST(){}
+
+    public ACCOUNTLIST (ACCOUNTSUBJECT mAccountSubject ,String mUUID,String mName ,double mCount,double mPrice, boolean mIsChecked,
+            boolean mIsActived,Date mCreateTime,Date mAccountTime,boolean mIsUpload,String mRemark)
+    {
+        this.mACCOUNTSUBJECT =mAccountSubject ;
+        this.mUUID =mUUID ;
+        this.mNAME =mName ;
+        this.mCOUNT =mCount ;
+        this.mPRICE =mPrice ;
+        this.mISCHECKED =mIsChecked ;
+        this.mISACTIVED =mIsActived ;
+        this.mCREATETIME =mCreateTime ;
+        this.mACCOUNTTIME =mAccountTime ;
+        this.mISUPLOAD =mIsUpload ;
+        this.mREMARK =mRemark ;
+    }
 
     @Override
     public long _Insert()
     {
-        return 0;
+        return this.save();
     }
 }
