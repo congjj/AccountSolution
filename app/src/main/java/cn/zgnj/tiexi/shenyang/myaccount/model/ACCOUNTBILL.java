@@ -30,14 +30,14 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
     /**
      * 序号
      */
-    @Column(name = "INDEX", notNull = true)
-    int mINDEX;
+//    @Column(name = "INDEX", notNull = true)
+//    int mINDEX;
 
     /**
      * 图片数据
      */
-    @Column(name = "PIC", notNull = true)
-    Bitmap mPIC;
+    @Column(name = "PIC")
+    byte []  mPIC;
 
     /**
      * 是否有效
@@ -48,11 +48,12 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
     public ACCOUNTBILL()
     {}
 
-    public ACCOUNTBILL(ACCOUNTLIST mAccountList,String mName,int mIndex,Bitmap mPic,boolean mIsActived)
+    public ACCOUNTBILL(ACCOUNTLIST mAccountList,String mName//,int mIndex
+            ,byte [] mPic,boolean mIsActived)
     {
         this.mACCOUNTLIST =mAccountList ;
         this.mNAME =mName ;
-        this.mINDEX =mIndex ;
+        //this.mINDEX =mIndex ;
         this.mPIC =mPic ;
         this.mISACTIVED =mIsActived ;
     }

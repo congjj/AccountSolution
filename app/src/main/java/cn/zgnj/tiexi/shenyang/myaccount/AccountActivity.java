@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -37,6 +38,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Permissionhelper;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.PermissionsChecker;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 
 
 public class AccountActivity extends AppCompatActivity
@@ -152,7 +154,9 @@ public class AccountActivity extends AppCompatActivity
                 int index=1;
                 for(Bitmap bitmap :billsItemlist)
                 {
-                    new ACCOUNTBILL(temp ,java.util.UUID.randomUUID().toString(),index ++,bitmap ,true) ._Insert() ;
+                    new ACCOUNTBILL(temp ,java.util.UUID.randomUUID().toString(),//index ++,
+                        null   // Toolkit .bitmap4byte( bitmap)
+                            ,true) ._Insert() ;
                 }
             }
 
@@ -179,6 +183,9 @@ public class AccountActivity extends AppCompatActivity
     }
 
 
+
+
+
     //判断记账填写是否合法
     private boolean verify()
     {
@@ -202,6 +209,8 @@ public class AccountActivity extends AppCompatActivity
             return true;
         }
     }
+
+
 
     //region description 初始化
     private void InitializeComponent(Bundle savedInstanceState)
