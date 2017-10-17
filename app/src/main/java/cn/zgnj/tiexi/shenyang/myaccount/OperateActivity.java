@@ -19,6 +19,7 @@ import java.util.List;
 import cn.zgnj.tiexi.shenyang.myaccount.model.* ;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 
 public class OperateActivity extends AppCompatActivity
 {
@@ -204,8 +205,8 @@ public class OperateActivity extends AppCompatActivity
     {
         long id = getIntent().getLongExtra("sendUserID",-1) ;
         USERINFO userinfo =USERINFO.getOne(id);
-        IModelHelper book=new ACCOUNTBOOK(userinfo,mEdtBookName.getText().toString().toUpperCase(),
-                mEdtBookRemark.getText().toString()) ;
+        IModelHelper book=new ACCOUNTBOOK(userinfo, Toolkit.replaceBlank(mEdtBookName.getText().toString().toUpperCase()),
+               Toolkit .replaceBlank(mEdtBookRemark.getText().toString())) ;
         if( book._Insert()==-1)
         {
             Toast.makeText(this,"记账簿名称：" + mEdtBookName.getText()+" 重复，请换用其它名称！", Toast.LENGTH_LONG ).show();

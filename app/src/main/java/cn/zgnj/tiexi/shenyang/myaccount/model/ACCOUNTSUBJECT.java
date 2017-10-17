@@ -96,7 +96,14 @@ public class ACCOUNTSUBJECT extends SugarRecord  implements Serializable,IModelH
     @Override
     public String toString()
     {
-        return this.NAME +"【"+this.REMARK +"】";
+        if(this.REMARK .trim() .length() ==0)
+        {
+            return this.NAME ;
+        }
+        else
+        {
+            return this.NAME + "【" + this.REMARK + "】";
+        }
     }
 
 }

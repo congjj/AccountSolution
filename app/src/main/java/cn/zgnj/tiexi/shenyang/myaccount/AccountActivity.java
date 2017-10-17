@@ -154,12 +154,12 @@ public class AccountActivity extends AppCompatActivity
                 int index=1;
                 for(Bitmap bitmap :billsItemlist)
                 {
-                    new ACCOUNTBILL(temp ,java.util.UUID.randomUUID().toString(),//index ++,
-                        null   // Toolkit .bitmap4byte( bitmap)
+                    new ACCOUNTBILL(temp ,java.util.UUID.randomUUID().toString(),index ++,
+                        Toolkit .bitmap4byte( bitmap)
                             ,true) ._Insert() ;
                 }
             }
-
+            success() ;
         }
     }
 
@@ -167,6 +167,16 @@ public class AccountActivity extends AppCompatActivity
     {
         ArrayAdapter<ACCOUNTSUBJECT> adp=new ArrayAdapter<ACCOUNTSUBJECT>(this , R.layout.support_simple_spinner_dropdown_item,booklist);
         this.mSpnSubject.setAdapter(adp);
+    }
+
+    private void success()
+    {
+        this.mEdtName .setText("") ;
+        this.mEditCount .setText("") ;
+        this.mEditPrice .setText("") ;
+        this.mEdtRemark .setText("") ;
+        mAdapter .setClear() ;
+        doCaremaSuccess() ;
     }
 
     private void doCaremaSuccess()
@@ -181,8 +191,6 @@ public class AccountActivity extends AppCompatActivity
             this.mRcvPiclist .setVisibility(View.VISIBLE);
         }
     }
-
-
 
 
 

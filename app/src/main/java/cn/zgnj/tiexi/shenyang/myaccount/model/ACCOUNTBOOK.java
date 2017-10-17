@@ -85,7 +85,14 @@ public class ACCOUNTBOOK extends SugarRecord implements Serializable,IModelHelpe
     @Override
     public String toString()
     {
-        return this.NAME +"【"+this.REMARK +"】";
+        if(this.REMARK .trim() .length() ==0)
+        {
+            return this.NAME ;
+        }
+        else
+        {
+            return this.NAME + "【" + this.REMARK + "】";
+        }
     }
 
 }

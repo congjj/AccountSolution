@@ -17,6 +17,7 @@ import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 
 public class SubjectActivity extends AppCompatActivity
 {
@@ -157,8 +158,8 @@ public class SubjectActivity extends AppCompatActivity
         {
             String outin = temp.getISOUT() ? "支出" : "收入";
             mDatasOut.add(outin);
-            mDatasName.add(temp.getNAME());
-            mDatasRemark.add(temp.getREMARK());
+            mDatasName.add(Toolkit .replaceBlank(temp.getNAME()));
+            mDatasRemark.add(Toolkit .replaceBlank(temp.getREMARK()));
         }
         SubjectItmeAdapter mAdapter = new SubjectItmeAdapter(mDatasName, mDatasRemark, mDatasOut, this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

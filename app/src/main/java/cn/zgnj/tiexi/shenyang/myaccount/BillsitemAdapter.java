@@ -29,8 +29,7 @@ public class BillsitemAdapter extends RecyclerView.Adapter<BillsitemAdapter.Bill
     public BillsitemAdapter.BillsItemView onCreateViewHolder(ViewGroup parent, int viewType)
     {
         BillsitemAdapter.BillsItemView holder =new BillsitemAdapter.BillsItemView(LayoutInflater.from(mContext ).inflate(
-                R.layout .adapter_billsitem ,parent ,false
-        ) ) ;
+                R.layout .adapter_billsitem ,parent ,false)) ;
         return holder;
     }
 
@@ -50,6 +49,13 @@ public class BillsitemAdapter extends RecyclerView.Adapter<BillsitemAdapter.Bill
         return mBillsList.size();
     }
 
+    /**
+     * 清空
+     */
+    public void setClear()
+    {
+        mBillsList .clear() ;
+    }
 
     public class BillsItemView extends RecyclerView.ViewHolder
     {
