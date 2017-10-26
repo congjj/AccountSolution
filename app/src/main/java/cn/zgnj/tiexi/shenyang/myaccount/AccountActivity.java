@@ -163,6 +163,12 @@ public class AccountActivity extends AppCompatActivity
         }
     }
 
+
+    //查询账目
+    private void ShowAccountReport(View v)
+    {
+    }
+
     private void loadBookTypelist(List<ACCOUNTSUBJECT> booklist)
     {
         ArrayAdapter<ACCOUNTSUBJECT> adp=new ArrayAdapter<ACCOUNTSUBJECT>(this , R.layout.support_simple_spinner_dropdown_item,booklist);
@@ -227,7 +233,9 @@ public class AccountActivity extends AppCompatActivity
          * 载入View
          */
         this.LoadView();
+        //载入时发生
         Load(getIntent(), savedInstanceState);
+        //控件时间生成
         this.mBtnAccount .setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -244,7 +252,16 @@ public class AccountActivity extends AppCompatActivity
                 StartCamera(v);
             }
         }) ;
+        this.mBtnAccountReport .setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                ShowAccountReport(v);
+            }
+        }) ;
     }
+
 
 
     private Button mBtnDateSelect;
@@ -278,6 +295,7 @@ public class AccountActivity extends AppCompatActivity
         mDateSelected =(DateSelected)findViewById(R.id.dateSelected);
         this.mRcvPiclist =(RecyclerView)findViewById(R.id .rcvPiclist) ;
         this.mIsCheckAccount =(CheckBox)findViewById(R.id .chkAccountCheck) ;
+        this.mBtnAccountReport=(Button)findViewById(R.id.btnAccountReport) ;
     }
 
 
