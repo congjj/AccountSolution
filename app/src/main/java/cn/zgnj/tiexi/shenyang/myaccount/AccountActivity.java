@@ -67,12 +67,10 @@ public class AccountActivity extends AppCompatActivity
         bundle = intent.getBundleExtra("sendBookType");
         accountBookID = bundle.getLong("book_ID");
         mTvTitle .setText(bundle .getString("name")+"【"+bundle .getString("remark") +"】" ) ;
-        //java.util.UUID.randomUUID().toString();
         List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
         loadBookTypelist(list) ;
         billsItemlist =new ArrayList<>();
         mAdapter =new BillsitemAdapter(billsItemlist ,this) ;
-
         doCaremaSuccess() ;
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(0);
@@ -167,6 +165,7 @@ public class AccountActivity extends AppCompatActivity
     //查询账目
     private void ShowAccountReport(View v)
     {
+
     }
 
     private void loadBookTypelist(List<ACCOUNTSUBJECT> booklist)
