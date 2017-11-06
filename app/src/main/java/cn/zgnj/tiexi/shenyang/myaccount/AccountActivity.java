@@ -168,7 +168,11 @@ public class AccountActivity extends AppCompatActivity
     //查询账目
     private void ShowAccountReport(View v)
     {
-
+        Intent i=new Intent(this  ,AccountreportActivity .class );
+        Bundle bundle = new Bundle() ;
+        bundle.putLong("bookID",accountBookID) ;
+        i.putExtra("sendBookID",bundle);
+        startActivity(i);
     }
 
     private void loadBookTypelist(List<ACCOUNTSUBJECT> booklist)
