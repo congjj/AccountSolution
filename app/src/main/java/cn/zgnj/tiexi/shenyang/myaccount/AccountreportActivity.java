@@ -34,6 +34,7 @@ public class AccountreportActivity extends AppCompatActivity
     //载入时发生
     private void Load(Intent intent, Bundle savedInstanceState)
     {
+
     }
 
 
