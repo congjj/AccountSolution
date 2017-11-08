@@ -43,13 +43,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 
 public class AccountActivity extends AppCompatActivity
 {
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
-        this.InitializeComponent(savedInstanceState);
-    }
+
 
     private long accountBookID;
     private final int CAMERA_REQUEST_CODE = 100;
@@ -226,7 +220,17 @@ public class AccountActivity extends AppCompatActivity
     }
 
 
+
     //region description 初始化
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_account);
+        this.InitializeComponent(savedInstanceState);
+    }
+
     private void InitializeComponent(Bundle savedInstanceState)
     {
         /**
@@ -299,8 +303,6 @@ public class AccountActivity extends AppCompatActivity
 
 
     }
-
-
     //endregion
 
 }
