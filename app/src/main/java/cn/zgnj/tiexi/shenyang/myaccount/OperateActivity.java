@@ -29,8 +29,6 @@ public class OperateActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operate);
         this.InitializeComponent( savedInstanceState) ;
-
-        //long id = getIntent() .getLongExtra("data",-1) ;
     }
 
     //region description 初始化
@@ -231,6 +229,7 @@ public class OperateActivity extends AppCompatActivity
         mPnlCreateBookType .setVisibility(View.INVISIBLE) ;
     }
 
+    //开始记账
     private void StartAccount(View view)
     {
         ACCOUNTBOOK book = (ACCOUNTBOOK)mCmbBookTypeList.getSelectedItem() ;
