@@ -15,12 +15,12 @@ public class DateSelected4Section extends LinearLayout
 
     public DateSelected4Section(Context context)
     {
-        super(context);
+        this(context,null,0);
     }
 
     public DateSelected4Section(Context context, @Nullable AttributeSet attrs)
     {
-        super(context, attrs);
+        this(context,null,0);
     }
 
     public DateSelected4Section(Context context, @Nullable AttributeSet attrs, int defStyleAttr)
@@ -28,8 +28,5 @@ public class DateSelected4Section extends LinearLayout
         super(context, attrs, defStyleAttr);
     }
 
-    public DateSelected4Section(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
-    {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
+
 }
