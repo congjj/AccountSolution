@@ -25,4 +25,5 @@
     <string name="selectdate">选择</string>
     <string name="camerapic">票据拍照</string>
     <string name="isSubject">按项目查询</string>
+    <string name="bolangxian">至</string>
 </resources>
