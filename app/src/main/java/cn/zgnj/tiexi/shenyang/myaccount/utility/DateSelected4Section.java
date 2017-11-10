@@ -1,11 +1,14 @@
 package cn.zgnj.tiexi.shenyang.myaccount.utility;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,7 +38,6 @@ public class DateSelected4Section extends LinearLayout
 
 
 
-
     public DateSelected4Section(Context context)
     {
         this(context,null,0);
@@ -46,7 +48,7 @@ public class DateSelected4Section extends LinearLayout
         this(context,null,0);
     }
 
-    public DateSelected4Section(Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+    public DateSelected4Section(final Context context, @Nullable AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
         View view = LayoutInflater.from(context).inflate(R.layout.layout_dateselected4section ,this ,true);
@@ -63,7 +65,7 @@ public class DateSelected4Section extends LinearLayout
             @Override
             public void onClick(View v)
             {
-                setFromDate(v);
+                showSelectDateDialog( context,v);
             }
         }) ;
         this.mBtnFrom .setOnClickListener(new OnClickListener()
@@ -71,23 +73,42 @@ public class DateSelected4Section extends LinearLayout
             @Override
             public void onClick(View v)
             {
-                setToDate(v);
+                showSelectDateDialog(context,v);
             }
         }) ;
     }
 
 
-    private void setToDate(View v)
+    private void showSelectDateDialog(Context context, View view )
     {
-
+        Button btn = (Button) view;
+        if( btn.getId()==R.id .btnFrom )
+        {
+            new DatePickerDialog(context ,mfromDateListener,mFromYear,mFromMonth ,mFromDay).show();
+        }
+        else if(btn.getId()==R.id .btnTo)
+        {
+            new DatePickerDialog(context ,mtoDateListener,mFromYear,mFromMonth ,mFromDay).show();
+        }
     }
 
-
-    private void setFromDate(View v)
+    private DatePickerDialog.OnDateSetListener mfromDateListener=new DatePickerDialog.OnDateSetListener()
     {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
+        {
 
-    }
+        }
+    };
 
+    private DatePickerDialog.OnDateSetListener mtoDateListener=new DatePickerDialog.OnDateSetListener()
+    {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
+        {
+
+        }
+    };
 
     public Calendar GetFromDate()
     {
