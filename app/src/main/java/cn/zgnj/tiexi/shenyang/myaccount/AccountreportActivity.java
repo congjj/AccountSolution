@@ -28,12 +28,11 @@ public class AccountreportActivity extends AppCompatActivity
         bundle = intent.getBundleExtra("sendBookID");
         mACCOUNTBOOK =ACCOUNTBOOK .getItSelf(bundle.getLong("book_ID"));
         this.mTxvReprotBookName .setText(mACCOUNTBOOK .toString());
-
     }
 
     private void txvReprotBookName_AfterTextChanged(Editable s)
     {
-         mChkIsSubject .setText(s.toString()+"fff") ;
+
     }
 
     private void spnSubjectItem_ItemSelected(AdapterView<?> parent, View view, int position, long id)
