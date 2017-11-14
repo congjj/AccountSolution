@@ -2,6 +2,7 @@ package cn.zgnj.tiexi.shenyang.myaccount.utility;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -26,6 +27,13 @@ import cn.zgnj.tiexi.shenyang.myaccount.R;
 public class DateSelected4Section extends LinearLayout
 {
 
+    public interface AfterSelectedDateDialogListener
+    {
+        public void AfterSelectedDate(int btnID,Calendar fromCa,Calendar toCa);
+    }
+
+    public AfterSelectedDateDialogListener SetOnAfterSelectedDateListener;
+
     private Calendar mFromCa = Calendar.getInstance(Locale.CHINA);
     private Calendar mToCa = Calendar.getInstance(Locale.CHINA);
     private Button mBtnFrom;
@@ -35,28 +43,50 @@ public class DateSelected4Section extends LinearLayout
     private int mFromYear ;
     private int mFromMonth ;
     private int mFromDay ;
+    private int mToYear ;
+    private int mToMonth ;
+    private int mToDay ;
 
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
 
-    public DateSelected4Section(Context context)
+    @Override
+    protected void onDraw(Canvas canvas)
+    {
+
+    }
+    public DateSelected4Section (Context context)
     {
         this(context,null,0);
     }
 
-    public DateSelected4Section(Context context, @Nullable AttributeSet attrs)
+    public DateSelected4Section (Context context, AttributeSet attrs)
     {
-        this(context,null,0);
+        this(context, attrs, 0);
     }
 
-    public DateSelected4Section(final Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+
+    public DateSelected4Section(final Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
         View view = LayoutInflater.from(context).inflate(R.layout.layout_dateselected4section ,this ,true);
-        mBtnFrom =(Button)findViewById(R.id.btnFrom) ;
-        mBtnTo =(Button)findViewById(R.id.btnTo) ;
-        mTxvTile =(TextView)  findViewById(R.id .textView10 ) ;
-        StringBuffer fromdate =new StringBuffer().append(mFromCa .get(Calendar .YEAR)).append("-") .append(mFromCa .get(Calendar .MONTH)) .append("-") .append(mFromCa .get(Calendar.DAY_OF_MONTH)) ;
-        StringBuffer todate =new StringBuffer().append(mToCa .get(Calendar .YEAR)).append("-") .append(mToCa .get(Calendar .MONTH)+1) .append("-") .append(mToCa .get(Calendar.DAY_OF_MONTH)) ;
+        mBtnFrom =(Button)view.findViewById(R.id.btnFrom) ;
+        mBtnTo =(Button)view.findViewById(R.id.btnTo) ;
+        mTxvTile =(TextView)view. findViewById(R.id .textView10 ) ;
+
+        mFromYear =mFromCa .get(Calendar .YEAR);
+        mFromMonth =mFromCa .get(Calendar .MONTH);
+        mFromDay=mFromCa .get(Calendar.DAY_OF_MONTH) ;
+        mToYear =mToCa .get(Calendar .YEAR);
+        mToMonth =mToCa .get(Calendar .MONTH)+1;
+        mToDay =mToCa .get(Calendar.DAY_OF_MONTH);
+        StringBuffer fromdate =new StringBuffer().append(mFromYear).append("-") .append(mFromMonth) .append("-") .append(mFromDay) ;
+        StringBuffer todate =new StringBuffer().append(mToYear ).append("-") .append(mToMonth) .append("-") .append(mToDay) ;
+
         mBtnFrom .setText(fromdate) ;
         mBtnTo .setText(todate ) ;
 
@@ -68,7 +98,7 @@ public class DateSelected4Section extends LinearLayout
                 showSelectDateDialog( context,v);
             }
         }) ;
-        this.mBtnFrom .setOnClickListener(new OnClickListener()
+        this.mBtnTo .setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -84,11 +114,11 @@ public class DateSelected4Section extends LinearLayout
         Button btn = (Button) view;
         if( btn.getId()==R.id .btnFrom )
         {
-            new DatePickerDialog(context ,mfromDateListener,mFromYear,mFromMonth ,mFromDay).show();
+            new DatePickerDialog(context ,mfromDateListener,mFromYear,mFromMonth -1,mFromDay).show();
         }
         else if(btn.getId()==R.id .btnTo)
         {
-            new DatePickerDialog(context ,mtoDateListener,mFromYear,mFromMonth ,mFromDay).show();
+            new DatePickerDialog(context ,mtoDateListener,mToYear,mToMonth -1,mToDay ).show();
         }
     }
 
@@ -97,7 +127,14 @@ public class DateSelected4Section extends LinearLayout
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
         {
-
+            mFromYear =year;
+            mFromMonth =month ;
+            mFromDay =dayOfMonth ;
+            mBtnFrom .setText(new StringBuffer() .append(year ) .append("-") .append(month ) .append("-") .append(dayOfMonth )) ;
+            if(SetOnAfterSelectedDateListener!=null)
+            {
+                SetOnAfterSelectedDateListener.AfterSelectedDate(R.id .btnFrom ,GetFromDate(), GetToDate());
+            }
         }
     };
 
@@ -106,7 +143,14 @@ public class DateSelected4Section extends LinearLayout
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
         {
-
+            mToYear =year;
+            mToMonth =month ;
+            mToDay =dayOfMonth ;
+            mBtnTo .setText(new StringBuffer() .append(year ) .append("-") .append(month ) .append("-") .append(dayOfMonth )) ;
+            if(SetOnAfterSelectedDateListener !=null)
+            {
+                SetOnAfterSelectedDateListener.AfterSelectedDate(R.id .btnTo ,GetFromDate(), GetToDate());
+            }
         }
     };
 
@@ -116,13 +160,16 @@ public class DateSelected4Section extends LinearLayout
         return mFromCa;
     }
 
+    public Calendar GetToDate()
+    {
+        mToCa .set(mToDay ,this.mToMonth ,mToDay);
+        return mToCa;
+    }
 
     public void SetTitle(String title)
     {
-        this.mTxvTile .setText(title) ;
+        this.mTxvTile.setText(title) ;
     }
-
-
 
 
 

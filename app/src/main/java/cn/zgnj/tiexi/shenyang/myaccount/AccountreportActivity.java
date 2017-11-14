@@ -13,7 +13,12 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section;
+
+import static cn.zgnj.tiexi.shenyang.myaccount.R.id.dsDate;
 
 public class AccountreportActivity extends AppCompatActivity
 {
@@ -43,7 +48,10 @@ public class AccountreportActivity extends AppCompatActivity
         {}
     }
 
-
+    private void mDateSelected4Section_AfterSelectedDate(int btnID, Calendar fromCa, Calendar toCa)
+    {
+        this.mTxvReprotBookName .setText(fromCa .getTime() .toString() );
+    }
 
 
     private void chkIsSubject_CheckedChanged(CompoundButton buttonView, boolean isChecked)
@@ -58,6 +66,7 @@ public class AccountreportActivity extends AppCompatActivity
     private TextView mTxvReprotBookName ;
     private CheckBox mChkIsSubject;
     private Spinner mSpnSubjectItem;
+    private DateSelected4Section mDateSelected4Section ;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -70,10 +79,11 @@ public class AccountreportActivity extends AppCompatActivity
     {
         //载入控件
         this.LoadView();
-        //控件事件
-        this.SetListener();
+
         //载入时发生
         Load(getIntent(), savedInstanceState);
+        //控件事件
+        this.SetListener();
     }
 
     private void LoadView()
@@ -81,6 +91,7 @@ public class AccountreportActivity extends AppCompatActivity
         this.mTxvReprotBookName =(TextView)findViewById(R.id .txvReprotBookName) ;
         this.mChkIsSubject =(CheckBox )findViewById(R.id.chkIsSubject) ;
         this.mSpnSubjectItem =(Spinner)findViewById(R.id.spnSubjectItem) ;
+        this.mDateSelected4Section =(DateSelected4Section)findViewById(R.id .dsDate) ;
     }
 
     private void SetListener()
@@ -128,6 +139,17 @@ public class AccountreportActivity extends AppCompatActivity
 
             }
         }) ;
+
+
+        this.mDateSelected4Section.SetOnAfterSelectedDateListener =new DateSelected4Section.AfterSelectedDateDialogListener()
+        {
+            @Override
+            public void AfterSelectedDate(int btnID, Calendar fromCa, Calendar toCa)
+            {
+                mDateSelected4Section_AfterSelectedDate( btnID,  fromCa, toCa);
+            }
+        };
+
     }
 
 
