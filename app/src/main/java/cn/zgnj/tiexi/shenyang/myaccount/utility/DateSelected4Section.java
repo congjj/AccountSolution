@@ -163,7 +163,7 @@ public class DateSelected4Section extends LinearLayout
     public Calendar GetToDate()
     {
         mToCa .set(mToDay ,this.mToMonth ,mToDay);
-        return mToCa;
+        return mToCa ;
     }
 
     public void SetTitle(String title)

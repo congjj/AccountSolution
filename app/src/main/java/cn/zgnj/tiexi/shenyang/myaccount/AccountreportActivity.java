@@ -13,7 +13,10 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section;
@@ -40,6 +43,7 @@ public class AccountreportActivity extends AppCompatActivity
 
     }
 
+    //
     private void spnSubjectItem_ItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         if(this.mSpnSubjectItem.isEnabled())
@@ -50,7 +54,7 @@ public class AccountreportActivity extends AppCompatActivity
 
     private void mDateSelected4Section_AfterSelectedDate(int btnID, Calendar fromCa, Calendar toCa)
     {
-        this.mTxvReprotBookName .setText(fromCa .getTime() .toString() );
+
     }
 
 
