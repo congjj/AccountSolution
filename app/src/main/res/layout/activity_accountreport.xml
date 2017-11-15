@@ -29,36 +29,34 @@
         android:layout_marginRight="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvReprotBookName"
-        app:layout_constraintVertical_bias="0.166"
+        app:layout_constraintVertical_bias="0.0"
         >
+
+        <Spinner
+            android:id="@+id/spnSubjectItem"
+            style="@android:style/Widget.Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_weight="0"
+            android:spinnerMode="dialog"
+            tools:spinnerMode="dialog"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spnSubjectItem"
-                style="@android:style/Widget.Spinner.DropDown"
+            <cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section
+                android:id="@+id/dsDate"
                 android:layout_width="match_parent"
-                android:layout_height="34dp"
-                android:layout_weight="1"
-                android:spinnerMode="dialog"
-                android:theme="@android:style/Theme.Holo.Light"
-                tools:spinnerMode="dialog"/>
+                android:layout_height="match_parent">
 
+            </cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section>
         </LinearLayout>
-
-        <cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section
-            android:id="@+id/dsDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvItemList"
