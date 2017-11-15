@@ -49,6 +49,7 @@ public class AccountActivity extends AppCompatActivity
     private final int CAMERA_REQUEST_CODE = 100;
     private List<Bitmap> billsItemlist;
     private BillsitemAdapter mAdapter;
+    private long userinfoID;
 
     /**
      * 载入时发生
@@ -61,6 +62,7 @@ public class AccountActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         bundle = intent.getBundleExtra("sendBookType");
         accountBookID = bundle.getLong("book_ID");
+        userinfoID =bundle .getLong("user_ID") ;
         mTvTitle.setText(bundle.getString("name") + "【" + bundle.getString("remark") + "】");
         List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
         loadBookTypelist(list);
@@ -165,6 +167,7 @@ public class AccountActivity extends AppCompatActivity
         Intent i=new Intent(this  ,AccountreportActivity .class );
         Bundle bundle = new Bundle() ;
         bundle.putLong("book_ID",accountBookID) ;
+        bundle .putLong("user_ID",userinfoID) ;
         i.putExtra("sendBookID",bundle);
         startActivity(i);
     }

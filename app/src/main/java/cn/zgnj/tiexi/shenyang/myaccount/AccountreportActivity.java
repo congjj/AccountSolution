@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -17,8 +18,10 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
+import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section;
 
 import static cn.zgnj.tiexi.shenyang.myaccount.R.id.dsDate;
@@ -35,7 +38,11 @@ public class AccountreportActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         bundle = intent.getBundleExtra("sendBookID");
         mACCOUNTBOOK =ACCOUNTBOOK .getItSelf(bundle.getLong("book_ID"));
-        this.mTxvReprotBookName .setText(mACCOUNTBOOK .toString());
+        this.mTxvReprotBookName .setText("您的记账簿");
+
+        List<ACCOUNTBOOK>booklist = USERINFO.getOne(bundle.getLong("user_ID")).getACCOUNTBOOKList();
+        ArrayAdapter<ACCOUNTBOOK> adp=new ArrayAdapter<ACCOUNTBOOK>(this , R.layout.support_simple_spinner_dropdown_item,booklist);
+        mSpnSubjectItem.setAdapter(adp);
     }
 
     private void txvReprotBookName_AfterTextChanged(Editable s)
@@ -68,7 +75,7 @@ public class AccountreportActivity extends AppCompatActivity
     // region description 初始化
 
     private TextView mTxvReprotBookName ;
-    private CheckBox mChkIsSubject;
+
     private Spinner mSpnSubjectItem;
     private DateSelected4Section mDateSelected4Section ;
     @Override
@@ -93,7 +100,6 @@ public class AccountreportActivity extends AppCompatActivity
     private void LoadView()
     {
         this.mTxvReprotBookName =(TextView)findViewById(R.id .txvReprotBookName) ;
-        this.mChkIsSubject =(CheckBox )findViewById(R.id.chkIsSubject) ;
         this.mSpnSubjectItem =(Spinner)findViewById(R.id.spnSubjectItem) ;
         this.mDateSelected4Section =(DateSelected4Section)findViewById(R.id .dsDate) ;
     }
@@ -121,14 +127,6 @@ public class AccountreportActivity extends AppCompatActivity
             }
         }) ;
 
-        this.mChkIsSubject .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                chkIsSubject_CheckedChanged(buttonView, isChecked);
-            }
-        }) ;
         this.mSpnSubjectItem .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override

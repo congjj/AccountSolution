@@ -243,6 +243,7 @@ public class OperateActivity extends AppCompatActivity
         bundle.putString("name",book .getNAME()) ;
         bundle .putString("remark",book .getREMARK()) ;
         bundle .putLong("book_ID",book .getId()) ;
+        bundle .putLong("user_ID",getIntent().getLongExtra("sendUserID",-1)) ;
         i.putExtra("sendBookType",bundle);
         startActivity(i);
     }
