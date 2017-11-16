@@ -1,5 +1,6 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,16 +24,15 @@ public class ReprotitemlistAdapter  extends RecyclerView.Adapter<ReprotitemlistA
     List<String> mItemlist;
     List<String> mItemRemarklist;
     List <String>mCountlist;
-    List <String>mDatelist;
+    List <Date>mDatelist;
     List <String>mIschecklist;
-    List<Long> mItemIDlist;
+    List<String> mUUIDlist;
     Context mContext ;
-    float outValues;
-    float inValues;
-    public ReprotitemlistAdapter (List<Long>itemIDlist , List<String> itemlist, List<String > itemRemarklist,
-                                  List<String>countlist, List<String>datelist, List<String> ischecklist, Context showClassConText)
+
+    public ReprotitemlistAdapter (List<String>itemIDlist , List<String> itemlist, List<String > itemRemarklist,
+                                  List<String>countlist, List<Date>datelist, List<String> ischecklist, Context showClassConText)
     {
-        this.mItemIDlist =itemIDlist ;
+        this.mUUIDlist =itemIDlist ;
         this.mIschecklist =itemlist ;
         this.mItemlist =itemlist ;
         this.mItemRemarklist =itemRemarklist  ;
@@ -49,6 +51,7 @@ public class ReprotitemlistAdapter  extends RecyclerView.Adapter<ReprotitemlistA
         return holder;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(ReprotitemlistView holder, int position)
     {
@@ -57,39 +60,26 @@ public class ReprotitemlistAdapter  extends RecyclerView.Adapter<ReprotitemlistA
         Float count =Float .parseFloat(mCountlist  .get(position));
         if(count >0)
         {
-            inValues +=count ;
-            holder .mTextView2 .setText(count.toString()) ;
+            holder .mTextView2 .setTextColor(R.color.colorBlue) ;
         }
         else
         {
-            outValues +=count ;
-            holder .mTextView2 .setText("-"+count.toString()) ;
+            holder .mTextView2 .setTextColor(R.color.colorRed) ;
         }
-
-        holder.mTextView3.setText(mDatelist .get(position)) ;
+        holder .mTextView2 .setText(count.toString()) ;
+        holder.mTextView3.setText(new SimpleDateFormat("yyyy-MM-dd").format( mDatelist.get(position))) ;
         holder. mTextView4.setText(mIschecklist .get(position) ) ;
-
-        holder .mTextView .setTag(mItemIDlist .get(position)) ;
-        holder .mTextView1 .setTag(mItemIDlist  .get(position)) ;
-        holder .mTextView2 .setTag(mItemIDlist .get(position)) ;
-        holder.mTextView3.setTag(mItemIDlist .get(position)) ;
-        holder. mTextView4.setTag(mItemIDlist .get(position) ) ;
+        holder .mTextView .setTag(mUUIDlist .get(position)) ;
+        holder .mTextView1 .setTag(mUUIDlist  .get(position)) ;
+        holder .mTextView2 .setTag(mUUIDlist .get(position)) ;
+        holder.mTextView3.setTag(mUUIDlist .get(position)) ;
+        holder. mTextView4.setTag(mUUIDlist .get(position) ) ;
     }
 
     @Override
     public int getItemCount()
     {
-        return mItemIDlist.size();
-    }
-
-    public Float  getOutValuse()
-    {
-       return outValues ;
-    }
-
-    public Float getInValuse()
-    {
-        return inValues ;
+        return mUUIDlist.size();
     }
 
 

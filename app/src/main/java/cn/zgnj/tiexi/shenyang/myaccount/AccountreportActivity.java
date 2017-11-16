@@ -3,6 +3,8 @@ package cn.zgnj.tiexi.shenyang.myaccount;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
@@ -16,15 +18,19 @@ import android.widget.TextView;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTLIST;
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section;
 
 import static cn.zgnj.tiexi.shenyang.myaccount.R.id.dsDate;
+import static cn.zgnj.tiexi.shenyang.myaccount.R.id.textView;
 
 public class AccountreportActivity extends AppCompatActivity
 {
@@ -45,39 +51,70 @@ public class AccountreportActivity extends AppCompatActivity
         mSpnSubjectItem.setAdapter(adp);
     }
 
-    private void txvReprotBookName_AfterTextChanged(Editable s)
-    {
-
-    }
 
     //
     private void spnSubjectItem_ItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
-        if(this.mSpnSubjectItem.isEnabled())
-        {}
-        else
-        {}
+        showReport() ;
     }
 
     private void mDateSelected4Section_AfterSelectedDate(int btnID, Calendar fromCa, Calendar toCa)
     {
-
+       showReport() ;
     }
 
-
-    private void chkIsSubject_CheckedChanged(CompoundButton buttonView, boolean isChecked)
+    private void showReport()
     {
-        this.mSpnSubjectItem .setEnabled(!isChecked) ;
+        ACCOUNTBOOK accountbook=(ACCOUNTBOOK) mSpnSubjectItem .getSelectedItem() ;
+        String bookid = accountbook .getId() .toString() ;
+        List<String>mUUIDlist=new ArrayList<String>() ;
+        List<String> mitmelist = new ArrayList<String>();
+        List<String> mitemremarklist = new ArrayList<String>();
+        List<String> mvalueslist = new ArrayList<String>();
+        List<Date>mdatelist=new ArrayList<Date> ();
+        List<String> ischecklist=new ArrayList<String>() ;
+        Float inValues =Float .parseFloat("0") ;
+        Float outValues =Float .parseFloat("0") ;
+        for(ACCOUNTLIST  temp:ACCOUNTLIST .GetSome(bookid))
+        {
+            mUUIDlist .add(temp .getUUID()) ;
+            mitmelist .add(temp.getSubjectName()) ;
+            mitemremarklist .add(temp .getNAME()) ;
+            if(Float .parseFloat(temp .getValues())>0)
+            {
+                inValues +=Float .parseFloat(temp .getValues());
+            }
+            else
+            {
+                outValues +=Float .parseFloat(temp .getValues());
+            }
+            mvalueslist .add(temp.getValues()) ;
+            mdatelist .add(temp .getACCOUNTTIME() ) ;
+            ischecklist .add(temp.getISCHECKED() ?"√":"！") ;
+        }
+        ReprotitemlistAdapter mAdapter = new ReprotitemlistAdapter(mUUIDlist,mitmelist,mitemremarklist,mvalueslist,mdatelist,ischecklist,this) ;
+        RvItemList.setLayoutManager(new LinearLayoutManager(this));
+        RvItemList.setAdapter(mAdapter);
+        mTxvAllIn .setText("收入："+inValues) ;
+        mTxvAllOut .setText("支出："+outValues*(-1)) ;
+        Float  result = inValues + outValues ;
+        mTxvAll .setText("合计："+ result .toString() ) ;
     }
+
+
 
 
 
     // region description 初始化
 
     private TextView mTxvReprotBookName ;
-
+    private RecyclerView RvItemList;
     private Spinner mSpnSubjectItem;
     private DateSelected4Section mDateSelected4Section ;
+    private TextView mTxvAllIn;
+    private TextView mTxvAllOut;
+    private TextView mTxvAll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -102,30 +139,14 @@ public class AccountreportActivity extends AppCompatActivity
         this.mTxvReprotBookName =(TextView)findViewById(R.id .txvReprotBookName) ;
         this.mSpnSubjectItem =(Spinner)findViewById(R.id.spnSubjectItem) ;
         this.mDateSelected4Section =(DateSelected4Section)findViewById(R.id .dsDate) ;
+        this.RvItemList =(RecyclerView)findViewById(R.id .rvItemList) ;
+        this.mTxvAllIn =(TextView)findViewById(R.id.txvInCount) ;
+        this.mTxvAllOut =(TextView)findViewById(R.id.txvOutCount) ;
+        this.mTxvAll =(TextView)findViewById(R.id.txvCount) ;
     }
 
     private void SetListener()
     {
-        this.mTxvReprotBookName.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
-                txvReprotBookName_AfterTextChanged(s);
-            }
-        }) ;
 
         this.mSpnSubjectItem .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {

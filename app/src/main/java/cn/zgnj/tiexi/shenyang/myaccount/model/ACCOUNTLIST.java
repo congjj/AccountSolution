@@ -80,6 +80,55 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
     @Column(name = "REMARK")
     String mREMARK;
 
+
+    public boolean getISCHECKED ()
+    {
+        return mISCHECKED ;
+    }
+
+    public String getUUID ()
+    {
+        return mUUID ;
+    }
+
+    public String getNAME ()
+    {
+        return mNAME ;
+    }
+
+
+    public String getSubjectName()
+    {
+        return mACCOUNTSUBJECT .getNAME() ;
+    }
+
+
+    public String getValues()
+    {
+        Double result ;
+        if(this.mACCOUNTSUBJECT .ISOUT )
+        {
+            result =this.mCOUNT * this.mPRICE *(-1);
+            return result .toString() ;
+        }
+        else
+        {
+            result =this.mCOUNT * this.mPRICE ;
+            return result .toString() ;
+        }
+    }
+
+    public Date getACCOUNTTIME ()
+    {
+        return mACCOUNTTIME ;
+    }
+
+    public Date getCREATETIME ()
+    {
+        return mCREATETIME ;
+    }
+
+
     public ACCOUNTLIST(){}
 
     /**
@@ -135,10 +184,10 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
      * @param ACCOUNTBOOKID
      * @return
      */
-    public List<ACCOUNTLIST>GetSome(String ACCOUNTBOOKID)
+    public static List<ACCOUNTLIST>GetSome(String ACCOUNTBOOKID)
     {
        return   ACCOUNTLIST.findWithQuery(ACCOUNTLIST .class ,"select * from ACCOUNTLIST where ACCOUNTSUBJECT_ID in " +
-               "(select ID from ACCOUNTSUBJECT where ACCOUNTBOOK_ID=?)",ACCOUNTBOOKID) ;
+               "(select ID from ACCOUNTSUBJECT where ACCOUNTBOOK_ID=?) order by ACCOUNTTIME",ACCOUNTBOOKID) ;
     }
 
 

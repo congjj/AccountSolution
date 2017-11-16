@@ -62,7 +62,7 @@
             android:id="@+id/rvItemList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/alert_light_frame"/>
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
