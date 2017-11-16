@@ -7,6 +7,7 @@ import com.orm.dsl.Column;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 
@@ -127,4 +128,18 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
     {
         return this.save();
     }
+
+
+    /**
+     * 记账本下的明细
+     * @param ACCOUNTBOOKID
+     * @return
+     */
+    public List<ACCOUNTLIST>GetSome(String ACCOUNTBOOKID)
+    {
+       return   ACCOUNTLIST.findWithQuery(ACCOUNTLIST .class ,"select * from ACCOUNTLIST where ACCOUNTSUBJECT_ID in " +
+               "(select ID from ACCOUNTSUBJECT where ACCOUNTBOOK_ID=?)",ACCOUNTBOOKID) ;
+    }
+
+
 }
