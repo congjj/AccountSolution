@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +21,13 @@ import java.util.List;
 public class ReprotitemlistAdapter  extends RecyclerView.Adapter<ReprotitemlistAdapter.ReprotitemlistView>
 {
 
+
+    public interface ItemClickListener
+    {
+        public void ItemClick(String UUID);
+    }
+
+    public ItemClickListener SetOnItemClickListener;
 
     List<String> mItemlist;
     List<String> mItemRemarklist;
@@ -53,7 +61,7 @@ public class ReprotitemlistAdapter  extends RecyclerView.Adapter<ReprotitemlistA
 
     @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(ReprotitemlistView holder, int position)
+    public void onBindViewHolder(final ReprotitemlistView holder, int position)
     {
         holder .mTextView .setText(mItemlist  .get(position)) ;
         holder .mTextView1 .setText(mItemRemarklist  .get(position)) ;
@@ -74,6 +82,18 @@ public class ReprotitemlistAdapter  extends RecyclerView.Adapter<ReprotitemlistA
         holder .mTextView2 .setTag(mUUIDlist .get(position)) ;
         holder.mTextView3.setTag(mUUIDlist .get(position)) ;
         holder. mTextView4.setTag(mUUIDlist .get(position) ) ;
+
+        holder .mTextView2 .setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(SetOnItemClickListener!=null)
+                {
+                    SetOnItemClickListener .ItemClick(holder .mTextView2 .getTag() .toString()) ;
+                }
+            }
+        }) ;
     }
 
     @Override

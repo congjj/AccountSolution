@@ -12,7 +12,7 @@
         android:id="@+id/rep_item"
         style="@style/Base.CardView"
         android:layout_width="74dp"
-        android:layout_height="26dp"
+        android:layout_height="24dp"
         android:layout_weight="1"
         android:background="@android:drawable/editbox_dropdown_light_frame"
         android:text="rep_item"/>
@@ -21,7 +21,7 @@
         android:id="@+id/rep_itemremark"
         style="@style/Base.CardView"
         android:layout_width="108dp"
-        android:layout_height="26dp"
+        android:layout_height="24dp"
         android:layout_weight="1"
         android:background="@android:drawable/editbox_dropdown_light_frame"
         android:text="rep_itemremark"/>
@@ -30,19 +30,19 @@
         android:id="@+id/rep_count"
         style="@style/Base.CardView"
         android:layout_width="93dp"
-        android:layout_height="26dp"
+        android:layout_height="24dp"
         android:layout_weight="1"
         android:background="@android:drawable/editbox_dropdown_light_frame"
         android:gravity="right"
         android:text="rep_values"
-        android:textStyle="bold"
-        tools:textColor="@color/colorPrimary"/>
+        android:textColor="@color/colorRed"
+        android:textStyle="bold|italic"/>
 
     <TextView
         android:id="@+id/rep_date"
         style="@style/Base.CardView"
         android:layout_width="100dp"
-        android:layout_height="26dp"
+        android:layout_height="24dp"
         android:layout_weight="1"
         android:background="@android:drawable/editbox_dropdown_light_frame"
         android:gravity="right"
@@ -52,7 +52,7 @@
         android:id="@+id/rep_ischeck"
         style="@style/Base.CardView"
         android:layout_width="42dp"
-        android:layout_height="26dp"
+        android:layout_height="24dp"
         android:layout_weight="1"
         android:background="@android:drawable/editbox_dropdown_light_frame"
         android:gravity="center"

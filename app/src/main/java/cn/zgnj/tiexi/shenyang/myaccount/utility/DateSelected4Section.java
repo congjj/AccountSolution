@@ -128,9 +128,9 @@ public class DateSelected4Section extends LinearLayout
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
         {
             mFromYear =year;
-            mFromMonth =month ;
+            mFromMonth =month;
             mFromDay =dayOfMonth ;
-            mBtnFrom .setText(new StringBuffer() .append(year ) .append("-") .append(month ) .append("-") .append(dayOfMonth )) ;
+            mBtnFrom .setText(new StringBuffer() .append(year ) .append("-") .append(month +1) .append("-") .append(dayOfMonth )) ;
             if(SetOnAfterSelectedDateListener!=null)
             {
                 SetOnAfterSelectedDateListener.AfterSelectedDate(R.id .btnFrom ,GetFromDate(), GetToDate());
@@ -146,7 +146,7 @@ public class DateSelected4Section extends LinearLayout
             mToYear =year;
             mToMonth =month ;
             mToDay =dayOfMonth ;
-            mBtnTo .setText(new StringBuffer() .append(year ) .append("-") .append(month ) .append("-") .append(dayOfMonth )) ;
+            mBtnTo .setText(new StringBuffer() .append(year ) .append("-") .append(month +1) .append("-") .append(dayOfMonth )) ;
             if(SetOnAfterSelectedDateListener !=null)
             {
                 SetOnAfterSelectedDateListener.AfterSelectedDate(R.id .btnTo ,GetFromDate(), GetToDate());

@@ -1,6 +1,9 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,13 +11,16 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -30,11 +36,19 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section;
 
 import static cn.zgnj.tiexi.shenyang.myaccount.R.id.dsDate;
+import static cn.zgnj.tiexi.shenyang.myaccount.R.id.rvItemList;
 import static cn.zgnj.tiexi.shenyang.myaccount.R.id.textView;
+import static cn.zgnj.tiexi.shenyang.myaccount.R.id.view_offset_helper;
 
 public class AccountreportActivity extends AppCompatActivity
 {
 
+    public interface ItemClickListener
+    {
+        public void ItemClick(String UUID);
+    }
+
+    public ItemClickListener addOnItemClickListener;
 
     private ACCOUNTBOOK mACCOUNTBOOK ;
 
@@ -52,7 +66,6 @@ public class AccountreportActivity extends AppCompatActivity
     }
 
 
-    //
     private void spnSubjectItem_ItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         showReport() ;
@@ -62,6 +75,12 @@ public class AccountreportActivity extends AppCompatActivity
     {
        showReport() ;
     }
+
+    private void reportItem_ItemClick(String uuid)
+    {
+        String a =uuid;
+    }
+
 
     private void showReport()
     {
@@ -99,10 +118,16 @@ public class AccountreportActivity extends AppCompatActivity
         mTxvAllOut .setText("支出："+outValues*(-1)) ;
         Float  result = inValues + outValues ;
         mTxvAll .setText("合计："+ result .toString() ) ;
+
+        mAdapter .SetOnItemClickListener =new ReprotitemlistAdapter.ItemClickListener()
+        {
+            @Override
+            public void ItemClick(String UUID)
+            {
+                reportItem_ItemClick(UUID);
+            }
+        };
     }
-
-
-
 
 
     // region description 初始化
@@ -143,8 +168,10 @@ public class AccountreportActivity extends AppCompatActivity
         this.mTxvAllIn =(TextView)findViewById(R.id.txvInCount) ;
         this.mTxvAllOut =(TextView)findViewById(R.id.txvOutCount) ;
         this.mTxvAll =(TextView)findViewById(R.id.txvCount) ;
+
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void SetListener()
     {
 
@@ -172,6 +199,10 @@ public class AccountreportActivity extends AppCompatActivity
                 mDateSelected4Section_AfterSelectedDate( btnID,  fromCa, toCa);
             }
         };
+
+
+
+
 
     }
 
