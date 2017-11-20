@@ -128,6 +128,15 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
         return mCREATETIME ;
     }
 
+    /**
+     * 获取一条记录的票据照片
+     * @return
+     */
+    public List<byte []>getBills()
+    {
+         return  ACCOUNTBILL .geBills(this.getId() .toString() ) ;
+    }
+
 
     public ACCOUNTLIST(){}
 

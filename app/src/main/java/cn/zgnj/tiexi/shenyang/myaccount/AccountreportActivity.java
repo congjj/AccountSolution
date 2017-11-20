@@ -78,7 +78,11 @@ public class AccountreportActivity extends AppCompatActivity
 
     private void reportItem_ItemClick(String uuid)
     {
-        String a =uuid;
+        Intent i=new Intent(this  ,IteminfoActivity.class );
+        Bundle bundle = new Bundle() ;
+        bundle.putString("accountItem_UUID",uuid) ;
+        i.putExtra("accountItem",bundle);
+        startActivity(i);
     }
 
 

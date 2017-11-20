@@ -6,6 +6,8 @@ import com.orm.SugarRecord;
 import com.orm.dsl.Column;
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 
@@ -48,6 +50,16 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
     public ACCOUNTBILL()
     {}
 
+    protected static List<byte []>geBills(String accountlist_ID)
+    {
+        List<byte []>list=new ArrayList<byte[]>() ;
+        for(ACCOUNTBILL temp : ACCOUNTBILL .find(ACCOUNTBILL .class ,"ACCOUNTLIST_ID=?",accountlist_ID) )
+        {
+            list .add(temp.mPIC) ;
+        }
+        return list;
+    }
+
     public ACCOUNTBILL(ACCOUNTLIST mAccountList,String mName ,int mIndex
             ,byte [] mPic,boolean mIsActived)
     {
@@ -57,6 +69,9 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
         this.mPIC =mPic ;
         this.mISACTIVED =mIsActived ;
     }
+
+
+
 
     @Override
     public long _Insert()
