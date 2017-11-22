@@ -4,9 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,25 +13,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBILL;
-import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTLIST;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
@@ -47,6 +39,8 @@ public class AccountActivity extends AppCompatActivity
 
     private long accountBookID;
     private final int CAMERA_REQUEST_CODE = 100;
+    private final int W_EXTERNAL_STORAGE = 101;
+    private final int R_EXTERNAL_STORAGE = 101;
     private List<Bitmap> billsItemlist;
     private BillsitemAdapter mAdapter;
     private long userinfoID;
@@ -85,11 +79,45 @@ public class AccountActivity extends AppCompatActivity
         if (new PermissionsChecker(this).lacksPermissions(Manifest.permission.CAMERA))
         {
             //设置权限
-            Permissionhelper.startActivityForResult(this, CAMERA_REQUEST_CODE, Manifest.permission.CAMERA);
-            ;
+            Permissionhelper.startActivityForResult(this, CAMERA_REQUEST_CODE,
+                    Manifest.permission.CAMERA);
+        }
+        if (new PermissionsChecker(this).lacksPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+        {
+            //写入存储权限
+            Permissionhelper.startActivityForResult(this, W_EXTERNAL_STORAGE ,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (new PermissionsChecker(this).lacksPermissions(Manifest.permission.READ_EXTERNAL_STORAGE ))
+        {
+            //读存储权限
+            Permissionhelper.startActivityForResult(this, R_EXTERNAL_STORAGE ,
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
         }
         Intent it = new Intent("android.media.action.IMAGE_CAPTURE");
-        startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
+        //it.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+
+        if (it .resolveActivity(getPackageManager()) != null)
+        {
+            File photoFile = null;
+            try
+            {
+                photoFile = Toolkit .createImageFileShare();
+                if (photoFile != null)
+                {
+                    Uri uri = Uri.fromFile(photoFile);
+                    //it.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
+
+        }
+
+       // startActivityForResult(it, Activity.TAKE_PHOTO_REQUEST_CODE);
 
     }
 
@@ -103,16 +131,33 @@ public class AccountActivity extends AppCompatActivity
         {
             finish();
         }
+        if (W_EXTERNAL_STORAGE  == requestCode && resultCode == Permissionhelper.PERMISSIONS_DENIED)
+        {
+            finish();
+        }
+        if (R_EXTERNAL_STORAGE == requestCode && resultCode == Permissionhelper.PERMISSIONS_DENIED)
+        {
+            finish();
+        }
         //拍照后返回照片
-        else if (Activity.DEFAULT_KEYS_DIALER == requestCode)
+        if (Activity.DEFAULT_KEYS_DIALER == requestCode)
         {
             try
             {
+//                File file = Toolkit .createImageFileShare();
+//                Uri uri = Uri.fromFile(file);
+//
+//                data.setData(uri) ;
+
+                Bitmap thumbnail = data.getParcelableExtra("data");
                 Bundle extras = data.getExtras();
                 Bitmap b = (Bitmap) extras.get("data");
+
+              //  U.ResizeBitmap(U.getBitmapForFile(F.SD_CARD_TEMP_PHOTO_PATH), 640);
                 //take = b;
 //                ImageView img = (ImageView)findViewById(R.id.imageView );
 //                img.setImageBitmap(b);
+
                 billsItemlist.add(b);
                 mAdapter = new BillsitemAdapter(billsItemlist, this);
                 mRcvPiclist.setAdapter(mAdapter);
@@ -123,6 +168,16 @@ public class AccountActivity extends AppCompatActivity
         }
     }
 
+
+    private void CheckAccount(View v)
+    {
+        Intent i=new Intent(this  ,AccountcheckedActivity .class );
+        Bundle bundle = new Bundle() ;
+        bundle.putLong("book_ID",accountBookID) ;
+        bundle .putLong("user_ID",userinfoID) ;
+        i.putExtra("sendBookID",bundle);
+        startActivity(i);
+    }
 
     /**
      * 生成一条记账
@@ -267,7 +322,17 @@ public class AccountActivity extends AppCompatActivity
                 ShowAccountReport(v);
             }
         });
+        this.mBtnAccountCheck .setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                CheckAccount(v);
+            }
+        }) ;
     }
+
+
 
 
     private Button mBtnDateSelect;
@@ -296,7 +361,7 @@ public class AccountActivity extends AppCompatActivity
         this.mEdtName = (EditText) findViewById(R.id.edtName);
         this.mBtnAccount = (Button) findViewById(R.id.btnAccount);
         this.mBtnAccountUpdate = (Button) findViewById(R.id.btnAccountUpdate);
-        this.mBtnAccountCheck = (Button) findViewById(R.id.btnAccountCheck);
+        this.mBtnAccountCheck = (Button) findViewById(R.id.btnAccountItemCheck);
         this.mBtnAccountReport = (Button) findViewById(R.id.btnAccountReport);
         this.mBtnCamera = (ImageButton) findViewById(R.id.ibtnCamera);
         mDateSelected = (DateSelected) findViewById(R.id.dateSelected);

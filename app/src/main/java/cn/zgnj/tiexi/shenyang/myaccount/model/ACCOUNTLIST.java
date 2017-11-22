@@ -96,6 +96,15 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
         return mNAME ;
     }
 
+    public double getPrice()
+    {
+        return this.mPRICE ;
+    }
+
+    public double getCount()
+    {
+        return mCOUNT ;
+    }
 
     public String getSubjectName()
     {
@@ -118,6 +127,11 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
         }
     }
 
+    public boolean getIsOut()
+    {
+        return this.mACCOUNTSUBJECT .ISOUT ;
+    }
+
     public Date getACCOUNTTIME ()
     {
         return mACCOUNTTIME ;
@@ -126,6 +140,11 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
     public Date getCREATETIME ()
     {
         return mCREATETIME ;
+    }
+
+    public String getREMARK ()
+    {
+        return mREMARK ;
     }
 
     /**

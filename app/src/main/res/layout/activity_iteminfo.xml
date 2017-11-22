@@ -23,6 +23,7 @@
                 android:layout_width="108dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center_horizontal"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"/>
@@ -32,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center_horizontal"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"/>
@@ -43,13 +45,13 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView33"
-                android:layout_width="33dp"
+                android:id="@+id/txvItemIsOut"
+                android:layout_width="127dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColor="@android:color/holo_blue_bright"
+                android:textColor="@color/colorRed"
                 android:textStyle="bold"/>
 
             <TextView
@@ -62,7 +64,7 @@
 
             <TextView
                 android:id="@+id/txvItemCount"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView"
@@ -97,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="TextView"
+                android:text="@string/accountdate"
                 tools:text="@string/accountdate"/>
 
             <TextView
@@ -114,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="TextView"
+                android:text="@string/createdate"
                 tools:text="@string/createdate"/>
 
             <TextView
@@ -151,6 +153,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/RcvBillslist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

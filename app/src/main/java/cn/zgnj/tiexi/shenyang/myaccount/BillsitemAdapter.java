@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 
 import java.util.List;
@@ -19,10 +20,32 @@ public class BillsitemAdapter extends RecyclerView.Adapter<BillsitemAdapter.Bill
 {
     Context mContext ;
     List<Bitmap>mBillsList;
+    LinearLayout.LayoutParams mLayoutParams;
+
+    /**
+     * 初始化  layout 默认：width=MATCH_PARENT ; height=MATCH_PARENT
+     * @param billsList
+     * @param showClassConText
+     */
     public BillsitemAdapter (List<Bitmap> billsList, Context showClassConText)
     {
         mContext =showClassConText ;
         mBillsList =billsList;
+        mLayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT
+                ,LinearLayout.LayoutParams.MATCH_PARENT);
+    }
+
+    /**
+     * 初始化
+     * @param billsList
+     * @param showClassConText
+     * @param layoutParams
+     */
+    public BillsitemAdapter (List<Bitmap> billsList, Context showClassConText,LinearLayout.LayoutParams layoutParams)
+    {
+        mContext =showClassConText ;
+        mBillsList =billsList;
+        mLayoutParams =layoutParams ;
     }
 
     @Override
@@ -37,6 +60,7 @@ public class BillsitemAdapter extends RecyclerView.Adapter<BillsitemAdapter.Bill
     public void onBindViewHolder(BillsitemAdapter.BillsItemView holder , int posision)
     {
         holder .mImageBills.setImageBitmap(mBillsList .get(posision)) ;
+        holder .mLinearLayout .setLayoutParams(mLayoutParams) ;
     }
 
     /**
@@ -57,13 +81,17 @@ public class BillsitemAdapter extends RecyclerView.Adapter<BillsitemAdapter.Bill
         mBillsList .clear() ;
     }
 
+
+
     public class BillsItemView extends RecyclerView.ViewHolder
     {
         ImageView  mImageBills;
+        LinearLayout mLinearLayout ;
         public BillsItemView (View view)
         {
             super(view);
             mImageBills =(ImageView)view.findViewById(R.id .imvBillsItem ) ;
+            mLinearLayout =(LinearLayout)view.findViewById(R.id .linearFrom) ;
         }
     }
 }

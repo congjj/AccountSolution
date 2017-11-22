@@ -1,6 +1,9 @@
 package cn.zgnj.tiexi.shenyang.myaccount.utility;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,7 +11,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.ContentHandler;
 import java.sql.Blob;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +24,11 @@ import java.util.regex.Pattern;
 
 public class Toolkit
 {
+    /**
+     * bitmap 转换到字节流
+     * @param bitmap
+     * @return
+     */
     public static byte[] bitmap4byte(Bitmap bitmap)
     {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -25,6 +36,12 @@ public class Toolkit
         return os.toByteArray() ;
     }
 
+    /**
+     * bitmap 转换到字节流
+     * @param bitmap
+     * @param qulity 质量 100 为100%
+     * @return
+     */
     public static byte[] bitmap4Byte(Bitmap bitmap,int qulity)
     {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -33,7 +50,18 @@ public class Toolkit
     }
 
 
-    private byte[] blob4Bytes(Blob blob)
+    /**
+     * 字节流转换 bitmap
+     * @param bytes
+     * @return
+     */
+    public static Bitmap byte4bitmap(byte[] bytes)
+    {
+        return  BitmapFactory.decodeByteArray(bytes, 0, bytes .length);
+    }
+
+
+    public static byte[] blob4Bytes(Blob blob)
     {
 
         BufferedInputStream is = null;
@@ -89,6 +117,46 @@ public class Toolkit
         }
         return dest;
     }
+
+
+    static String mCurrentPhotoPath;
+
+
+    public static File createImageFile(Context context ) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir =context . getExternalFilesDir(Environment.DIRECTORY_PICTURES);//由getExternalFilesDir(),以及getFilesDir()创建的目录，应用卸载后会被删除！
+
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
+
+    public static File createImageFileShare() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir =Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);//由getExternalFilesDir(),以及getFilesDir()创建的目录，应用卸载后会被删除！
+
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
 
 
 }
