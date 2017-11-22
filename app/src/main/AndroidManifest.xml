@@ -66,6 +66,23 @@
         </activity>
         <activity android:name=".IteminfoActivity">
         </activity>
+
+        <provider
+            android:authorities="cn.zgnj.tiexi.shenyang.myaccount.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths">
+            </meta-data>
+
+        </provider>
+
+
+
+        
+        
     </application>
 
 </manifest>
