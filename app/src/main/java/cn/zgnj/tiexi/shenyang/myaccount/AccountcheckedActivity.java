@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 
+import cn.zgnj.tiexi.shenyang.myaccount.utility.FileUtils;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Permissionhelper;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 
@@ -24,31 +25,50 @@ public class AccountcheckedActivity extends AppCompatActivity
 
     }
 
-
+    Uri uri1;
     private void CheckAccountItem(View v)
     {
-        Intent it = new Intent("android.media.action.IMAGE_CAPTURE");
-        //it.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+        String filename ="Img"+ Long.toString(System.currentTimeMillis());
+        uri1 =Toolkit .startCamera4filePath(this,filename ,Activity.DEFAULT_KEYS_DIALER) ;
+//        Intent it = new Intent("android.media.action.IMAGE_CAPTURE");
+//        //it.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+//
+//        if (it .resolveActivity(getPackageManager()) != null)
+//        {
+//            FileUtils fileUtils =new FileUtils() ;
+//            String b =File .separator ;
+//            String a = fileUtils .getFileDir() +b ;
+//
+//            File filepath = new File(a) ;
+//            if(!filepath .exists() )
+//            {
+//                filepath .mkdirs() ;
+//            }
+//
+//            //Uri c=fileUtils.getUriForFile(this,photoFile) ;
+//            try
+//            {
+//                String itmeID = java.util.UUID.randomUUID().toString();
+//                File photoFile =File.createTempFile(itmeID+"kk9k",".jpg",filepath);
+//                if(!photoFile .exists() )
+//                {
+//                    photoFile .mkdirs() ;
+//                }
+//                if (photoFile != null)
+//                {
+//                    Uri uri = Uri.fromFile(photoFile);
+//                    uri1 =fileUtils .getUriForFile(this,photoFile) ;
+//                    it.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
+//                    startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                ex.printStackTrace();
+//            }
+//
+//        }
 
-        if (it .resolveActivity(getPackageManager()) != null)
-        {
-            File photoFile = null;
-            try
-            {
-                photoFile = Toolkit.createImageFileShare();
-                if (photoFile != null)
-                {
-                    Uri uri = Uri.fromFile(photoFile);
-                    it.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                    startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
-                }
-            }
-            catch (Exception ex)
-            {
-                ex.printStackTrace();
-            }
-
-        }
     }
 
 
@@ -64,15 +84,17 @@ public class AccountcheckedActivity extends AppCompatActivity
         {
             try
             {
-//                File file = Toolkit .createImageFileShare();
-//                Uri uri = Uri.fromFile(file);
-//
-//                data.setData(uri) ;
+//                Bitmap thumbnail = data.getParcelableExtra("data");
+//                Bundle extras = data.getExtras();
+//                Intent a =data;
+//                Bitmap b = (Bitmap) extras.get("data");
+                Uri uri =uri1 ;
 
-                Bitmap thumbnail = data.getParcelableExtra("data");
-                Bundle extras = data.getExtras();
-                Bitmap b = (Bitmap) extras.get("data");
-                this.mImageViewItemShow .setImageURI(data.getData()) ;
+                Bitmap aa = Toolkit.getBitmapFromUri(this, uri) ;
+               //File file = new File() ;
+                //this.mImageViewItemShow .setImageURI(uri1) ;
+
+               this.mImageViewItemShow .setImageBitmap(aa) ;
                 //  U.ResizeBitmap(U.getBitmapForFile(F.SD_CARD_TEMP_PHOTO_PATH), 640);
                 //take = b;
 //                ImageView img = (ImageView)findViewById(R.id.imageView );
@@ -130,7 +152,8 @@ public class AccountcheckedActivity extends AppCompatActivity
 
     private void SetListener()
     {
-        mImageViewItemShow .setOnClickListener(new View.OnClickListener()
+
+        this.mButtonItemCheck .setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

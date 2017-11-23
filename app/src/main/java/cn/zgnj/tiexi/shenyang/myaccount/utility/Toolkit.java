@@ -1,11 +1,17 @@
 package cn.zgnj.tiexi.shenyang.myaccount.utility;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -108,6 +116,29 @@ public class Toolkit
     }
 
 
+    /**
+     * 获取Uri下的图片
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static Bitmap getBitmapFromUri(Context context ,Uri uri)
+    {
+        try
+        {
+            // 读取uri所在的图片
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context .getContentResolver(), uri);
+            return bitmap;
+        }
+        catch (Exception e)
+        {
+            Log.e("[Android]", e.getMessage());
+            Log.e("[Android]", "目录为：" + uri);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static String replaceBlank(String src) {
         String dest = "";
         if (src != null) {
@@ -134,6 +165,10 @@ public class Toolkit
                 storageDir      /* directory */
         );
 
+        if(!image .exists())
+        {
+            storageDir .mkdirs() ;
+        }
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
@@ -151,11 +186,132 @@ public class Toolkit
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
+        if(!image .exists())
+        {
+            storageDir .mkdirs() ;
+        }
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
+
+
+    /**
+     * 照相返回照片路径
+     * 兼容7.0
+     * @param activity
+     * @param filename
+     * @param requestCode
+     * @return 照片的Uri
+     */
+    public static Uri startCamera4filePath(Activity activity, String filename, int requestCode)
+    {
+        try
+        {
+            Uri uri=null;
+            if (activity == null)
+            {
+                uri = null;
+            }
+            FileUtils fileUtils =new FileUtils() ;
+            File photoFile =File .createTempFile(filename ,".jpg",new File(fileUtils .getFileDir())) ;
+
+            if (photoFile != null)
+            {
+                uri = fileUtils.getUriForFile(activity , photoFile);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                activity.startActivityForResult(intent, requestCode);
+            }
+            return uri;
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+    /**
+     * 打开相机
+     * 兼容7.0
+     *
+     * @param activity    Activity
+     * @param requestCode result requestCode
+     */
+    public static void startActioCamera(Activity activity,  int requestCode)
+    {
+        if (activity == null)
+        {
+            return;
+        }
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+
+
+    /***
+     * 压缩GZip
+     *
+     * @param data
+     * @return
+     */
+    public static byte[] gZip(byte[] data)
+    {
+        byte[] b = null;
+        try
+        {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            GZIPOutputStream gzip = new GZIPOutputStream(bos);
+            gzip.write(data);
+            gzip.finish();
+            gzip.close();
+            b = bos.toByteArray();
+            bos.close();
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return b;
+    }
+
+    /***
+     * 解压GZip
+     *
+     * @param data
+     * @return
+     */
+    public static byte[] unGZip(byte[] data)
+    {
+        byte[] b = null;
+        try
+        {
+            ByteArrayInputStream bis = new ByteArrayInputStream(data);
+            GZIPInputStream gzip = new GZIPInputStream(bis);
+            byte[] buf = new byte[1024];
+            int num = -1;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            while ((num = gzip.read(buf, 0, buf.length)) != -1) {
+                baos.write(buf, 0, num);
+            }
+            b = baos.toByteArray();
+            baos.flush();
+            baos.close();
+            gzip.close();
+            bis.close();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return b;
+    }
+
+
 
 
 

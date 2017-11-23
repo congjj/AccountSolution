@@ -20,7 +20,7 @@ public class FileUtils
 {
     private final String AUTHORITIES="cn.zgnj.tiexi.shenyang.myaccount.fileprovider";
     private final String  APP_DIR_NAME = "accountfiles";
-    private final String FILE_DIR_NAME = "files";
+    private final String FILE_DIR_NAME = "accountPicture";
     private String mRootDir;
     private String mAppRootDir;
     private String mFileDir;
@@ -30,14 +30,14 @@ public class FileUtils
         mRootDir = getRootPath();
         if (mRootDir != null && !"".equals(mRootDir))
         {
-            mAppRootDir = mRootDir + "/" + APP_DIR_NAME;
-            mFileDir = mAppRootDir + "/" + FILE_DIR_NAME;
+            mAppRootDir = mRootDir + File.separator + APP_DIR_NAME;
+            mFileDir = mAppRootDir + File.separator + FILE_DIR_NAME;
             File appDir = new File(mAppRootDir);
             if (!appDir.exists())
             {
                 appDir.mkdirs();
             }
-            File fileDir = new File(mAppRootDir + "/" + FILE_DIR_NAME);
+            File fileDir = new File(mAppRootDir + File .separator  + FILE_DIR_NAME);
             if (!fileDir.exists())
             {
                 fileDir.mkdirs();
@@ -64,7 +64,7 @@ public class FileUtils
         }
         else
         {
-            return Environment.getDataDirectory().getAbsolutePath() + "/data"; // filePath:  /data/data/
+            return Environment.getDataDirectory().getAbsolutePath() + File .separator +"data"; // filePath:  /data/data/
         }
     }
 
@@ -77,7 +77,7 @@ public class FileUtils
      * @param file        File
      * @param requestCode result requestCode
      */
-    public void startActionCapture(Activity activity, File file, int requestCode)
+    public void startActionCamera(Activity activity, File file, int requestCode)
     {
         if (activity == null)
         {
@@ -85,6 +85,24 @@ public class FileUtils
         }
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(activity, file));
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+
+    /**
+     * 打开相机
+     * 兼容7.0
+     *
+     * @param activity    Activity
+     * @param requestCode result requestCode
+     */
+    public void startActioCamera(Activity activity,  int requestCode)
+    {
+        if (activity == null)
+        {
+            return;
+        }
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -115,11 +133,22 @@ public class FileUtils
     }
 
 
+    /**
+     * 返回文件路径
+     * 兼容7.0
+     * @param context
+     * @param file
+     * @return
+     */
     public  Uri getUriForFile(Context context, File file)
     {
         if (context == null || file == null)
         {
             throw new NullPointerException();
+        }
+        if(!file .exists() )
+        {
+            file .mkdirs() ;
         }
         Uri uri;
         if (Build.VERSION.SDK_INT >= 24)

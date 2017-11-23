@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBILL;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTLIST;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.FileUtils;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Permissionhelper;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.PermissionsChecker;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
@@ -68,6 +70,7 @@ public class AccountActivity extends AppCompatActivity
         mRcvPiclist.setLayoutManager(linearLayoutManager);
     }
 
+    Uri mUri;
     /**
      * 开始拍照
      *
@@ -94,31 +97,9 @@ public class AccountActivity extends AppCompatActivity
             Permissionhelper.startActivityForResult(this, R_EXTERNAL_STORAGE ,
                     Manifest.permission.READ_EXTERNAL_STORAGE);
         }
-        Intent it = new Intent("android.media.action.IMAGE_CAPTURE");
-        //it.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 
-        if (it .resolveActivity(getPackageManager()) != null)
-        {
-            File photoFile = null;
-            try
-            {
-                photoFile = Toolkit .createImageFileShare();
-                if (photoFile != null)
-                {
-                    Uri uri = Uri.fromFile(photoFile);
-                    //it.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                    startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
-                }
-            }
-            catch (Exception ex)
-            {
-                ex.printStackTrace();
-            }
-
-        }
-
-       // startActivityForResult(it, Activity.TAKE_PHOTO_REQUEST_CODE);
-
+        String filename ="Img"+ Long.toString(System.currentTimeMillis());
+        mUri =Toolkit .startCamera4filePath(this,filename ,Activity.DEFAULT_KEYS_DIALER) ;
     }
 
 
@@ -144,14 +125,11 @@ public class AccountActivity extends AppCompatActivity
         {
             try
             {
-//                File file = Toolkit .createImageFileShare();
-//                Uri uri = Uri.fromFile(file);
-//
-//                data.setData(uri) ;
+                Bitmap b =Toolkit .getBitmapFromUri(this,mUri) ;
 
-                Bitmap thumbnail = data.getParcelableExtra("data");
-                Bundle extras = data.getExtras();
-                Bitmap b = (Bitmap) extras.get("data");
+//                Bitmap thumbnail = data.getParcelableExtra("data");
+//                Bundle extras = data.getExtras();
+//                Bitmap b = (Bitmap) extras.get("data");
 
               //  U.ResizeBitmap(U.getBitmapForFile(F.SD_CARD_TEMP_PHOTO_PATH), 640);
                 //take = b;
