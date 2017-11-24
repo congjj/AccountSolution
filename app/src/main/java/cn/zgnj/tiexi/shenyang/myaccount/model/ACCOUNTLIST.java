@@ -1,5 +1,6 @@
 package cn.zgnj.tiexi.shenyang.myaccount.model;
 
+import android.hardware.camera2.TotalCaptureResult;
 import android.net.Uri;
 import android.provider.ContactsContract;
 
@@ -223,10 +224,12 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
      * @param ACCOUNTBOOKID
      * @return
      */
-    public static List<ACCOUNTLIST>GetSome(String ACCOUNTBOOKID)
+    public static List<ACCOUNTLIST>GetSome(Date fromTime,Date ToTime,String ACCOUNTBOOKID)
     {
-       return   ACCOUNTLIST.findWithQuery(ACCOUNTLIST .class ,"select * from ACCOUNTLIST where ACCOUNTSUBJECT_ID in " +
-               "(select ID from ACCOUNTSUBJECT where ACCOUNTBOOK_ID=?) order by ACCOUNTTIME",ACCOUNTBOOKID) ;
+        String ftime="2017-10-11";////fromTime .toString() ;
+        String ttime="2007-11-25";//ToTime .toString() ;
+       return   ACCOUNTLIST.findWithQuery(ACCOUNTLIST .class ,"select * from ACCOUNTLIST where ACCOUNTTIME>=? and ACCOUNTTIME<? " +
+               "and ACCOUNTSUBJECT_ID in (select ID from ACCOUNTSUBJECT where ACCOUNTBOOK_ID=?) order by ACCOUNTTIME",ftime , ttime ,ACCOUNTBOOKID) ;
     }
 
 

@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,13 +25,13 @@ import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 public class IteminfoActivity extends AppCompatActivity
 {
 
-
+    ACCOUNTLIST accountItem;
     private void Load(Intent intent, Bundle savedInstanceState)
     {
         Bundle bundle = new Bundle();
         bundle = intent.getBundleExtra("accountItem");
         String UUID = bundle.getString("accountItem_UUID") ;
-        ACCOUNTLIST accountItem=ACCOUNTLIST .getOne(UUID) ;
+        accountItem=ACCOUNTLIST .getOne(UUID) ;
         this.mEditTextRemark .setEnabled(false) ;
         this.mtxvSubjectItem.setText(accountItem .getSubjectName()) ;
         this .mtxvItemName .setText(accountItem .getNAME() ) ;
@@ -50,31 +52,45 @@ public class IteminfoActivity extends AppCompatActivity
         this.mTextViewCreateTime .setText(df.format(accountItem .getCREATETIME())) ;
         df = new SimpleDateFormat("yyyy-MM-dd");
         this.mTextViewAccountDate .setText(" "+df.format(accountItem .getACCOUNTTIME())) ;
-        List<Bitmap> billlist = new ArrayList<Bitmap> ();
-        for(byte [] temp : accountItem .getBills())
-        {
-            billlist .add(Toolkit.byte4bitmap(Toolkit .unGZip(temp))) ;
-        }
+        showItemImg(accountItem ,this.mCheckBoxImgNoZip.isChecked()) ;
 
-        List<Bitmap> billlist1 = new ArrayList<Bitmap> ();
-        for(Uri temp : accountItem.getBillsPath())
+    }
+
+    private void ShowImg4NoZip(CompoundButton buttonView, boolean isChecked)
+    {
+        showItemImg(accountItem ,isChecked) ;
+    }
+    
+    
+
+    void showItemImg(ACCOUNTLIST accountItem,boolean NoZip)
+    {
+        List<Bitmap> billlist = new ArrayList<Bitmap> ();
+
+        if(NoZip)
         {
-            Uri tem=temp;
-            billlist1 .add(Toolkit.getBitmap4Uri(this,temp)) ;
+            for (Uri temp : accountItem.getBillsPath())
+            {
+                Uri tem = temp;
+                billlist.add(Toolkit.getBitmap4Uri(this, temp));
+            }
+        }
+        else
+        {
+            for (byte[] temp : accountItem.getBills())
+            {
+                billlist.add(Toolkit.byte4bitmap(Toolkit.unGZip(temp)));
+            }
         }
         LinearLayout.LayoutParams mLayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
                 ,LinearLayout.LayoutParams.MATCH_PARENT);
-        BillsitemAdapter mAdapter = new BillsitemAdapter(billlist1, this,mLayoutParams);
+        BillsitemAdapter mAdapter = new BillsitemAdapter(billlist, this,mLayoutParams);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(1);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-    }
-    
-    
-    
-    
 
+    }
 
 
     //region description
@@ -106,6 +122,7 @@ public class IteminfoActivity extends AppCompatActivity
     TextView mTextViewAccountDate;
     TextView mTextViewCreateTime;
     RecyclerView  mRecyclerView ;
+    CheckBox mCheckBoxImgNoZip;
     private void LoadView()
     {
         this.mtxvCount =(TextView)findViewById(R.id .txvItemCount) ;
@@ -116,13 +133,24 @@ public class IteminfoActivity extends AppCompatActivity
         this.mEditTextRemark =(EditText)findViewById(R.id .etxtItemRemark) ;
         this.mTextViewAccountDate =(TextView )findViewById(R.id .txvItemAccountdate) ;
         this.mTextViewCreateTime =(TextView )findViewById(R.id .txvItemCreateTime);
+        this.mCheckBoxImgNoZip =(CheckBox) findViewById(R.id .chkImgNoZip) ;
         mRecyclerView =(RecyclerView )findViewById(R.id .RcvBillslist) ;
     }
 
 
     private void SetListener()
     {
+        this.mCheckBoxImgNoZip .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                ShowImg4NoZip(buttonView ,isChecked);
+            }
+        }) ;
     }
+
+
 
     //endregion
 

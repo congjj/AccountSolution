@@ -135,13 +135,28 @@
             android:gravity="top"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView32"
-                android:layout_width="8dp"
+            <LinearLayout
+                android:layout_width="19dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="top|right"
-                android:text="@string/labremark"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="top|right"
+                    android:text="@string/labremark"/>
+
+                <CheckBox
+                    android:id="@+id/chkImgNoZip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/img4"/>
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/etxtItemRemark"

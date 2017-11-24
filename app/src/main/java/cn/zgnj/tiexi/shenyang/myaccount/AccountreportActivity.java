@@ -35,6 +35,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected4Section;
 
+import static cn.zgnj.tiexi.shenyang.myaccount.R.id.dateSelected;
 import static cn.zgnj.tiexi.shenyang.myaccount.R.id.dsDate;
 import static cn.zgnj.tiexi.shenyang.myaccount.R.id.rvItemList;
 import static cn.zgnj.tiexi.shenyang.myaccount.R.id.textView;
@@ -68,11 +69,13 @@ public class AccountreportActivity extends AppCompatActivity
 
     private void spnSubjectItem_ItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
+
         showReport() ;
     }
 
     private void mDateSelected4Section_AfterSelectedDate(int btnID, Calendar fromCa, Calendar toCa)
     {
+
        showReport() ;
     }
 
@@ -98,7 +101,10 @@ public class AccountreportActivity extends AppCompatActivity
         List<String> ischecklist=new ArrayList<String>() ;
         Float inValues =Float .parseFloat("0") ;
         Float outValues =Float .parseFloat("0") ;
-        for(ACCOUNTLIST  temp:ACCOUNTLIST .GetSome(bookid))
+        long calendar =this.mDateSelected4Section .GetFromDate().getTimeInMillis() ;
+        Date fromTime = this.mDateSelected4Section .GetFromDate().getTime() ;
+        Date toTime=this.mDateSelected4Section .GetToDate() .getTime() ;
+        for(ACCOUNTLIST  temp:ACCOUNTLIST .GetSome(fromTime ,toTime ,bookid))
         {
             mUUIDlist .add(temp .getUUID()) ;
             mitmelist .add(temp.getSubjectName()) ;
