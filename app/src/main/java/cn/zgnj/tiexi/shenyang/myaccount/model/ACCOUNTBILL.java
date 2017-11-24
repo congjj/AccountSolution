@@ -1,6 +1,7 @@
 package cn.zgnj.tiexi.shenyang.myaccount.model;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
@@ -41,6 +42,14 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
     @Column(name = "PIC")
     byte []  mPIC;
 
+
+    /**
+     * 图片数据路径
+     */
+    @Column(name = "PICPATH")
+    String mPICPATH;
+
+
     /**
      * 是否有效
      */
@@ -60,13 +69,25 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
         return list;
     }
 
+    protected static List<Uri>getBillsUri(String accountlist_ID)
+    {
+        List<Uri>list = new ArrayList<Uri>() ;
+        for(ACCOUNTBILL temp : ACCOUNTBILL .find(ACCOUNTBILL .class ,"ACCOUNTLIST_ID=?",accountlist_ID) )
+        {
+            Uri aa= Uri.parse(temp.mPICPATH) ;
+            list .add(aa) ;
+        }
+        return list;
+    }
+
     public ACCOUNTBILL(ACCOUNTLIST mAccountList,String mName ,int mIndex
-            ,byte [] mPic,boolean mIsActived)
+            ,byte [] mPic,Uri mPicPath,boolean mIsActived)
     {
         this.mACCOUNTLIST =mAccountList ;
         this.mNAME =mName ;
         this.mINDEX =mIndex ;
         this.mPIC =mPic ;
+        this.mPICPATH =mPicPath .toString() ;
         this.mISACTIVED =mIsActived ;
     }
 

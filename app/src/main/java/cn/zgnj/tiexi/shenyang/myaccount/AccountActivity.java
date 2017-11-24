@@ -44,6 +44,7 @@ public class AccountActivity extends AppCompatActivity
     private final int W_EXTERNAL_STORAGE = 101;
     private final int R_EXTERNAL_STORAGE = 101;
     private List<Bitmap> billsItemlist;
+    private List<Uri>billItemPathlist;
     private BillsitemAdapter mAdapter;
     private long userinfoID;
 
@@ -62,7 +63,8 @@ public class AccountActivity extends AppCompatActivity
         mTvTitle.setText(bundle.getString("name") + "【" + bundle.getString("remark") + "】");
         List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
         loadBookTypelist(list);
-        billsItemlist = new ArrayList<>();
+        billsItemlist = new ArrayList<Bitmap>();
+        billItemPathlist =new ArrayList<Uri>() ;
         mAdapter = new BillsitemAdapter(billsItemlist, this);
         doCaremaSuccess();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -70,7 +72,7 @@ public class AccountActivity extends AppCompatActivity
         mRcvPiclist.setLayoutManager(linearLayoutManager);
     }
 
-    Uri mUri;
+    Uri mUri=null;
     /**
      * 开始拍照
      *
@@ -126,14 +128,16 @@ public class AccountActivity extends AppCompatActivity
             try
             {
                 Bitmap b=null;
-                if(data ==null)
+                if(mUri==null)
                 {
                     Bundle extras = data.getExtras();
                     b = (Bitmap) extras.get("data");
+                    billItemPathlist .add(data .getData()) ;
                 }
                 else
                 {
                     b = Toolkit .getBitmap4Uri4zip(this,800f,480,100,mUri );
+                    billItemPathlist .add(mUri) ;
                 }
                 billsItemlist.add(b);
                 mAdapter = new BillsitemAdapter(billsItemlist, this);
@@ -182,12 +186,14 @@ public class AccountActivity extends AppCompatActivity
             if (mAdapter.getItemCount() > 0)
             {
                 ACCOUNTLIST temp = ACCOUNTLIST.getOne(itmeID);
+
                 int index = 1;
                 for (Bitmap bitmap : billsItemlist)
                 {
-                    new ACCOUNTBILL(temp, java.util.UUID.randomUUID().toString(), index++,
-                            Toolkit .gZip(Toolkit.bitmap4byte(bitmap))
-                            , true)._Insert();
+                    Uri tempUri=billItemPathlist .get(index-1);
+                    new ACCOUNTBILL(temp, java.util.UUID.randomUUID().toString(), index,
+                            Toolkit .gZip(Toolkit.bitmap4byte(bitmap)),tempUri,true)._Insert();
+                    index ++;
                 }
             }
             success();
@@ -238,9 +244,9 @@ public class AccountActivity extends AppCompatActivity
     //判断记账填写是否合法
     private boolean verify()
     {
-        if (this.mEdtName.getText().toString().trim().length() == 0)
+        if (this.mEdtName.getText().toString().trim().length() == 0 && mAdapter.getItemCount() == 0)
         {
-            Toast.makeText(this, "记账名称必须填写！", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "记账名称或拍照必须必须填写其一！", Toast.LENGTH_LONG).show();
             return false;
         } else if (this.mEditPrice.getText().toString().trim().length() == 0)
         {
@@ -347,8 +353,6 @@ public class AccountActivity extends AppCompatActivity
         this.mRcvPiclist = (RecyclerView) findViewById(R.id.rcvPiclist);
         this.mIsCheckAccount = (CheckBox) findViewById(R.id.chkAccountCheck);
         this.mBtnAccountReport = (Button) findViewById(R.id.btnAccountReport);
-
-
     }
     //endregion
 

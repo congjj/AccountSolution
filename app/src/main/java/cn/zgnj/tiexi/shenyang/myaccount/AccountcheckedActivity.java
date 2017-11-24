@@ -8,11 +8,15 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.util.List;
 
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
+import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.FileUtils;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Permissionhelper;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
@@ -20,8 +24,17 @@ import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 public class AccountcheckedActivity extends AppCompatActivity
 {
 
+
+    private ACCOUNTBOOK mACCOUNTBOOK ;
     private void Load(Intent intent, Bundle savedInstanceState)
     {
+        Bundle bundle = new Bundle();
+        bundle = intent.getBundleExtra("sendBookID");
+        mACCOUNTBOOK = ACCOUNTBOOK.getItSelf(bundle.getLong("book_ID"));
+
+
+        List<ACCOUNTBOOK> booklist = USERINFO.getOne(bundle.getLong("user_ID")).getACCOUNTBOOKList();
+        ArrayAdapter<ACCOUNTBOOK> adp=new ArrayAdapter<ACCOUNTBOOK>(this , R.layout.support_simple_spinner_dropdown_item,booklist);
 
     }
 
@@ -30,44 +43,7 @@ public class AccountcheckedActivity extends AppCompatActivity
     {
         String filename ="Img"+ Long.toString(System.currentTimeMillis());
         uri1 =Toolkit .startCamera4filePath(this,filename ,Activity.DEFAULT_KEYS_DIALER) ;
-//        Intent it = new Intent("android.media.action.IMAGE_CAPTURE");
-//        //it.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-//
-//        if (it .resolveActivity(getPackageManager()) != null)
-//        {
-//            FileUtils fileUtils =new FileUtils() ;
-//            String b =File .separator ;
-//            String a = fileUtils .getFileDir() +b ;
-//
-//            File filepath = new File(a) ;
-//            if(!filepath .exists() )
-//            {
-//                filepath .mkdirs() ;
-//            }
-//
-//            //Uri c=fileUtils.getUriForFile(this,photoFile) ;
-//            try
-//            {
-//                String itmeID = java.util.UUID.randomUUID().toString();
-//                File photoFile =File.createTempFile(itmeID+"kk9k",".jpg",filepath);
-//                if(!photoFile .exists() )
-//                {
-//                    photoFile .mkdirs() ;
-//                }
-//                if (photoFile != null)
-//                {
-//                    Uri uri = Uri.fromFile(photoFile);
-//                    uri1 =fileUtils .getUriForFile(this,photoFile) ;
-//                    it.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
-//                    startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                ex.printStackTrace();
-//            }
-//
-//        }
+
 
     }
 

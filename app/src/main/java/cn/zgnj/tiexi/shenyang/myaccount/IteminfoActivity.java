@@ -3,6 +3,7 @@ package cn.zgnj.tiexi.shenyang.myaccount;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBILL;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTLIST;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 
@@ -53,9 +55,16 @@ public class IteminfoActivity extends AppCompatActivity
         {
             billlist .add(Toolkit.byte4bitmap(Toolkit .unGZip(temp))) ;
         }
+
+        List<Bitmap> billlist1 = new ArrayList<Bitmap> ();
+        for(Uri temp : accountItem.getBillsPath())
+        {
+            Uri tem=temp;
+            billlist1 .add(Toolkit.getBitmap4Uri(this,temp)) ;
+        }
         LinearLayout.LayoutParams mLayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
                 ,LinearLayout.LayoutParams.MATCH_PARENT);
-        BillsitemAdapter mAdapter = new BillsitemAdapter(billlist, this,mLayoutParams);
+        BillsitemAdapter mAdapter = new BillsitemAdapter(billlist1, this,mLayoutParams);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(1);
         mRecyclerView.setLayoutManager(linearLayoutManager);

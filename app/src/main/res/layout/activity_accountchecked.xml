@@ -13,10 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
         android:layout_marginTop="16dp"
-        android:text="Button11"
+        android:text="888"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="111"/>
+        />
 
     <ImageView
         android:id="@+id/ivItemShow"

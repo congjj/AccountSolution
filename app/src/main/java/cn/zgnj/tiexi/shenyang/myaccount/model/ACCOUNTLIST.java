@@ -1,11 +1,13 @@
 package cn.zgnj.tiexi.shenyang.myaccount.model;
 
+import android.net.Uri;
 import android.provider.ContactsContract;
 
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
@@ -154,6 +156,15 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
     public List<byte []>getBills()
     {
          return  ACCOUNTBILL .geBills(this.getId() .toString() ) ;
+    }
+
+    /**
+     * 获取一条记录的票据照片 的 路径 用于查看原始图像
+     * @return
+     */
+    public List<Uri>getBillsPath()
+    {
+        return ACCOUNTBILL .getBillsUri(this.getId() .toString()) ;
     }
 
 

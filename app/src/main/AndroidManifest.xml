@@ -46,7 +46,7 @@
             android:value="DBAccount.db"/>
         <meta-data
             android:name="VERSION"
-            android:value="14"/>
+            android:value="16"/>
         <meta-data
             android:name="QUERY_LOG"
             android:value="true"/>
