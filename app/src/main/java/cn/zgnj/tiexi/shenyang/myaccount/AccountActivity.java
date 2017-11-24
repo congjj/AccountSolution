@@ -125,15 +125,16 @@ public class AccountActivity extends AppCompatActivity
         {
             try
             {
-                Bitmap b =Toolkit .getBitmap4Uri(this,mUri) ;
-//                Bitmap thumbnail = data.getParcelableExtra("data");
-//                Bundle extras = data.getExtras();
-//                Bitmap b = (Bitmap) extras.get("data");
-              //  U.ResizeBitmap(U.getBitmapForFile(F.SD_CARD_TEMP_PHOTO_PATH), 640);
-                //take = b;
-//                ImageView img = (ImageView)findViewById(R.id.imageView );
-//                img.setImageBitmap(b);
-
+                Bitmap b=null;
+                if(data ==null)
+                {
+                    Bundle extras = data.getExtras();
+                    b = (Bitmap) extras.get("data");
+                }
+                else
+                {
+                    b = Toolkit .getBitmap4Uri4zip(this,800f,480,100,mUri );
+                }
                 billsItemlist.add(b);
                 mAdapter = new BillsitemAdapter(billsItemlist, this);
                 mRcvPiclist.setAdapter(mAdapter);
