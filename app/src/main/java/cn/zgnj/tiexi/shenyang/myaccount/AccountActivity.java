@@ -125,12 +125,10 @@ public class AccountActivity extends AppCompatActivity
         {
             try
             {
-                Bitmap b =Toolkit .getBitmapFromUri(this,mUri) ;
-
+                Bitmap b =Toolkit .getBitmap4Uri(this,mUri) ;
 //                Bitmap thumbnail = data.getParcelableExtra("data");
 //                Bundle extras = data.getExtras();
 //                Bitmap b = (Bitmap) extras.get("data");
-
               //  U.ResizeBitmap(U.getBitmapForFile(F.SD_CARD_TEMP_PHOTO_PATH), 640);
                 //take = b;
 //                ImageView img = (ImageView)findViewById(R.id.imageView );
@@ -140,8 +138,10 @@ public class AccountActivity extends AppCompatActivity
                 mAdapter = new BillsitemAdapter(billsItemlist, this);
                 mRcvPiclist.setAdapter(mAdapter);
                 doCaremaSuccess();
-            } catch (Exception e)
+            }
+            catch (Exception ex)
             {
+                ex.printStackTrace();
             }
         }
     }
@@ -185,7 +185,7 @@ public class AccountActivity extends AppCompatActivity
                 for (Bitmap bitmap : billsItemlist)
                 {
                     new ACCOUNTBILL(temp, java.util.UUID.randomUUID().toString(), index++,
-                            Toolkit.bitmap4byte(bitmap)
+                            Toolkit .gZip(Toolkit.bitmap4byte(bitmap))
                             , true)._Insert();
                 }
             }

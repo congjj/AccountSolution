@@ -51,7 +51,7 @@ public class IteminfoActivity extends AppCompatActivity
         List<Bitmap> billlist = new ArrayList<Bitmap> ();
         for(byte [] temp : accountItem .getBills())
         {
-            billlist .add(Toolkit .byte4bitmap(temp)) ;
+            billlist .add(Toolkit.byte4bitmap(Toolkit .unGZip(temp))) ;
         }
         LinearLayout.LayoutParams mLayoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
                 ,LinearLayout.LayoutParams.MATCH_PARENT);

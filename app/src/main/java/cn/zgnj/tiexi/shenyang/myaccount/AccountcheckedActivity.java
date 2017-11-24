@@ -90,7 +90,7 @@ public class AccountcheckedActivity extends AppCompatActivity
 //                Bitmap b = (Bitmap) extras.get("data");
                 Uri uri =uri1 ;
 
-                Bitmap aa = Toolkit.getBitmapFromUri(this, uri) ;
+                Bitmap aa = Toolkit.getBitmap4Uri(this, uri) ;
                //File file = new File() ;
                 //this.mImageViewItemShow .setImageURI(uri1) ;
 

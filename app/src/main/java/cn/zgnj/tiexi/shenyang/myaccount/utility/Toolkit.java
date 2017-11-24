@@ -13,11 +13,10 @@ import android.util.Log;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.ContentHandler;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +24,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.bzip2.CBZip2InputStream;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.bzip2.CBZip2OutputStream;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -116,13 +120,25 @@ public class Toolkit
     }
 
 
+    public static byte [] getBytes4Uri(Uri uri) throws IOException
+    {
+        //String filePath = "e:\\cc.jpg";
+        String a =uri.toString() ;
+        File inFile = new File(uri.toString());
+
+        FileInputStream fis= new FileInputStream(inFile);
+
+        byte [] bytes=new byte[fis.available()];
+        return bytes;
+    }
+
     /**
      * 获取Uri下的图片
      * @param context
      * @param uri
      * @return
      */
-    public static Bitmap getBitmapFromUri(Context context ,Uri uri)
+    public static Bitmap getBitmap4Uri(Context context ,Uri uri)
     {
         try
         {
@@ -253,7 +269,7 @@ public class Toolkit
     }
 
 
-
+    //region description 数据压缩
     /***
      * 压缩GZip
      *
@@ -312,7 +328,133 @@ public class Toolkit
     }
 
 
+    /***
+     * 压缩Zip
+     *
+     * @param data
+     * @return
+     */
+    public static byte[] zip(byte[] data) {
+        byte[] b = null;
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ZipOutputStream zip = new ZipOutputStream(bos);
+            ZipEntry entry = new ZipEntry("zip");
+            entry.setSize(data.length);
+            zip.putNextEntry(entry);
+            zip.write(data);
+            zip.closeEntry();
+            zip.close();
+            b = bos.toByteArray();
+            bos.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return b;
+    }
 
+    /***
+     * 解压Zip
+     *
+     * @param data
+     * @return
+     */
+    public static byte[] unZip(byte[] data) {
+        byte[] b = null;
+        try {
+            ByteArrayInputStream bis = new ByteArrayInputStream(data);
+            ZipInputStream zip = new ZipInputStream(bis);
+            while (zip.getNextEntry() != null) {
+                byte[] buf = new byte[1024];
+                int num = -1;
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                while ((num = zip.read(buf, 0, buf.length)) != -1) {
+                    baos.write(buf, 0, num);
+                }
+                b = baos.toByteArray();
+                baos.flush();
+                baos.close();
+            }
+            zip.close();
+            bis.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return b;
+    }
+
+    /***
+     * 压缩BZip2
+     *
+     * @param data
+     * @return
+     */
+    public static byte[] bZip2(byte[] data) {
+        byte[] b = null;
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            CBZip2OutputStream bzip2 = new CBZip2OutputStream(bos);
+            bzip2.write(data);
+            bzip2.flush();
+            bzip2.close();
+            b = bos.toByteArray();
+            bos.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return b;
+    }
+
+    /***
+     * 解压BZip2
+     *
+     * @param data
+     * @return
+     */
+    public static byte[] unBZip2(byte[] data)
+    {
+        byte[] b = null;
+        try
+        {
+            ByteArrayInputStream bis = new ByteArrayInputStream(data);
+            CBZip2InputStream bzip2 = new CBZip2InputStream(bis);
+            byte[] buf = new byte[1024];
+            int num = -1;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            while ((num = bzip2.read(buf, 0, buf.length)) != -1) {
+                baos.write(buf, 0, num);
+            }
+            b = baos.toByteArray();
+            baos.flush();
+            baos.close();
+            bzip2.close();
+            bis.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return b;
+    }
+
+    /**
+     * 把字节数组转换成16进制字符串
+     *
+     * @param bArray
+     * @return
+     */
+    public static String bytesToHexString(byte[] bArray)
+    {
+        StringBuffer sb = new StringBuffer(bArray.length);
+        String sTemp;
+        for (int i = 0; i < bArray.length; i++) {
+            sTemp = Integer.toHexString(0xFF & bArray[i]);
+            if (sTemp.length() < 2)
+                sb.append(0);
+            sb.append(sTemp.toUpperCase());
+        }
+        return sb.toString();
+    }
+
+    //endregion
 
 
 }
