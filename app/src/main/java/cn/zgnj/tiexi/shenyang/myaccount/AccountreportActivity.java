@@ -69,14 +69,13 @@ public class AccountreportActivity extends AppCompatActivity
 
     private void spnSubjectItem_ItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
-
         showReport() ;
     }
 
     private void mDateSelected4Section_AfterSelectedDate(int btnID, Calendar fromCa, Calendar toCa)
     {
 
-       showReport() ;
+        showReport() ;
     }
 
     private void reportItem_ItemClick(String uuid)
@@ -101,9 +100,9 @@ public class AccountreportActivity extends AppCompatActivity
         List<String> ischecklist=new ArrayList<String>() ;
         Float inValues =Float .parseFloat("0") ;
         Float outValues =Float .parseFloat("0") ;
-        long calendar =this.mDateSelected4Section .GetFromDate().getTimeInMillis() ;
-        Date fromTime = this.mDateSelected4Section .GetFromDate().getTime() ;
-        Date toTime=this.mDateSelected4Section .GetToDate() .getTime() ;
+
+        Calendar fromTime = this.mDateSelected4Section .GetFromDate() ;
+        Calendar  toTime=this.mDateSelected4Section .GetToDate() ;
         for(ACCOUNTLIST  temp:ACCOUNTLIST .GetSome(fromTime ,toTime ,bookid))
         {
             mUUIDlist .add(temp .getUUID()) ;
@@ -211,12 +210,7 @@ public class AccountreportActivity extends AppCompatActivity
         };
 
 
-
-
-
     }
-
-
 
 
     //endregion

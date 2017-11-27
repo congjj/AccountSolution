@@ -9,6 +9,7 @@ import com.orm.dsl.Column;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -224,11 +225,11 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
      * @param ACCOUNTBOOKID
      * @return
      */
-    public static List<ACCOUNTLIST>GetSome(Date fromTime,Date ToTime,String ACCOUNTBOOKID)
+    public static List<ACCOUNTLIST>GetSome(Calendar fromTime, Calendar toTime, String ACCOUNTBOOKID)
     {
-        String ftime="2017-10-11";////fromTime .toString() ;
-        String ttime="2007-11-25";//ToTime .toString() ;
-       return   ACCOUNTLIST.findWithQuery(ACCOUNTLIST .class ,"select * from ACCOUNTLIST where ACCOUNTTIME>=? and ACCOUNTTIME<? " +
+        String ftime=String.valueOf(fromTime .getTimeInMillis());////fromTime .toString() ;
+        String ttime=String.valueOf(toTime .getTimeInMillis()) ;
+        return   ACCOUNTLIST.findWithQuery(ACCOUNTLIST .class ,"select * from ACCOUNTLIST where ACCOUNTTIME>=? and ACCOUNTTIME<? " +
                "and ACCOUNTSUBJECT_ID in (select ID from ACCOUNTSUBJECT where ACCOUNTBOOK_ID=?) order by ACCOUNTTIME",ftime , ttime ,ACCOUNTBOOKID) ;
     }
 
