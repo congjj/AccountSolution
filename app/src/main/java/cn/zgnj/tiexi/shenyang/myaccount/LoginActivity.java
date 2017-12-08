@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity
             if(new PermissionsChecker(this).lacksPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE))
             {
                 //设置权限
-                Permissionhelper.startActivityForResult(this,READ_PHONE_REQUEST_CODE,Manifest.permission.WRITE_EXTERNAL_STORAGE); ;
+                Permissionhelper.startActivityForResult(this,READ_PHONE_REQUEST_CODE,Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             IModelHelper a = new USERINFO("", "", _TelephInfo.getLine1Number(),

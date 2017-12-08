@@ -1,14 +1,12 @@
 package cn.zgnj.tiexi.shenyang.myaccount.model;
 
-import android.hardware.camera2.TotalCaptureResult;
+
 import android.net.Uri;
-import android.provider.ContactsContract;
+
 
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
-
 import java.io.Serializable;
-import java.net.URI;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -227,7 +225,7 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
      */
     public static List<ACCOUNTLIST>GetSome(Calendar fromTime, Calendar toTime, String ACCOUNTBOOKID)
     {
-        String ftime=String.valueOf(fromTime .getTimeInMillis());////fromTime .toString() ;
+        String ftime=String.valueOf(fromTime .getTimeInMillis());
         String ttime=String.valueOf(toTime .getTimeInMillis()) ;
         return   ACCOUNTLIST.findWithQuery(ACCOUNTLIST .class ,"select * from ACCOUNTLIST where ACCOUNTTIME>=? and ACCOUNTTIME<? " +
                "and ACCOUNTSUBJECT_ID in (select ID from ACCOUNTSUBJECT where ACCOUNTBOOK_ID=?) order by ACCOUNTTIME",ftime , ttime ,ACCOUNTBOOKID) ;
