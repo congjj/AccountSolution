@@ -25,14 +25,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import cjj.tiexi.shenyang.library.qrcode.activity.CaptureActivity;
+import cjj.tiexi.shenyang.library.qrcode.activity.CodeUtils;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
-import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
-import cn.zgnj.tiexi.shenyang.myaccount.utility.FileUtils;
-import cn.zgnj.tiexi.shenyang.myaccount.utility.Permissionhelper;
+
 import cn.zgnj.tiexi.shenyang.myaccount.webservice.*;
 
 public class AccountcheckedActivity extends AppCompatActivity
 {
+    public static final int REQUEST_CODE = 111;
+
     String result;
 
     Handler handler = new Handler(){
@@ -61,56 +63,63 @@ public class AccountcheckedActivity extends AppCompatActivity
 
     private void CheckAccountItem(View v)
     {
-        UploadAccountItem webser=new UploadAccountItem("Test") ;
-        //创建HttpTransportSE传输对象，该对象用于调用Web Service操作
-        final HttpTransportSE ht = webser .getHttpTransportSE();
-        ht.debug = true;
+        Intent intent = new Intent(AccountcheckedActivity.this, CaptureActivity.class);
+        startActivityForResult(intent,REQUEST_CODE);
 
-        final SoapSerializationEnvelope envelope =webser .getSoapSerializationEnvelope() ;
-        //实例化SoapObject对象，创建该对象时需要传入所要调用的Web Service的命名空间、Web Service方法名
-        SoapObject soapObject = webser .getSoapObject() ;
-        //对dotnet webservice协议的支持,如果dotnet的webservice
-        envelope.dotNet = true;
-        //调用SoapSerializationEnvelope的setOutputSoapObject()方法，或者直接对bodyOut属性赋值，将前两步创建的SoapObject对象设为
-        //SoapSerializationEnvelope的付出SOAP消息体
-        envelope.bodyOut = soapObject;
-        final String SOAP_ACTION = "http://tempuri.org/Test";
 
-        new Thread(){
-            @Override
-            public void run()
-            {
-                try
-                {
-                    //调用WebService，调用对象的call()方法，并以SoapSerializationEnvelope作为参数调用远程Web Service
-                    ht.call(SOAP_ACTION, envelope);
-                    if(envelope.getResponse() != null){
-                        //获取服务器响应返回的SOAP消息，调用完成后，访问SoapSerializationEnvelope对象的bodyIn属性，该属性返回一个
-                        //SoapObject对象，该对象就代表了Web Service的返回消息。解析该SoapObject对象，即可获取调用Web Service的返回值
-                        SoapObject so = (SoapObject) envelope.bodyIn;
-                        //接下来就是从SoapObject对象中解析响应数据的过程了
-                        result = so.getPropertyAsString(0);
-                        Message msg = new Message();
-                        msg.what = 1;
-                        handler.sendMessage(msg);
-                    }
-                    else
-                    {
-                        Message msg=new Message();
-                        msg.what=0;
-                        handler.sendMessage(msg);
-                    }
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-                catch (XmlPullParserException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+
+
+
+//        UploadAccountItem webser=new UploadAccountItem("Test") ;
+//        //创建HttpTransportSE传输对象，该对象用于调用Web Service操作
+//        final HttpTransportSE ht = webser .getHttpTransportSE();
+//        ht.debug = true;
+//
+//        final SoapSerializationEnvelope envelope =webser .getSoapSerializationEnvelope() ;
+//        //实例化SoapObject对象，创建该对象时需要传入所要调用的Web Service的命名空间、Web Service方法名
+//        SoapObject soapObject = webser .getSoapObject() ;
+//        //对dotnet webservice协议的支持,如果dotnet的webservice
+//        envelope.dotNet = true;
+//        //调用SoapSerializationEnvelope的setOutputSoapObject()方法，或者直接对bodyOut属性赋值，将前两步创建的SoapObject对象设为
+//        //SoapSerializationEnvelope的付出SOAP消息体
+//        envelope.bodyOut = soapObject;
+//        final String SOAP_ACTION = "http://tempuri.org/Test";
+//
+//        new Thread(){
+//            @Override
+//            public void run()
+//            {
+//                try
+//                {
+//                    //调用WebService，调用对象的call()方法，并以SoapSerializationEnvelope作为参数调用远程Web Service
+//                    ht.call(SOAP_ACTION, envelope);
+//                    if(envelope.getResponse() != null){
+//                        //获取服务器响应返回的SOAP消息，调用完成后，访问SoapSerializationEnvelope对象的bodyIn属性，该属性返回一个
+//                        //SoapObject对象，该对象就代表了Web Service的返回消息。解析该SoapObject对象，即可获取调用Web Service的返回值
+//                        SoapObject so = (SoapObject) envelope.bodyIn;
+//                        //接下来就是从SoapObject对象中解析响应数据的过程了
+//                        result = so.getPropertyAsString(0);
+//                        Message msg = new Message();
+//                        msg.what = 1;
+//                        handler.sendMessage(msg);
+//                    }
+//                    else
+//                    {
+//                        Message msg=new Message();
+//                        msg.what=0;
+//                        handler.sendMessage(msg);
+//                    }
+//                }
+//                catch (IOException e)
+//                {
+//                    e.printStackTrace();
+//                }
+//                catch (XmlPullParserException e)
+//                {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
 
     }
 
@@ -122,8 +131,41 @@ public class AccountcheckedActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-
+        /**
+         * 处理二维码扫描结果
+         */
+        if (requestCode == REQUEST_CODE)
+        {
+            //处理扫描结果（在界面上显示）
+            if (null != data)
+            {
+                Bundle bundle = data.getExtras();
+                if (bundle == null)
+                {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE)
+                        == CodeUtils.RESULT_SUCCESS)
+                {
+                    String result1 =
+                            bundle.getString(CodeUtils.RESULT_STRING);
+                    Toast.makeText(AccountcheckedActivity.this,
+                            result1 , Toast.LENGTH_LONG).show();
+//                    //用默认浏览器打开扫描得到的地址
+//                    Intent intent = new Intent();
+//                    intent.setAction("android.intent.action.VIEW");
+//                    Uri content_url = Uri.parse(result.toString());
+//                    intent.setData(content_url);
+//                    startActivity(intent);
+                }
+                else if (bundle.getInt(CodeUtils.RESULT_TYPE)
+                        == CodeUtils.RESULT_FAILED)
+                {
+                    Toast.makeText(AccountcheckedActivity.this,
+                            "解析二维码失败", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 
 

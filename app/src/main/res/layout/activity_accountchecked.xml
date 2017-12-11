@@ -33,4 +33,5 @@
         app:layout_constraintTop_toBottomOf="@+id/btnItemCheckOp"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@android:drawable/checkbox_off_background"/>
+
 </android.support.constraint.ConstraintLayout>
