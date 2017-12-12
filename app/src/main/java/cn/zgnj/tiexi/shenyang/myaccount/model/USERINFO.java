@@ -47,21 +47,45 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
      */
     @Column(name = "LOGINTIME",unique = true ,notNull =true )
     String LOGINTIME;
+
     /**
-     * 最后登录日期
+     * 服务器URL
+     */
+    @Column(name = "SERVER_URL",unique = true ,notNull =true )
+    String  SERVERURL;
+
+    /**
+     * 服务器名称
+     */
+    @Column(name = "SERVER_NAME",unique = true ,notNull =true )
+    String  SERVERNAME;
+
+    /**
+     * 最后登录时间
      */
     @Column(name = "LASTLOGINTIME",unique = true ,notNull =true )
     String  LASTLOGINTIME;
+
     /**
      * 备注
      */
     @Column(name = "REMARK")
     String REMARK;
 
+    /**
+     * 获取用户名
+     * @return
+     */
+    public String getUSERNAME ()
+    {
+        return this.USERNAME ;
+    }
+
+
     public USERINFO (){}
 
     public USERINFO (String USERCODE ,String USERNAME ,String USERTEL_NO ,String SIM_ISMI ,String USERPASSWORD,
-                     String LOGINTIME  ,String LASTLOGINTIME ,String REMARK)
+                     String LOGINTIME  ,String LASTLOGINTIME ,String SERVERURL ,String SERVERNAME ,String REMARK)
     {
         this.USERCODE =USERCODE ;
         this.USERTEL_NO =USERTEL_NO ;
@@ -71,6 +95,8 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
         this.USERPASSWORD  =USERPASSWORD;
         this.LOGINTIME =LOGINTIME ;
         this.LASTLOGINTIME =LASTLOGINTIME ;
+        this.SERVERURL =SERVERURL ;
+        this.SERVERNAME =SERVERNAME;
         this.REMARK = REMARK;
     }
 
@@ -94,6 +120,17 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
         return list;
     }
 
+
+    /**
+     * 获取用户
+     * @param SIM_Code 手机卡物理地址
+     * @return
+     */
+    public static  USERINFO getOne(String SIM_Code)
+    {
+        List<USERINFO>temp = USERINFO.find(USERINFO .class ,"SIM_ISMI=?",SIM_Code);
+        return temp.size() ==0 ? null : temp .get(0) ;
+    }
 
     @Override
     public long _Insert()
