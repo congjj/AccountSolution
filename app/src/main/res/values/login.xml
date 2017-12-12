@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="tel_NO">账户ID号：</string>
+    <string name="tel_NO">账户ID：</string>
     <string name="login_sys">登录系统</string>
+    <string name="name">姓名：</string>
+    <string name="personal">个人版</string>
+    <string name="web">网络版</string>
 </resources>
