@@ -21,7 +21,6 @@
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
 
-
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
@@ -68,21 +67,16 @@
         </activity>
 
         <provider
-            android:authorities="cn.zgnj.tiexi.shenyang.myaccount.fileprovider"
             android:name="android.support.v4.content.FileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:authorities="cn.zgnj.tiexi.shenyang.myaccount.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths">
             </meta-data>
-
         </provider>
 
-
-
-        
-        
     </application>
 
 </manifest>

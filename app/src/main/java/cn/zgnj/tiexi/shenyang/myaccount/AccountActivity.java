@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +22,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +38,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.utility.FileUtils;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Permissionhelper;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.PermissionsChecker;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
+import cn.zgnj.tiexi.shenyang.myaccount.webservice.UploadAccountItem;
 
 
 public class AccountActivity extends AppCompatActivity
@@ -154,13 +160,63 @@ public class AccountActivity extends AppCompatActivity
 
     private void CheckAccount(View v)
     {
-        Intent i=new Intent(this  ,AccountcheckedActivity .class );
-        Bundle bundle = new Bundle() ;
-        bundle.putLong("book_ID",accountBookID) ;
-        bundle .putLong("user_ID",userinfoID) ;
-        i.putExtra("sendBookID",bundle);
-        startActivity(i);
+        final UploadAccountItem webser=new UploadAccountItem("Test");
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                Message msg = new Message();
+
+                try
+                {
+                    if(webser.verify4ConnectRight())
+                    {
+                        msg.what = 1;
+                        handler.sendMessage(msg);
+                    }
+                    else
+                    {
+                        msg.what = 0;
+                        handler.sendMessage(msg);
+                    }
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                } catch (XmlPullParserException e)
+                {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }.start();
     }
+
+    Handler handler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            if(msg.what ==0)
+            {
+                Intent i = new Intent(AccountActivity.this, AccountcheckedActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putLong("book_ID", accountBookID);
+                bundle.putLong("user_ID", userinfoID);
+                i.putExtra("sendBookID", bundle);
+                startActivity(i);
+                //Toast.makeText(AccountActivity.this, "连接服务器失败", Toast.LENGTH_LONG).show();
+            }
+            else if(msg.what ==1)
+            {
+                Toast.makeText(AccountActivity.this, "jjjj", Toast.LENGTH_LONG).show();
+            }
+            else
+            {}
+        }
+    };
 
     /**
      * 生成一条记账
@@ -324,7 +380,7 @@ public class AccountActivity extends AppCompatActivity
     private Button mBtnAccount;
     private ImageButton mBtnCamera;
     private RecyclerView mRcvPiclist;
-    private Button mBtnAccountUpdate;
+
     private Button mBtnAccountCheck;
     private Button mBtnAccountReport;
     private EditText mEditPrice;
@@ -345,7 +401,6 @@ public class AccountActivity extends AppCompatActivity
         this.mEdtRemark = (EditText) findViewById(R.id.edtRemark);
         this.mEdtName = (EditText) findViewById(R.id.edtName);
         this.mBtnAccount = (Button) findViewById(R.id.btnAccount);
-        this.mBtnAccountUpdate = (Button) findViewById(R.id.btnAccountUpdate);
         this.mBtnAccountCheck = (Button) findViewById(R.id.btnAccountItemCheck);
         this.mBtnAccountReport = (Button) findViewById(R.id.btnAccountReport);
         this.mBtnCamera = (ImageButton) findViewById(R.id.ibtnCamera);

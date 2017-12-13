@@ -20,24 +20,12 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <Button
-            android:id="@+id/btnAccountUpdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.28"
-            android:background="@android:color/holo_orange_light"
-            android:text="@string/accountupdate"
-            android:textSize="16sp"
-            android:textStyle="italic"
-            tools:layout_editor_absoluteX="91dp"
-            tools:layout_editor_absoluteY="-203dp"/>
-
-        <Button
             android:id="@+id/btnAccountItemCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.42"
             android:background="@android:color/holo_green_light"
-            android:text="@string/accountchecked"
+            android:text="@string/uploadAccountItems"
             android:textSize="16sp"
             android:textStyle="italic"/>
 

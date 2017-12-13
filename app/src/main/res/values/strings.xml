@@ -29,4 +29,6 @@
     <string name="date4date">账期</string>
     <string name="createdate">操作时间</string>
     <string name="img4">原图</string>
+    <string name="uploadAccountItems">上传记账明细</string>
+    <string name="title_activity_settingwebservice">SettingwebserviceActivity</string>
 </resources>
