@@ -91,7 +91,7 @@ public class AccountcheckedActivity extends AppCompatActivity
                         == CodeUtils.RESULT_FAILED)
                 {
                     Toast.makeText(AccountcheckedActivity.this,
-                            "解析二维码失败j", Toast.LENGTH_LONG).show();
+                            "解析二维码失败", Toast.LENGTH_LONG).show();
                 }
             }
         }

@@ -33,6 +33,7 @@ import java.util.List;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBILL;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTLIST;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
+import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.FileUtils;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.Permissionhelper;
@@ -158,9 +159,11 @@ public class AccountActivity extends AppCompatActivity
     }
 
 
-    private void CheckAccount(View v)
+    private void UploadAccount_Click(View v)
     {
-        final UploadAccountItem webser=new UploadAccountItem("Test");
+        USERINFO userinfo =USERINFO .getOne(userinfoID) ;
+        String serUrl=userinfo .getSERVERURL() ;
+        final UploadAccountItem webser=new UploadAccountItem(serUrl ,"Test");
         new Thread()
         {
             @Override
@@ -183,13 +186,14 @@ public class AccountActivity extends AppCompatActivity
                 }
                 catch (IOException e)
                 {
-                    e.printStackTrace();
-                } catch (XmlPullParserException e)
-                {
-                    e.printStackTrace();
+                    msg.what = 0;
+                    handler.sendMessage(msg);
                 }
-
-
+                catch (XmlPullParserException e)
+                {
+                    msg.what = 0;
+                    handler.sendMessage(msg);
+                }
             }
         }.start();
     }
@@ -201,11 +205,10 @@ public class AccountActivity extends AppCompatActivity
         {
             if(msg.what ==0)
             {
-                Intent i = new Intent(AccountActivity.this, AccountcheckedActivity.class);
+                Intent i = new Intent(AccountActivity.this, SettingwebserviceActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putLong("book_ID", accountBookID);
                 bundle.putLong("user_ID", userinfoID);
-                i.putExtra("sendBookID", bundle);
+                i.putExtra("scanQRcode", bundle);
                 startActivity(i);
                 //Toast.makeText(AccountActivity.this, "连接服务器失败", Toast.LENGTH_LONG).show();
             }
@@ -368,7 +371,7 @@ public class AccountActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                CheckAccount(v);
+                UploadAccount_Click(v);
             }
         }) ;
     }

@@ -81,6 +81,15 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
         return this.USERNAME ;
     }
 
+    /**
+     * 获取webservice地址
+     * @return
+     */
+    public String getSERVERURL ()
+    {
+        return this.SERVERURL ;
+    }
+
 
     public USERINFO (){}
 
@@ -118,6 +127,16 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
     {
         List<ACCOUNTBOOK> list=ACCOUNTBOOK.find(ACCOUNTBOOK.class ,"USERINFO_ID=?",this.getId() .toString());
         return list;
+    }
+
+    public void setSERVERURL (String serverurl)
+    {
+        this.SERVERURL =serverurl ;
+    }
+
+    public void setSERVERNAME (String servername )
+    {
+        this.SERVERNAME =servername ;
     }
 
 
