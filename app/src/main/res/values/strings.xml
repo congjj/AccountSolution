@@ -31,4 +31,5 @@
     <string name="img4">原图</string>
     <string name="uploadAccountItems">上传记账明细</string>
     <string name="title_activity_settingwebservice">SettingwebserviceActivity</string>
+    <string name="scanQRcode">扫码获取服务器地址</string>
 </resources>

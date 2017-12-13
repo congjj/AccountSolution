@@ -77,6 +77,8 @@
             </meta-data>
         </provider>
 
+        <activity android:name=".SettingwebserviceActivity">
+        </activity>
     </application>
 
 </manifest>
