@@ -90,6 +90,11 @@ public class USERINFO extends SugarRecord implements Serializable ,IModelHelper
         return this.SERVERURL ;
     }
 
+    public String getSIM_ISMI ()
+    {
+        return this.SIM_ISMI ;
+    }
+
 
     public USERINFO (){}
 

@@ -162,7 +162,8 @@ public class AccountActivity extends AppCompatActivity
     private void UploadAccount_Click(View v)
     {
         USERINFO userinfo =USERINFO .getOne(userinfoID) ;
-        String serUrl=userinfo .getSERVERURL() ;
+        final String serUrl="http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
+        //userinfo .getSERVERURL() ;
         final UploadAccountItem webser=new UploadAccountItem(serUrl ,"Test");
         new Thread()
         {
@@ -176,6 +177,10 @@ public class AccountActivity extends AppCompatActivity
                     if(webser.verify4ConnectRight())
                     {
                         msg.what = 1;
+                        Bundle bundle =new Bundle() ;
+                        bundle.putString("serUrl",serUrl) ;
+                        bundle.putLong("accountBookID",accountBookID) ;
+                        msg.setData(bundle) ;
                         handler.sendMessage(msg);
                     }
                     else
@@ -214,12 +219,84 @@ public class AccountActivity extends AppCompatActivity
             }
             else if(msg.what ==1)
             {
-                Toast.makeText(AccountActivity.this, "jjjj", Toast.LENGTH_LONG).show();
+                Bundle bundle =msg .getData() ;
+                String serUrl =bundle .getString("serUrl") ;
+                final long bookid = bundle .getLong("accountBookID") ;
+                final UploadAccountItem webser=new UploadAccountItem(serUrl ,"UpLoad_Mobile");
+
+                new Thread()
+                {
+                    @Override
+                    public void run()
+                    {
+                        Message msg = new Message();
+                        try
+                        {
+                            int count = webser.uploadBooks4AccountItem(bookid);
+
+                                msg.what = 1;
+                                Bundle bundle =new Bundle() ;
+                                bundle.putInt("uploadcount",count) ;
+                                msg.setData(bundle) ;
+                                //handler.sendMessage(msg);
+                                handler1.sendMessage(msg);
+
+                        }
+                        catch (IOException e)
+                        {
+                            msg.what = 0;
+                            handler1.sendMessage(msg);
+                        }
+                        catch (XmlPullParserException e)
+                        {
+                            msg.what = 0;
+                            handler1.sendMessage(msg);
+                        }
+                    }
+                }.start();
+
+            }
+            else if(msg.what ==3)
+            {
+                Bundle bundle =msg.getData() ;
+                int count=bundle .getInt("uploadcount") ;
+                Toast.makeText(AccountActivity.this, "成功上传【"+count+"】条数据", Toast.LENGTH_LONG).show();
+            }
+            else if(msg.what ==4)
+            {
+                Toast.makeText(AccountActivity.this, "上传数据失败！", Toast.LENGTH_LONG).show();
             }
             else
             {}
         }
     };
+
+
+
+
+    Handler handler1 = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            if (msg.what == 0)
+            {
+
+                Toast.makeText(AccountActivity.this, "上传数据失败！", Toast.LENGTH_LONG).show();
+            }
+            if(msg.what ==1)
+            {
+                Bundle bundle =msg.getData() ;
+                int count=bundle .getInt("uploadcount") ;
+                Toast.makeText(AccountActivity.this, "成功上传【"+count+"】条数据", Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+
+
+
+
+
 
     /**
      * 生成一条记账

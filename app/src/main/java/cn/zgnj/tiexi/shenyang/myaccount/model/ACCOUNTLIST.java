@@ -83,6 +83,11 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
     String mREMARK;
 
 
+    public void setISUPLOAD (boolean isupload )
+    {
+        this.mISUPLOAD =isupload ;
+    }
+
     public boolean getISCHECKED ()
     {
         return mISCHECKED ;
@@ -229,6 +234,18 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
         String ttime=String.valueOf(toTime .getTimeInMillis()) ;
         return   ACCOUNTLIST.findWithQuery(ACCOUNTLIST .class ,"select * from ACCOUNTLIST where ACCOUNTTIME>=? and ACCOUNTTIME<? " +
                "and ACCOUNTSUBJECT_ID in (select ID from ACCOUNTSUBJECT where ACCOUNTBOOK_ID=?) order by ACCOUNTTIME",ftime , ttime ,ACCOUNTBOOKID) ;
+    }
+
+
+    /**
+     *记账本下没有上传的数据
+     * @param ACCOUNTBOOKID
+     * @return
+     */
+    public static List<ACCOUNTLIST>GetSomeNoUpload(String ACCOUNTBOOKID)
+    {
+        return   ACCOUNTLIST.findWithQuery(ACCOUNTLIST .class ,"select * from ACCOUNTLIST where ISUPLOAD=0 and ISACTIVED=1 " +
+                " and  ACCOUNTSUBJECT_ID in (select ID from ACCOUNTSUBJECT where ACCOUNTBOOK_ID=?)",ACCOUNTBOOKID) ;
     }
 
 
