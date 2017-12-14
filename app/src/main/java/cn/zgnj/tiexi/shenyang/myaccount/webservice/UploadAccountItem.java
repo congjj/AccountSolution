@@ -13,6 +13,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -152,7 +153,7 @@ public class UploadAccountItem
 //            soapObject.addProperty("opby", "");
 //            soapObject.addProperty("createby", "上传");
 //            soapObject.addProperty("remark", "");
-
+            
             SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
             String uuID =temp .getUUID();
             String bookname =accountbook .getNAME();
