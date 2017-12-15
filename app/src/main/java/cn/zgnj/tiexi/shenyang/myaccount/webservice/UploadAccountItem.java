@@ -1,11 +1,15 @@
 package cn.zgnj.tiexi.shenyang.myaccount.webservice;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import junit.framework.Test;
 
+import org.kobjects.base64.Base64;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -15,18 +19,20 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cn.zgnj.tiexi.shenyang.myaccount.AccountcheckedActivity;
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBILL;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTLIST;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 
 /**
  * Created by CJJ on 2017/12/8.
  */
 
-public class UploadAccountItem
+public class UploadAccountItem   //extends AppCompatActivity
 {
     String SERVICE_NS ;
     String SOAP_ACTION;
@@ -120,9 +126,9 @@ public class UploadAccountItem
     }
 
 
-    public int uploadBooks4AccountItem(long bookID) throws IOException, XmlPullParserException
+    public String [] uploadBooks4AccountItem(long bookID) throws IOException, XmlPullParserException
     {
-        int Index =0;
+        List<String>uploadedaccount=new ArrayList<String>() ;
         ACCOUNTBOOK accountbook =ACCOUNTBOOK .getItSelf(bookID) ;
         //创建HttpTransportSE传输对象，该对象用于调用Web Service操作
         final HttpTransportSE ht = new HttpTransportSE(SERVICE_URL); ;
@@ -134,26 +140,10 @@ public class UploadAccountItem
         //对dotnet webservice协议的支持,如果dotnet的webservice
         envelope.dotNet = true;
 
-        List<ACCOUNTLIST>aaa=ACCOUNTLIST .GetSomeNoUpload(String .valueOf(bookID));
         for(ACCOUNTLIST temp:ACCOUNTLIST .GetSomeNoUpload(String .valueOf(bookID)))
         {
             //实例化SoapObject对象，创建该对象时需要传入所要调用的Web Service的命名空间、Web Service方法名
             SoapObject soapObject = new SoapObject(SERVICE_NS, methodName);
-
-//            soapObject.addProperty("uuID", "fadf");
-//            soapObject.addProperty("bookname", "7");
-//            soapObject.addProperty("accountitme", "9");
-//            soapObject.addProperty("accountname","9");
-//            soapObject.addProperty("accountremark", "9");
-//            soapObject.addProperty("accountdate", "9");
-//            soapObject.addProperty("price", "" );
-//            soapObject.addProperty("count","");
-//            soapObject.addProperty("isout", "");
-//            soapObject.addProperty("kinds", "");
-//            soapObject.addProperty("opby", "");
-//            soapObject.addProperty("createby", "上传");
-//            soapObject.addProperty("remark", "");
-            
             SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
             String uuID =temp .getUUID();
             String bookname =accountbook .getNAME();
@@ -197,13 +187,70 @@ public class UploadAccountItem
                 if(result .equals("success"))
                 {
                     temp .setISUPLOAD(true) ;
-                    temp .save() ;
-                    Index ++;
+                    //temp .save() ;
+                    uploadedaccount .add(temp.getUUID()) ;
                 }
             }
             else
             {
 
+            }
+        }
+        String [] ccc= uploadedaccount.toArray(new String[]{});
+        return ccc;
+    }
+
+
+
+    public  int  uploadBillPic(String [] uuIDlist) throws IOException, XmlPullParserException
+    {
+        int Index =0;
+
+        //创建HttpTransportSE传输对象，该对象用于调用Web Service操作
+        final HttpTransportSE ht = new HttpTransportSE(SERVICE_URL); ;
+        ht.debug = true;
+        //使用SOAP1.1协议创建Envelop对象。从名称上来看,SoapSerializationEnvelope代表一个SOAP消息封包；但ksoap2-android项目对
+        //SoapSerializationEnvelope的处理比较特殊，它是HttpTransportSE调用Web Service时信息的载体--客户端需要传入的参数，需要通过
+        //SoapSerializationEnvelope对象的bodyOut属性传给服务器；服务器响应生成的SOAP消息也通过该对象的bodyIn属性来获取。
+        final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        //对dotnet webservice协议的支持,如果dotnet的webservice
+        envelope.dotNet = true;
+
+        for(String uuID : uuIDlist )
+        {
+            ACCOUNTLIST temp =ACCOUNTLIST.getOne(uuID) ;
+            for (ACCOUNTBILL accountbill: temp.getACCOUNTBILL())
+            {
+                //实例化SoapObject对象，创建该对象时需要传入所要调用的Web Service的命名空间、Web Service方法名
+                SoapObject soapObject = new SoapObject(SERVICE_NS, methodName);
+                String pic = Base64.encode(Toolkit.unGZip(accountbill.getPIC()));
+                soapObject.addProperty("uuID", uuID);
+                soapObject.addProperty("pic", pic);
+
+                //调用SoapSerializationEnvelope的setOutputSoapObject()方法，或者直接对bodyOut属性赋值，将前两步创建的SoapObject对象设为
+                //SoapSerializationEnvelope的付出SOAP消息体
+                envelope.bodyOut = soapObject;
+                //调用WebService，调用对象的call()方法，并以SoapSerializationEnvelope作为参数调用远程Web Service
+                ht.call(SOAP_ACTION, envelope);
+                if (envelope.getResponse() != null)
+                {
+                    //获取服务器响应返回的SOAP消息，调用完成后，访问SoapSerializationEnvelope对象的bodyIn属性，该属性返回一个
+                    //SoapObject对象，该对象就代表了Web Service的返回消息。解析该SoapObject对象，即可获取调用Web Service的返回值
+                    SoapObject so = (SoapObject) envelope.bodyIn;
+                    //接下来就是从SoapObject对象中解析响应数据的过程了
+                    //String result = so.getPropertyAsString(0);
+                    Object result = so.getPropertyAsString(0);
+                    if (result.equals("success"))
+                    {
+                        accountbill.setISUPLOAD(true);
+                        //accountbill .save() ;
+                        Index++;
+                    }
+                }
+                else
+                {
+
+                }
             }
         }
         return Index ;

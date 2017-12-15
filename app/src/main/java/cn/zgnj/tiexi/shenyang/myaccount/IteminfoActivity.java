@@ -71,7 +71,7 @@ public class IteminfoActivity extends AppCompatActivity
         {
             for (Uri temp : accountItem.getBillsPath())
             {
-                Uri tem = temp;
+                //Uri tem = temp;
                 billlist.add(Toolkit.getBitmap4Uri(this, temp));
             }
         }

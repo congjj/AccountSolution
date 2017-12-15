@@ -49,12 +49,28 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
     @Column(name = "PICPATH")
     String mPICPATH;
 
+    /**
+     * 是否有效
+     */
+    @Column(name = "ISUPLOAD", notNull = true)
+    boolean mISUPLOAD;
 
     /**
      * 是否有效
      */
     @Column(name = "ISACTIVED", notNull = true)
     boolean mISACTIVED;
+
+    public byte[]getPIC ()
+    {
+        return this.mPIC;
+    }
+
+
+    public void setISUPLOAD (boolean isupload )
+    {
+        this.mISUPLOAD =isupload;
+    }
 
     public ACCOUNTBILL()
     {}
@@ -81,7 +97,7 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
     }
 
     public ACCOUNTBILL(ACCOUNTLIST mAccountList,String mName ,int mIndex
-            ,byte [] mPic,Uri mPicPath,boolean mIsActived)
+            ,byte [] mPic,Uri mPicPath,boolean ISUPLOAD ,boolean mIsActived)
     {
         this.mACCOUNTLIST =mAccountList ;
         this.mNAME =mName ;
@@ -89,6 +105,7 @@ public class ACCOUNTBILL extends SugarRecord implements Serializable,IModelHelpe
         this.mPIC =mPic ;
         this.mPICPATH =mPicPath .toString() ;
         this.mISACTIVED =mIsActived ;
+        this.mISUPLOAD =ISUPLOAD ;
     }
 
 

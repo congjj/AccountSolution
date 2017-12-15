@@ -164,6 +164,15 @@ public class ACCOUNTLIST extends SugarRecord implements Serializable,IModelHelpe
     }
 
     /**
+     * 获取票据类
+     * @return
+     */
+    public List<ACCOUNTBILL>getACCOUNTBILL()
+    {
+        return  ACCOUNTBILL .find(ACCOUNTBILL .class ,"ACCOUNTLIST_ID=?",this.getId() .toString());
+    }
+
+    /**
      * 获取一条记录的票据照片 的 路径 用于查看原始图像
      * @return
      */
