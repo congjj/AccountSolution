@@ -2,6 +2,7 @@ package cn.zgnj.tiexi.shenyang.myaccount.webservice;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -32,12 +33,103 @@ import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
  * Created by CJJ on 2017/12/8.
  */
 
-public class UploadAccountItem   //extends AppCompatActivity
+public class UploadAccountItem  implements Runnable
 {
+    public interface AfterServiceRunSuccessListener
+    {
+        public void SetOnAfterServiceRunSuccess(Bundle bundle);
+    }
+    public AfterServiceRunSuccessListener SetOnAfterServiceRunSuccess;
+
+
+
+    public interface AfterServiceRunFailListener
+    {
+        public void SetOnAfterServiceRunFail(String exceptionStr);
+    }
+    public AfterServiceRunFailListener SetOnAfterServiceRunFail;
+
+
     String SERVICE_NS ;
     String SOAP_ACTION;
     String SERVICE_URL;
     String methodName ;
+
+    public void startService()
+    {
+        Thread thread=new Thread(this);
+        thread.start();
+    }
+
+    public Handler mHandler=new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            if(msg.what ==0)
+            {
+                if(SetOnAfterServiceRunFail!=null)
+                {
+                    SetOnAfterServiceRunFail .SetOnAfterServiceRunFail("操作失败") ;
+                }
+            }
+            else if(msg .what ==1)
+            {
+                if(SetOnAfterServiceRunSuccess!=null)
+                {
+                    SetOnAfterServiceRunSuccess .SetOnAfterServiceRunSuccess(msg .getData()) ;
+                }
+            }
+            else
+            {
+                if(SetOnAfterServiceRunFail!=null)
+                {
+                    SetOnAfterServiceRunFail .SetOnAfterServiceRunFail("无此操作") ;
+                }
+            }
+        }
+    };
+
+    @Override
+    public void run()
+    {
+        try
+        {
+            Message msg = new Message();
+            if(this.methodName.equals("Test"))
+            {
+                if (verify4ConnectRight())
+                {
+                    msg.what = 1;
+                    Bundle bundle =new Bundle() ;
+                    msg.setData(bundle) ;
+                    mHandler.sendMessage(msg);
+                }
+                else
+                {
+                    msg.what = 0;
+                    mHandler.sendMessage(msg);
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            if(SetOnAfterServiceRunFail!=null)
+            {
+                SetOnAfterServiceRunFail .SetOnAfterServiceRunFail(e.getMessage()) ;
+            }
+
+        }
+        catch (XmlPullParserException e)
+        {
+            if(SetOnAfterServiceRunFail!=null)
+            {
+                SetOnAfterServiceRunFail .SetOnAfterServiceRunFail(e.getMessage()) ;
+            }
+        }
+
+    }
+
 
     public UploadAccountItem (String methodName)
     {
