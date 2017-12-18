@@ -40,12 +40,6 @@ public class DateSelected4Section extends LinearLayout
     private Button mBtnTo;
     private TextView mTxvTile;
 
-//    private int mFromYear ;
-//    private int mFromMonth ;
-//    private int mFromDay ;
-//    private int mToYear ;
-//    private int mToMonth ;
-//    private int mToDay ;
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
@@ -81,12 +75,7 @@ public class DateSelected4Section extends LinearLayout
         mBtnTo =(Button)view.findViewById(R.id.btnTo) ;
         mTxvTile =(TextView)view. findViewById(R.id .textView10 ) ;
 
-//        mFromYear =mFromCa .get(Calendar .YEAR);
-//        mFromMonth =mFromCa .get(Calendar .MONTH);
-//        mFromDay=mFromCa .get(Calendar.DAY_OF_MONTH) ;
-//        mToYear =mToCa .get(Calendar .YEAR);
-//        mToMonth =mToCa .get(Calendar .MONTH);
-//        mToDay =mToCa .get(Calendar.DAY_OF_MONTH);
+
         StringBuffer fromdate =new StringBuffer().append(mFromCa .get(Calendar .YEAR)).append("-") .append(mFromCa .get(Calendar .MONTH)+1)
                 .append("-") .append(mFromCa .get(Calendar.DAY_OF_MONTH)) ;
         StringBuffer todate =new StringBuffer().append(mToCa .get(Calendar .YEAR)).append("-") .append(mToCa .get(Calendar .MONTH)+1)
