@@ -171,7 +171,6 @@ public class AccountActivity extends AppCompatActivity
             public void run()
             {
                 Message msg = new Message();
-
                 try
                 {
                     if(webser.verify4ConnectRight())
@@ -233,7 +232,6 @@ public class AccountActivity extends AppCompatActivity
                         Message msg = new Message();
                         try
                         {
-
                             String[] uuIDlist = webser.uploadBooks4AccountItem(bookid);
 
                                 msg.what = 1;
@@ -345,6 +343,9 @@ public class AccountActivity extends AppCompatActivity
         }
 
     };
+
+
+
 
 
 
