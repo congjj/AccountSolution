@@ -162,14 +162,14 @@ public class AccountActivity extends AppCompatActivity
 
     private void UploadAccount_Click(View v)
     {
-        final Dialog mDialog;
+        final Dialog mTestDialog;
         USERINFO userinfo =USERINFO .getOne(userinfoID) ;
         final String serUrl="http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
         //userinfo .getSERVERURL() ;
        // UploadAccountItem webser=new UploadAccountItem(serUrl ,"Test");
         UploadAccountItem webserTest=new UploadAccountItem(serUrl) ;
-        mDialog = xloading.showWaitDialog(AccountActivity.this,"上传服务器连接中……",false  ,false  );
-        webserTest .RunService("Test") ;
+        mTestDialog = xloading.showWaitDialog(AccountActivity.this,"上传服务器连接中……",false  ,false  );
+        webserTest .RunService("Test",null) ;
         webserTest .SetOnAfterServiceRunResult =new UploadAccountItem.AfterServiceRunResultListener()
         {
             @Override
@@ -177,11 +177,65 @@ public class AccountActivity extends AppCompatActivity
             {
                 if(methodName .equals("Test"))
                 {
+                    xloading .closeDialog(mTestDialog) ;
                     if(isSuccess)
                     {
                         String url = bundle .getString("Url") ;
                         UploadAccountItem webserUpLoad_Mobile=new UploadAccountItem(url) ;
-                        webserUpLoad_Mobile .RunService("UpLoad_Mobile") ;
+                        final Dialog mUploadItem = xloading.showWaitDialog(AccountActivity.this,"账目上传中……",false  ,false  );
+                        Bundle bookid = new Bundle() ;
+                        bookid .putLong("bookid",accountBookID) ;
+                        webserUpLoad_Mobile .RunService("UpLoad_Mobile",bookid) ;
+                        webserUpLoad_Mobile .SetOnAfterServiceRunResult =new UploadAccountItem.AfterServiceRunResultListener()
+                        {
+                            @Override
+                            public void RunAfterResult(String methodName, boolean isSuccess, Bundle bundle)
+                            {
+                                if(methodName .equals("UpLoad_Mobile"))
+                                {
+                                    xloading .closeDialog(mUploadItem) ;
+                                    if(isSuccess )
+                                    {
+                                        final String []uuIDlist =bundle .getStringArray("uuIDlist") ;
+                                        Toast.makeText(AccountActivity.this, "成功上传账目数据【"+uuIDlist.length +"】条", Toast.LENGTH_LONG).show();
+                                        if(uuIDlist .length ==0)
+                                            return ;
+                                        final String url = bundle .getString("Url") ;
+                                        final UploadAccountItem webser=new UploadAccountItem(url);
+                                        Bundle bundleuuIDlist = new Bundle() ;
+                                        bundleuuIDlist .putStringArray("uuIDlist",uuIDlist) ;
+                                        final Dialog mUploadItemPic = xloading.showWaitDialog(AccountActivity.this,"账目票据上传中……",false  ,false  );
+                                        webser .RunService("UpLoadBillsPic_Mobile",bundleuuIDlist) ;
+                                        webser .SetOnAfterServiceRunResult =new UploadAccountItem.AfterServiceRunResultListener()
+                                        {
+                                            @Override
+                                            public void RunAfterResult(String methodName, boolean isSuccess, Bundle bundle)
+                                            {
+                                                if(methodName .endsWith("UpLoadBillsPic_Mobile") )
+                                                {
+                                                    xloading .closeDialog(mUploadItemPic) ;
+                                                    if(isSuccess)
+                                                    {
+                                                        int count = bundle .getInt("count") ;
+                                                        Toast.makeText(AccountActivity.this, "成功上传账目票据【"+count +"】张", Toast.LENGTH_LONG).show();
+                                                    }
+                                                    else
+                                                    {
+                                                        String returninfo=bundle .getString("returninfo") ;
+                                                        Toast.makeText(AccountActivity.this, "账目票据上传失败【"+returninfo +"】", Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                            }
+                                        };
+                                    }
+                                    else
+                                    {
+                                        String returninfo=bundle .getString("returninfo") ;
+                                        Toast.makeText(AccountActivity.this, "账目上传失败【"+returninfo +"】", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        };
                     }
                     else
                     {
@@ -192,7 +246,7 @@ public class AccountActivity extends AppCompatActivity
                         startActivity(i);
                     }
                 }
-                xloading .closeDialog(mDialog) ;
+
             }
         };
        // webser .SetOnAfterServiceRunSuccess =new
@@ -235,65 +289,65 @@ public class AccountActivity extends AppCompatActivity
 //        }.start();
     }
 
-    //上传账目处理
-    Handler handler = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg)
-        {
-            if(msg.what ==0)
-            {
-                Intent i = new Intent(AccountActivity.this, SettingwebserviceActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putLong("user_ID", userinfoID);
-                i.putExtra("scanQRcode", bundle);
-                startActivity(i);
-                //Toast.makeText(AccountActivity.this, "连接服务器失败", Toast.LENGTH_LONG).show();
-            }
-            else if(msg.what ==1)
-            {
-                Bundle bundle =msg .getData() ;
-                final String serUrl =bundle .getString("serUrl") ;
-                final long bookid = bundle .getLong("accountBookID") ;
-                final UploadAccountItem webser=new UploadAccountItem(serUrl ,"UpLoad_Mobile");
-
-                new Thread()
-                {
-                    @Override
-                    public void run()
-                    {
-                        Message msg = new Message();
-                        try
-                        {
-                            String[] uuIDlist = webser.uploadBooks4AccountItem(bookid);
-
-                                msg.what = 1;
-                                Bundle bundle =new Bundle() ;
-                                bundle.putStringArray("uuIDlist",uuIDlist) ;
-                                bundle .putLong("bookid", bookid) ;
-                                bundle .putString("serUrl",serUrl) ;
-                                msg.setData(bundle) ;
-                                handler1.sendMessage(msg);
-
-                        }
-                        catch (IOException e)
-                        {
-                            msg.what = 0;
-                            handler1.sendMessage(msg);
-                        }
-                        catch (XmlPullParserException e)
-                        {
-                            msg.what = 0;
-                            handler1.sendMessage(msg);
-                        }
-                    }
-                }.start();
-
-            }
-            else
-            {}
-        }
-    };
+//    //上传账目处理
+//    Handler handler = new Handler()
+//    {
+//        @Override
+//        public void handleMessage(Message msg)
+//        {
+//            if(msg.what ==0)
+//            {
+//                Intent i = new Intent(AccountActivity.this, SettingwebserviceActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putLong("user_ID", userinfoID);
+//                i.putExtra("scanQRcode", bundle);
+//                startActivity(i);
+//                //Toast.makeText(AccountActivity.this, "连接服务器失败", Toast.LENGTH_LONG).show();
+//            }
+//            else if(msg.what ==1)
+//            {
+//                Bundle bundle =msg .getData() ;
+//                final String serUrl =bundle .getString("serUrl") ;
+//                final long bookid = bundle .getLong("accountBookID") ;
+//                final UploadAccountItem webser=new UploadAccountItem(serUrl ,"UpLoad_Mobile");
+//
+//                new Thread()
+//                {
+//                    @Override
+//                    public void run()
+//                    {
+//                        Message msg = new Message();
+//                        try
+//                        {
+//                            String[] uuIDlist = webser.uploadBooks4AccountItem(bookid);
+//
+//                                msg.what = 1;
+//                                Bundle bundle =new Bundle() ;
+//                                bundle.putStringArray("uuIDlist",uuIDlist) ;
+//                                bundle .putLong("bookid", bookid) ;
+//                                bundle .putString("serUrl",serUrl) ;
+//                                msg.setData(bundle) ;
+//                                handler1.sendMessage(msg);
+//
+//                        }
+//                        catch (IOException e)
+//                        {
+//                            msg.what = 0;
+//                            handler1.sendMessage(msg);
+//                        }
+//                        catch (XmlPullParserException e)
+//                        {
+//                            msg.what = 0;
+//                            handler1.sendMessage(msg);
+//                        }
+//                    }
+//                }.start();
+//
+//            }
+//            else
+//            {}
+//        }
+//    };
 
 
 

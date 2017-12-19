@@ -49,11 +49,7 @@ public class UploadAccountItem  implements Runnable
     String SERVICE_URL;
     String methodName ;
 
-    public void startService()
-    {
-        Thread thread=new Thread(this);
-        thread.start();
-    }
+
 
     public Handler mHandler=new Handler()
     {
@@ -68,22 +64,21 @@ public class UploadAccountItem  implements Runnable
             {
                 if(SetOnAfterServiceRunResult !=null)
                 {
-                    SetOnAfterServiceRunResult.RunAfterResult(methodName, false, bundle);
+                    SetOnAfterServiceRunResult.RunAfterResult(methodName, false, rebundle);
                 }
             }
             else if(msg .what ==1)
             {
                 if(SetOnAfterServiceRunResult !=null)
                 {
-                    bundle .putString("Url",rebundle .getString("Url")) ;
-                    SetOnAfterServiceRunResult.RunAfterResult(methodName, true, bundle);
+                    SetOnAfterServiceRunResult.RunAfterResult(methodName, true, rebundle);
                 }
             }
             else
             {
                 if(SetOnAfterServiceRunResult !=null)
                 {
-                    SetOnAfterServiceRunResult.RunAfterResult(methodName, false, bundle);
+                    SetOnAfterServiceRunResult.RunAfterResult(methodName, false, rebundle);
                 }
             }
         }
@@ -109,40 +104,51 @@ public class UploadAccountItem  implements Runnable
                     msg.what = 0;
                     bundle .putString("returninfo","Fail") ;
                 }
-                bundle.putString("method","Test") ;
+                bundle.putString("method",methodName) ;
                 msg.setData(bundle) ;
                 mHandler.sendMessage(msg);
             }
             else if(this.methodName .equals("UpLoad_Mobile"))
             {
+                long bookid =ServiceArgs.getLong("bookid") ;
+                //上传调用
+                String[] uuIDlist = uploadBooks4AccountItem(bookid);
 
+                bundle .putString("returninfo","Success") ;
+                bundle .putString("Url",SERVICE_URL ) ;
+                bundle.putStringArray("uuIDlist",uuIDlist) ;
+                bundle .putLong("bookid", bookid) ;
+                bundle.putString("method",methodName) ;
+                msg.what = 1;
+                msg.setData(bundle) ;
+                mHandler.sendMessage(msg);
+            }
+            else if(this.methodName .equals("UpLoadBillsPic_Mobile"))
+            {
+                String[] uuIDlist=ServiceArgs .getStringArray("uuIDlist") ;
+                int count = uploadBillPic(uuIDlist) ;
+                bundle .putString("returninfo","Success") ;
+                bundle .putString("Url",SERVICE_URL ) ;
+                bundle.putInt("count",count) ;
+                bundle.putString("method",methodName) ;
+                msg.what = 1;
+                msg.setData(bundle) ;
+                mHandler.sendMessage(msg);
             }
         }
         catch (IOException e)
         {
-            if(this.methodName.equals("Test"))
-            {
-                bundle.putString("method","Test") ;
-                bundle .putString("returninfo",e.getMessage()) ;
-            }
-            else if(this.methodName .equals("UpLoad_Mobile"))
-            {
-
-            }
+            msg.what = 0;
+            bundle.putString("method",methodName) ;
+            bundle .putString("returninfo",e.getMessage()) ;
             msg.setData(bundle) ;
             mHandler.sendMessage(msg);
         }
         catch (XmlPullParserException e)
         {
-            if(this.methodName.equals("Test"))
-            {
-                bundle.putString("method","Test") ;
-                bundle .putString("returninfo",e.getMessage()) ;
-            }
-            else if(this.methodName .equals("UpLoad_Mobile"))
-            {
-
-            }
+            msg.what = 0;
+            bundle.putString("method",methodName) ;
+            bundle .putString("returninfo",e.getMessage()) ;
             msg.setData(bundle) ;
             mHandler.sendMessage(msg);
         }
@@ -168,13 +174,16 @@ public class UploadAccountItem  implements Runnable
         this.methodName =methodName ;
     }
 
-    public void RunService(String methodName)
+    public void RunService(String methodName,Bundle bundle)
     {
         this.methodName =methodName ;
         SOAP_ACTION =SERVICE_NS + methodName ;
+        this.ServiceArgs =bundle;
         Thread thread=new Thread(this);
         thread.start();
     }
+
+    Bundle ServiceArgs ;
 
 
     private boolean verify4ConnectRight() throws IOException, XmlPullParserException
@@ -246,7 +255,7 @@ public class UploadAccountItem  implements Runnable
     }
 
 
-    public String [] uploadBooks4AccountItem(long bookID) throws IOException, XmlPullParserException
+    private  String [] uploadBooks4AccountItem(long bookID) throws IOException, XmlPullParserException
     {
         List<String>uploadedaccount=new ArrayList<String>() ;
         ACCOUNTBOOK accountbook =ACCOUNTBOOK .getItSelf(bookID) ;
