@@ -158,16 +158,15 @@ public class AccountActivity extends AppCompatActivity
         }
     }
 
-
     private void UploadAccount_Click(View v)
     {
         USERINFO userinfo =USERINFO .getOne(userinfoID) ;
         final String serUrl="http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
         //userinfo .getSERVERURL() ;
        // UploadAccountItem webser=new UploadAccountItem(serUrl ,"Test");
-        UploadAccountItem webser=new UploadAccountItem(serUrl) ;
-        webser .RunService("Test") ;
-        webser .SetOnAfterServiceRunResult =new UploadAccountItem.AfterServiceRunResultListener()
+        UploadAccountItem webserTest=new UploadAccountItem(serUrl) ;
+        webserTest .RunService("Test") ;
+        webserTest .SetOnAfterServiceRunResult =new UploadAccountItem.AfterServiceRunResultListener()
         {
             @Override
             public void RunAfterResult(String methodName, boolean isSuccess, Bundle bundle)
