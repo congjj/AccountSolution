@@ -148,6 +148,8 @@ public class AccountActivity extends AppCompatActivity
                     b = Toolkit .getBitmap4Uri4zip(this,800f,480,100,mUri );
                     billItemPathlist .add(mUri) ;
                 }
+                if(b==null)
+                    return ;
                 billsItemlist.add(b);
                 mAdapter = new BillsitemAdapter(billsItemlist, this);
                 mRcvPiclist.setAdapter(mAdapter);
@@ -164,8 +166,8 @@ public class AccountActivity extends AppCompatActivity
     {
         final Dialog mTestDialog;
         USERINFO userinfo =USERINFO .getOne(userinfoID) ;
-        final String serUrl="http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
-        //userinfo .getSERVERURL() ;
+        final String serUrl=//"http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
+        userinfo .getSERVERURL() ;
        // UploadAccountItem webser=new UploadAccountItem(serUrl ,"Test");
         UploadAccountItem webserTest=new UploadAccountItem(serUrl) ;
         mTestDialog = xloading.showWaitDialog(AccountActivity.this,"上传服务器连接中……",false  ,false  );
@@ -241,8 +243,8 @@ public class AccountActivity extends AppCompatActivity
                     {
                         Intent i = new Intent(AccountActivity.this, SettingwebserviceActivity.class);
                         Bundle SetUrlBundle = new Bundle();
-                        SetUrlBundle.putLong("user_ID", userinfoID);
-                        i.putExtra("scanQRcode", bundle);
+                        SetUrlBundle.putLong("userID", userinfoID);
+                        i.putExtra("scanQRcode", SetUrlBundle);
                         startActivity(i);
                     }
                 }
@@ -352,85 +354,84 @@ public class AccountActivity extends AppCompatActivity
 
 
 
-    //成功后上传票据处理
-    Handler handler1 = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg)
-        {
-            if (msg.what == 0)
-            {
-                Toast.makeText(AccountActivity.this, "上传数据失败！", Toast.LENGTH_LONG).show();
-            }
-            if(msg.what ==1)
-            {
-                Bundle bundle =msg.getData() ;
-                final String []uuIDlist =bundle .getStringArray("uuIDlist") ;
-                Toast.makeText(AccountActivity.this, "成功上传【"+uuIDlist.length +"】条数据", Toast.LENGTH_LONG).show();
+//    //成功后上传票据处理
+//    Handler handler1 = new Handler()
+//    {
+//        @Override
+//        public void handleMessage(Message msg)
+//        {
+//            if (msg.what == 0)
+//            {
+//                Toast.makeText(AccountActivity.this, "上传数据失败！", Toast.LENGTH_LONG).show();
+//            }
+//            if(msg.what ==1)
+//            {
+//                Bundle bundle =msg.getData() ;
+//                final String []uuIDlist =bundle .getStringArray("uuIDlist") ;
+//                Toast.makeText(AccountActivity.this, "成功上传【"+uuIDlist.length +"】条数据", Toast.LENGTH_LONG).show();
+//
+//                if(uuIDlist .length == 0)
+//                    return ;
+//                final String serUrl =bundle .getString("serUrl") ;
+//                final long bookid =bundle .getLong("bookid") ;
+//                final UploadAccountItem webser=new UploadAccountItem(serUrl ,"UpLoadBillsPic_Mobile");
+//                new Thread()
+//                {
+//                    @Override
+//                    public void run()
+//                    {
+//                        Message msg = new Message();
+//                        try
+//                        {
+//
+//                            int count = webser.uploadBillPic(uuIDlist) ;
+//
+//                            msg.what = 1;
+//                            Bundle bundle =new Bundle() ;
+//                            bundle.putInt("uploadcount",count) ;
+//                            bundle .putLong("bookid", bookid) ;
+//                            msg.setData(bundle) ;
+//                            handler2.sendMessage(msg);
+//
+//                        }
+//                        catch (IOException e)
+//                        {
+//                            msg.what = 0;
+//                            handler2.sendMessage(msg);
+//                        }
+//                        catch (XmlPullParserException e)
+//                        {
+//                            msg.what = 0;
+//                            handler2.sendMessage(msg);
+//                        }
+//                    }
+//                }.start();
+//
+//            }
+//        }
+//    };
 
-                if(uuIDlist .length == 0)
-                    return ;
-                final String serUrl =bundle .getString("serUrl") ;
-                final long bookid =bundle .getLong("bookid") ;
-                final UploadAccountItem webser=new UploadAccountItem(serUrl ,"UpLoadBillsPic_Mobile");
-                new Thread()
-                {
-                    @Override
-                    public void run()
-                    {
-                        Message msg = new Message();
-                        try
-                        {
 
-                            int count = webser.uploadBillPic(uuIDlist) ;
-
-                            msg.what = 1;
-                            Bundle bundle =new Bundle() ;
-                            bundle.putInt("uploadcount",count) ;
-                            bundle .putLong("bookid", bookid) ;
-                            msg.setData(bundle) ;
-                            handler2.sendMessage(msg);
-
-                        }
-                        catch (IOException e)
-                        {
-                            msg.what = 0;
-                            handler2.sendMessage(msg);
-                        }
-                        catch (XmlPullParserException e)
-                        {
-                            msg.what = 0;
-                            handler2.sendMessage(msg);
-                        }
-                    }
-                }.start();
-
-            }
-        }
-    };
-
-
-
-    //票据上传后处理
-    Handler handler2 = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg)
-        {
-            if (msg.what == 0)
-            {
-                Toast.makeText(AccountActivity.this, "上传票据失败！", Toast.LENGTH_LONG).show();
-            }
-            if (msg.what == 1)
-            {
-                Bundle bundle = msg.getData();
-                int count = bundle.getInt("uploadcount");
-                Toast.makeText(AccountActivity.this, "成功上传【" + count + "】张票据", Toast.LENGTH_LONG).show();
-            }
-        }
-
-    };
-
+//
+//    //票据上传后处理
+//    Handler handler2 = new Handler()
+//    {
+//        @Override
+//        public void handleMessage(Message msg)
+//        {
+//            if (msg.what == 0)
+//            {
+//                Toast.makeText(AccountActivity.this, "上传票据失败！", Toast.LENGTH_LONG).show();
+//            }
+//            if (msg.what == 1)
+//            {
+//                Bundle bundle = msg.getData();
+//                int count = bundle.getInt("uploadcount");
+//                Toast.makeText(AccountActivity.this, "成功上传【" + count + "】张票据", Toast.LENGTH_LONG).show();
+//            }
+//        }
+//
+//    };
 
 
 

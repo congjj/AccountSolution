@@ -31,7 +31,7 @@ public class SettingwebserviceActivity extends AppCompatActivity
     {
         Bundle bundle = new Bundle();
         bundle = intent.getBundleExtra("scanQRcode");
-        userID =bundle .getLong("user_ID") ;
+        userID =bundle .getLong("userID") ;
     }
 
     private void btnScanQRcode_Click(View v)
@@ -62,46 +62,73 @@ public class SettingwebserviceActivity extends AppCompatActivity
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS)
                 {
                     final String serUrl = bundle.getString(CodeUtils.RESULT_STRING);
-                    final UploadAccountItem webser=new UploadAccountItem(serUrl ,"GetServerName");
-                    new Thread()
+                    final UploadAccountItem webser=new UploadAccountItem(serUrl);
+                    webser .RunService("GetServerName",null) ;
+                    webser .SetOnAfterServiceRunResult =new UploadAccountItem.AfterServiceRunResultListener()
                     {
                         @Override
-                        public void run()
+                        public void RunAfterResult(String methodName, boolean isSuccess, Bundle bundle)
                         {
-                            Message msg = new Message();
-
-                            try
+                            if(methodName .equals("GetServerName") )
                             {
-                                String sername = webser .getSererName() ;
-                                if(!sername .equals(""))
+                                if(isSuccess )
                                 {
-                                    msg.what = 1;
-                                    Bundle bundle = new Bundle();
-                                    bundle .putString("servername",sername) ;
-                                    bundle .putLong("userid",userID) ;
-                                    bundle .putString("serUrl",serUrl );
-                                    msg.setData(bundle) ;
-
-                                    handler.sendMessage(msg);
+                                    String servername= bundle.getString("servername") ;
+                                    String sererurl=bundle .getString("Url") ;
+                                    USERINFO userinfo =USERINFO .getOne(userID) ;
+                                    userinfo .setSERVERNAME(servername ) ;
+                                    userinfo .setSERVERURL(sererurl) ;
+                                    userinfo.save() ;
+                                    mTextViewConnInfo .setText("恭喜你已经成功连接到：") ;
+                                    mTextViewShowServerName .setText("【"+servername+"】") ;
                                 }
                                 else
                                 {
-                                    msg.what = 0;
-                                    handler.sendMessage(msg);
+                                    String returninfo=bundle .getString("returninfo") ;
+                                    Toast.makeText(SettingwebserviceActivity.this, returninfo , Toast.LENGTH_LONG).show();
                                 }
                             }
-                            catch (IOException e)
-                            {
-                                msg.what = 0;
-                                handler.sendMessage(msg);
-                            }
-                            catch (XmlPullParserException e)
-                            {
-                                msg.what = 0;
-                                handler.sendMessage(msg);
-                            }
                         }
-                    }.start();
+                    };
+//                    new Thread()
+//                    {
+//                        @Override
+//                        public void run()
+//                        {
+//                            Message msg = new Message();
+//
+//                            try
+//                            {
+//                                String sername = webser .getSererName() ;
+//                                if(!sername .equals(""))
+//                                {
+//                                    msg.what = 1;
+//                                    Bundle bundle = new Bundle();
+//                                    bundle .putString("servername",sername) ;
+//                                    bundle .putLong("userid",userID) ;
+//                                    bundle .putString("serUrl",serUrl );
+//                                    msg.setData(bundle) ;
+//
+//                                    handler.sendMessage(msg);
+//                                }
+//                                else
+//                                {
+//                                    msg.what = 0;
+//                                    handler.sendMessage(msg);
+//                                }
+//                            }
+//                            catch (IOException e)
+//                            {
+//                                msg.what = 0;
+//                                handler.sendMessage(msg);
+//                            }
+//                            catch (XmlPullParserException e)
+//                            {
+//                                msg.what = 0;
+//                                handler.sendMessage(msg);
+//                            }
+//                        }
+//                    }.start();
 
 
 //                    Toast.makeText(this, result, Toast.LENGTH_LONG).show();
@@ -121,32 +148,32 @@ public class SettingwebserviceActivity extends AppCompatActivity
     }
 
 
-    Handler handler = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg)
-        {
-            if(msg.what ==0)
-            {
-                Toast.makeText(SettingwebserviceActivity.this, "连接服务器失败", Toast.LENGTH_LONG).show();
-            }
-            else if(msg.what ==1)
-            {
-                Bundle bundle =msg .getData() ;
-                String servername= bundle.getString("servername") ;
-                String sererurl=bundle .getString("serUrl") ;
-                long userid=bundle .getLong("userid") ;
-                USERINFO userinfo =USERINFO .getOne(userid) ;
-                userinfo .setSERVERNAME(servername ) ;
-                userinfo .setSERVERURL(sererurl) ;
-                userinfo.save() ;
-                mTextViewConnInfo .setText("恭喜你已经成功连接到：") ;
-                mTextViewShowServerName .setText("【"+servername+"】") ;
-            }
-            else
-            {}
-        }
-    };
+//    Handler handler = new Handler()
+//    {
+//        @Override
+//        public void handleMessage(Message msg)
+//        {
+//            if(msg.what ==0)
+//            {
+//                Toast.makeText(SettingwebserviceActivity.this, "连接服务器失败", Toast.LENGTH_LONG).show();
+//            }
+//            else if(msg.what ==1)
+//            {
+//                Bundle bundle =msg .getData() ;
+//                String servername= bundle.getString("servername") ;
+//                String sererurl=bundle .getString("serUrl") ;
+//                long userid=bundle .getLong("userid") ;
+//                USERINFO userinfo =USERINFO .getOne(userid) ;
+//                userinfo .setSERVERNAME(servername ) ;
+//                userinfo .setSERVERURL(sererurl) ;
+//                userinfo.save() ;
+//                mTextViewConnInfo .setText("恭喜你已经成功连接到：") ;
+//                mTextViewShowServerName .setText("【"+servername+"】") ;
+//            }
+//            else
+//            {}
+//        }
+//    };
 
 
 

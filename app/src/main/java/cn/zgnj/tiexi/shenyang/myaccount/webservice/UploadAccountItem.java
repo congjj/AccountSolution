@@ -135,6 +135,17 @@ public class UploadAccountItem  implements Runnable
                 msg.setData(bundle) ;
                 mHandler.sendMessage(msg);
             }
+            else if(this.methodName .equals("GetServerName"))
+            {
+                String sername = getSererName() ;
+                bundle .putString("returninfo","Success") ;
+                bundle .putString("Url",SERVICE_URL ) ;
+                bundle.putString("servername",sername) ;
+                bundle.putString("method",methodName) ;
+                msg.what = 1;
+                msg.setData(bundle) ;
+                mHandler.sendMessage(msg);
+            }
         }
         catch (IOException e)
         {
@@ -316,7 +327,7 @@ public class UploadAccountItem  implements Runnable
                 if(result .equals("success"))
                 {
                     temp .setISUPLOAD(true) ;
-                    //temp .save() ;
+                    temp .save() ;
                     uploadedaccount .add(temp.getUUID()) ;
                 }
             }
@@ -331,7 +342,7 @@ public class UploadAccountItem  implements Runnable
 
 
 
-    public  int  uploadBillPic(String [] uuIDlist) throws IOException, XmlPullParserException
+    private int  uploadBillPic(String [] uuIDlist) throws IOException, XmlPullParserException
     {
         int Index =0;
 
@@ -372,7 +383,7 @@ public class UploadAccountItem  implements Runnable
                     if (result.equals("success"))
                     {
                         accountbill.setISUPLOAD(true);
-                        //accountbill .save() ;
+                        accountbill .save() ;
                         Index++;
                     }
                 }
