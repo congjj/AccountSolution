@@ -75,6 +75,7 @@ public class UploadAccountItem  implements Runnable
             {
                 if(SetOnAfterServiceRunResult !=null)
                 {
+                    bundle .putString("Url",rebundle .getString("Url")) ;
                     SetOnAfterServiceRunResult.RunAfterResult(methodName, true, bundle);
                 }
             }
@@ -101,6 +102,7 @@ public class UploadAccountItem  implements Runnable
                 {
                     msg.what = 1;
                     bundle .putString("returninfo","Success") ;
+                    bundle .putString("Url",SERVICE_URL ) ;
                 }
                 else
                 {
@@ -111,6 +113,10 @@ public class UploadAccountItem  implements Runnable
                 msg.setData(bundle) ;
                 mHandler.sendMessage(msg);
             }
+            else if(this.methodName .equals("UpLoad_Mobile"))
+            {
+
+            }
         }
         catch (IOException e)
         {
@@ -118,6 +124,10 @@ public class UploadAccountItem  implements Runnable
             {
                 bundle.putString("method","Test") ;
                 bundle .putString("returninfo",e.getMessage()) ;
+            }
+            else if(this.methodName .equals("UpLoad_Mobile"))
+            {
+
             }
             msg.setData(bundle) ;
             mHandler.sendMessage(msg);
@@ -128,6 +138,10 @@ public class UploadAccountItem  implements Runnable
             {
                 bundle.putString("method","Test") ;
                 bundle .putString("returninfo",e.getMessage()) ;
+            }
+            else if(this.methodName .equals("UpLoad_Mobile"))
+            {
+
             }
             msg.setData(bundle) ;
             mHandler.sendMessage(msg);
@@ -163,7 +177,7 @@ public class UploadAccountItem  implements Runnable
     }
 
 
-    public boolean verify4ConnectRight() throws IOException, XmlPullParserException
+    private boolean verify4ConnectRight() throws IOException, XmlPullParserException
     {
 
         //创建HttpTransportSE传输对象，该对象用于调用Web Service操作

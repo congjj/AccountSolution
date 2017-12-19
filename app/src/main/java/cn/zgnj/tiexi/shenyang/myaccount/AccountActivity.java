@@ -2,6 +2,7 @@ package cn.zgnj.tiexi.shenyang.myaccount;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cjj.tiexi.shenyang.library.xloading.xloading;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBILL;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTLIST;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
@@ -160,18 +162,37 @@ public class AccountActivity extends AppCompatActivity
 
     private void UploadAccount_Click(View v)
     {
+        final Dialog mDialog;
         USERINFO userinfo =USERINFO .getOne(userinfoID) ;
         final String serUrl="http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
         //userinfo .getSERVERURL() ;
        // UploadAccountItem webser=new UploadAccountItem(serUrl ,"Test");
         UploadAccountItem webserTest=new UploadAccountItem(serUrl) ;
+        mDialog = xloading.showWaitDialog(AccountActivity.this,"上传服务器连接中……",false  ,false  );
         webserTest .RunService("Test") ;
         webserTest .SetOnAfterServiceRunResult =new UploadAccountItem.AfterServiceRunResultListener()
         {
             @Override
             public void RunAfterResult(String methodName, boolean isSuccess, Bundle bundle)
             {
-                String aa=methodName ;
+                if(methodName .equals("Test"))
+                {
+                    if(isSuccess)
+                    {
+                        String url = bundle .getString("Url") ;
+                        UploadAccountItem webserUpLoad_Mobile=new UploadAccountItem(url) ;
+                        webserUpLoad_Mobile .RunService("UpLoad_Mobile") ;
+                    }
+                    else
+                    {
+                        Intent i = new Intent(AccountActivity.this, SettingwebserviceActivity.class);
+                        Bundle SetUrlBundle = new Bundle();
+                        SetUrlBundle.putLong("user_ID", userinfoID);
+                        i.putExtra("scanQRcode", bundle);
+                        startActivity(i);
+                    }
+                }
+                xloading .closeDialog(mDialog) ;
             }
         };
        // webser .SetOnAfterServiceRunSuccess =new
