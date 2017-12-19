@@ -35,19 +35,13 @@ import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 
 public class UploadAccountItem  implements Runnable
 {
-    public interface AfterServiceRunSuccessListener
+    public interface AfterServiceRunResultListener
     {
-        public void SetOnAfterServiceRunSuccess(Bundle bundle);
+        public void RunAfterResult(String methodName,boolean isSuccess,Bundle bundle);
     }
-    public AfterServiceRunSuccessListener SetOnAfterServiceRunSuccess;
+    public AfterServiceRunResultListener SetOnAfterServiceRunResult;
 
 
-
-    public interface AfterServiceRunFailListener
-    {
-        public void SetOnAfterServiceRunFail(String exceptionStr);
-    }
-    public AfterServiceRunFailListener SetOnAfterServiceRunFail;
 
 
     String SERVICE_NS ;
@@ -66,25 +60,29 @@ public class UploadAccountItem  implements Runnable
         @Override
         public void handleMessage(Message msg)
         {
+            Bundle bundle =new Bundle() ;
+            Bundle rebundle = msg.getData() ;
+            String methodName = rebundle .getString("method") ;
+            bundle .putString("returninfo",rebundle .getString("returninfo")) ;
             if(msg.what ==0)
             {
-                if(SetOnAfterServiceRunFail!=null)
+                if(SetOnAfterServiceRunResult !=null)
                 {
-                    SetOnAfterServiceRunFail .SetOnAfterServiceRunFail("操作失败") ;
+                    SetOnAfterServiceRunResult.RunAfterResult(methodName, false, bundle);
                 }
             }
             else if(msg .what ==1)
             {
-                if(SetOnAfterServiceRunSuccess!=null)
+                if(SetOnAfterServiceRunResult !=null)
                 {
-                    SetOnAfterServiceRunSuccess .SetOnAfterServiceRunSuccess(msg .getData()) ;
+                    SetOnAfterServiceRunResult.RunAfterResult(methodName, true, bundle);
                 }
             }
             else
             {
-                if(SetOnAfterServiceRunFail!=null)
+                if(SetOnAfterServiceRunResult !=null)
                 {
-                    SetOnAfterServiceRunFail .SetOnAfterServiceRunFail("无此操作") ;
+                    SetOnAfterServiceRunResult.RunAfterResult(methodName, false, bundle);
                 }
             }
         }
@@ -93,52 +91,60 @@ public class UploadAccountItem  implements Runnable
     @Override
     public void run()
     {
+        Message msg = new Message();
+        Bundle bundle =new Bundle();
         try
         {
-            Message msg = new Message();
             if(this.methodName.equals("Test"))
             {
                 if (verify4ConnectRight())
                 {
                     msg.what = 1;
-                    Bundle bundle =new Bundle() ;
-                    msg.setData(bundle) ;
-                    mHandler.sendMessage(msg);
+                    bundle .putString("returninfo","Success") ;
                 }
                 else
                 {
                     msg.what = 0;
-                    mHandler.sendMessage(msg);
+                    bundle .putString("returninfo","Fail") ;
                 }
+                bundle.putString("method","Test") ;
+                msg.setData(bundle) ;
+                mHandler.sendMessage(msg);
             }
         }
         catch (IOException e)
         {
-            if(SetOnAfterServiceRunFail!=null)
+            if(this.methodName.equals("Test"))
             {
-                SetOnAfterServiceRunFail .SetOnAfterServiceRunFail(e.getMessage()) ;
+                bundle.putString("method","Test") ;
+                bundle .putString("returninfo",e.getMessage()) ;
             }
-
+            msg.setData(bundle) ;
+            mHandler.sendMessage(msg);
         }
         catch (XmlPullParserException e)
         {
-            if(SetOnAfterServiceRunFail!=null)
+            if(this.methodName.equals("Test"))
             {
-                SetOnAfterServiceRunFail .SetOnAfterServiceRunFail(e.getMessage()) ;
+                bundle.putString("method","Test") ;
+                bundle .putString("returninfo",e.getMessage()) ;
             }
+            msg.setData(bundle) ;
+            mHandler.sendMessage(msg);
         }
 
     }
 
 
-    public UploadAccountItem (String methodName)
+    public UploadAccountItem (String serviceUrl)
     {
         SERVICE_NS = "http://bayuquan.cn/";//命名空间
-        SOAP_ACTION = "http://bayuquan.cn/"+methodName;//用来定义消息请求的地址，也就是消息发送到哪个操作
-        SERVICE_URL = "http://172.16.40.189:9981/MyAccount/AccountManager.asmx";//URL地址，这里写发布的网站的本地地址
-        this.methodName =methodName ;
-
+        //SOAP_ACTION = "http://bayuquan.cn/"+methodName;//用来定义消息请求的地址，也就是消息发送到哪个操作
+       // SERVICE_URL = "http://172.16.40.189:9981/MyAccount/AccountManager.asmx";//URL地址，这里写发布的网站的本地地址
+        this.SERVICE_URL  =serviceUrl;
     }
+
+
 
     public UploadAccountItem (String serverURL,String methodName)
     {
@@ -146,8 +152,16 @@ public class UploadAccountItem  implements Runnable
         SOAP_ACTION = "http://bayuquan.cn/"+methodName;//用来定义消息请求的地址，也就是消息发送到哪个操作
         SERVICE_URL = serverURL ;//URL地址，这里写发布的网站的本地地址
         this.methodName =methodName ;
-
     }
+
+    public void RunService(String methodName)
+    {
+        this.methodName =methodName ;
+        SOAP_ACTION =SERVICE_NS + methodName ;
+        Thread thread=new Thread(this);
+        thread.start();
+    }
+
 
     public boolean verify4ConnectRight() throws IOException, XmlPullParserException
     {

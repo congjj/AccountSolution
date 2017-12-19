@@ -164,42 +164,55 @@ public class AccountActivity extends AppCompatActivity
         USERINFO userinfo =USERINFO .getOne(userinfoID) ;
         final String serUrl="http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
         //userinfo .getSERVERURL() ;
-        final UploadAccountItem webser=new UploadAccountItem(serUrl ,"Test");
-        new Thread()
+       // UploadAccountItem webser=new UploadAccountItem(serUrl ,"Test");
+        UploadAccountItem webser=new UploadAccountItem(serUrl) ;
+        webser .RunService("Test") ;
+        webser .SetOnAfterServiceRunResult =new UploadAccountItem.AfterServiceRunResultListener()
         {
             @Override
-            public void run()
+            public void RunAfterResult(String methodName, boolean isSuccess, Bundle bundle)
             {
-                Message msg = new Message();
-                try
-                {
-                    if(webser.verify4ConnectRight())
-                    {
-                        msg.what = 1;
-                        Bundle bundle =new Bundle() ;
-                        bundle.putString("serUrl",serUrl) ;
-                        bundle.putLong("accountBookID",accountBookID) ;
-                        msg.setData(bundle) ;
-                        handler.sendMessage(msg);
-                    }
-                    else
-                    {
-                        msg.what = 0;
-                        handler.sendMessage(msg);
-                    }
-                }
-                catch (IOException e)
-                {
-                    msg.what = 0;
-                    handler.sendMessage(msg);
-                }
-                catch (XmlPullParserException e)
-                {
-                    msg.what = 0;
-                    handler.sendMessage(msg);
-                }
+                String aa=methodName ;
             }
-        }.start();
+        };
+       // webser .SetOnAfterServiceRunSuccess =new
+
+//        final UploadAccountItem webser=new UploadAccountItem(serUrl ,"Test");
+//        new Thread()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                Message msg = new Message();
+//                try
+//                {
+//                    if(webser.verify4ConnectRight())
+//                    {
+//                        msg.what = 1;
+//                        Bundle bundle =new Bundle() ;
+//                        bundle.putString("serUrl",serUrl) ;
+//                        bundle.putLong("accountBookID",accountBookID) ;
+//                        msg.setData(bundle) ;
+//                        handler.sendMessage(msg);
+//                    }
+//                    else
+//                    {
+//                        msg.what = 0;
+//                        handler.sendMessage(msg);
+//                    }
+//                }
+//                catch (IOException e)
+//                {
+//                    msg.what = 0;
+//                    handler.sendMessage(msg);
+//                }
+//                catch (XmlPullParserException e)
+//                {
+//                    msg.what = 0;
+//                    handler.sendMessage(msg);
+//                }
+//            }
+//        }.start();
     }
 
     //上传账目处理
