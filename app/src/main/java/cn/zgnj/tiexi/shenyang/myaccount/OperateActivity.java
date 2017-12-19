@@ -203,8 +203,13 @@ public class OperateActivity extends AppCompatActivity
     {
         long id = getIntent().getLongExtra("sendUserID",-1) ;
         USERINFO userinfo =USERINFO.getOne(id);
-        IModelHelper book=new ACCOUNTBOOK(userinfo, Toolkit.replaceBlank(mEdtBookName.getText().toString().toUpperCase()),
-               Toolkit .replaceBlank(mEdtBookRemark.getText().toString())) ;
+        String bookname =Toolkit.replaceBlank(mEdtBookName.getText().toString().toUpperCase());
+        if(bookname .trim() .length() ==0)
+        {
+            Toast.makeText(this,"必须填写记账簿的名称！", Toast.LENGTH_LONG ).show();
+            return ;
+        }
+        IModelHelper book=new ACCOUNTBOOK(userinfo,bookname , Toolkit .replaceBlank(mEdtBookRemark.getText().toString())) ;
         if( book._Insert()==-1)
         {
             Toast.makeText(this,"记账簿名称：" + mEdtBookName.getText()+" 重复，请换用其它名称！", Toast.LENGTH_LONG ).show();

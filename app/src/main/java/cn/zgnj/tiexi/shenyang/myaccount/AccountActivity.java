@@ -23,10 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,7 +66,8 @@ public class AccountActivity extends AppCompatActivity
         bundle = intent.getBundleExtra("sendBookType");
         accountBookID = bundle.getLong("book_ID");
         userinfoID =bundle .getLong("user_ID") ;
-        mTvTitle.setText(bundle.getString("name") + "【" + bundle.getString("remark") + "】");
+        String remark=bundle.getString("remark").trim() ;
+        mTvTitle.setText(bundle.getString("name") + (remark .length() ==0 ?"":"【" + remark + "】"));
         List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(accountBookID);
         loadBookTypelist(list);
         billsItemlist = new ArrayList<Bitmap>();

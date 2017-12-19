@@ -232,7 +232,7 @@ public class UploadAccountItem  implements Runnable
     }
 
 
-    public String  getSererName() throws IOException, XmlPullParserException
+    private String  getSererName() throws IOException, XmlPullParserException
     {
         //创建HttpTransportSE传输对象，该对象用于调用Web Service操作
         final HttpTransportSE ht = new HttpTransportSE(SERVICE_URL); ;

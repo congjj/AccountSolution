@@ -108,7 +108,8 @@ public class SubjectActivity extends AppCompatActivity
     {
         Bundle bundle = new Bundle();
         bundle = getIntent().getBundleExtra("sendBookType");
-        mTxvSubjectTitle.setText(bundle.getString("name") + "【" + bundle.getString("remark") + "】");
+        String remark = bundle.getString("remark").trim();
+        mTxvSubjectTitle.setText(bundle.getString("name") + (remark .length() ==0 ?"":"【" +remark + "】"));
         accountBookID = bundle.getLong("book_ID");
         showSubjectList();
     }
@@ -124,6 +125,11 @@ public class SubjectActivity extends AppCompatActivity
         ACCOUNTBOOK accountbook = ACCOUNTBOOK.getItSelf(accountBookID);
         String name = mEdtSubjectName.getText().toString();
         String remark = mEdtSubjectRemark.getText().toString();
+        if(name .trim().length() ==0)
+        {
+            Toast.makeText(this, "记账科目的名称必须填写！", Toast.LENGTH_LONG).show();
+            return ;
+        }
         IModelHelper temp = new ACCOUNTSUBJECT(accountbook, name, remark, isout);
         if (temp._Insert() == -1)
         {
