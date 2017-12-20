@@ -33,4 +33,22 @@
     <string name="title_activity_settingwebservice">SettingwebserviceActivity</string>
     <string name="scanQRcode">扫码获取服务器地址</string>
     <string name="connserviceStr">连接服务器失败，请扫描二维码获取服务器地址，二维码可在《个人记账系统》的PC端获取！</string>
+    <string name="title_activity_loginsys">个人记账系统和</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_doaccount">个人记账系统</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

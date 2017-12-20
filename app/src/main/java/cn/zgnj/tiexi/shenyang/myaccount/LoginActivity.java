@@ -1,17 +1,10 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -27,8 +20,6 @@ import java.util.Date;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.*;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
-
-import static cn.zgnj.tiexi.shenyang.myaccount.R.color.*;
 
 public class LoginActivity extends AppCompatActivity
 {
@@ -102,6 +93,7 @@ public class LoginActivity extends AppCompatActivity
             Toast.makeText(this, "登录成功-欢迎试用", Toast.LENGTH_LONG).show();
 
             Intent i = new Intent(this, OperateActivity.class);
+            //Intent i = new Intent(this, DoaccountActivity .class);
             i.putExtra("sendUserID", returnid);
             startActivity(i);
         }
