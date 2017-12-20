@@ -23,8 +23,8 @@
 
     <include
         layout="@layout/content_doaccount"
-        android:layout_height="504dp"
-        tools:layout_editor_absoluteY="63dp"/>
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="110dp"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
