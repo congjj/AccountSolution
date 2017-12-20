@@ -212,7 +212,6 @@ public class AccountreportActivity extends AppCompatActivity
 
     }
 
-
     //endregion
 
 }
