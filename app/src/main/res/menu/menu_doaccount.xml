@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="cn.zgnj.tiexi.shenyang.myaccount.DoaccountActivity">
+    <item
+        android:id="@+id/itemaddaccountbook"
+        android:orderInCategory="100"
+        android:title="@string/createbooktype"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/itemaccountsubject"
+        android:orderInCategory="100"
+        android:title="@string/createsubject"
+        app:showAsAction="never"/>
+</menu>

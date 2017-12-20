@@ -92,8 +92,8 @@ public class LoginActivity extends AppCompatActivity
             long returnid = a._Insert();
             Toast.makeText(this, "登录成功-欢迎试用", Toast.LENGTH_LONG).show();
 
-            Intent i = new Intent(this, OperateActivity.class);
-            //Intent i = new Intent(this, DoaccountActivity .class);
+           // Intent i = new Intent(this, OperateActivity.class);
+            Intent i = new Intent(this, DoaccountActivity .class);
             i.putExtra("sendUserID", returnid);
             startActivity(i);
         }
