@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">个人记账系统</string>
     <string name="accountbook">选择记账簿</string>
+    <string name="accountbook1">选择账簿</string>
     <string name="createbook">创建账簿</string>
     <string name="createsubject">创建记账科目</string>
     <string name="accountstart">我要记账</string>
@@ -34,6 +35,8 @@
     <string name="scanQRcode">扫码获取服务器地址</string>
     <string name="connserviceStr">连接服务器失败，请扫描二维码获取服务器地址，二维码可在《个人记账系统》的PC端获取！</string>
     <string name="title_activity_loginsys">个人记账系统和</string>
+
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
