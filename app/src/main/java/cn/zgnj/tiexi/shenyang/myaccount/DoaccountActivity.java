@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,10 +18,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
+import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
 
@@ -28,6 +31,8 @@ public class DoaccountActivity extends AppCompatActivity
 {
 
     private long mUserID;
+    private ACCOUNTBOOK mACCOUNTBOOK ;
+    private ACCOUNTSUBJECT mACCOUNTSUBJECT;
 
 
     private void Load(Intent intent, Bundle savedInstanceState)
@@ -54,18 +59,54 @@ public class DoaccountActivity extends AppCompatActivity
 
     private void CreateAccountSubject()
     {
+        if(mACCOUNTBOOK ==null)
+        {
+            Toast.makeText(this, "请选择账簿或创建一个账簿！", Toast.LENGTH_LONG).show();
+            return;
+        }
+        Intent i=new Intent(this,SubjectActivity .class );
+        Bundle bundle = new Bundle() ;
+        bundle.putString("name",mACCOUNTBOOK .getNAME()) ;
+        bundle .putString("remark",mACCOUNTBOOK .getREMARK()) ;
+        bundle .putLong("book_ID",mACCOUNTBOOK  .getId()) ;
+        i.putExtra("sendBookType",bundle);
+        startActivity(i);
     }
 
 
     private void CreateAccountbook()
     {
+
     }
 
+    private void AccountBook_ItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+        ACCOUNTBOOK accountbook =(ACCOUNTBOOK)  this.mSpinnerTitle .getSelectedItem() ;
+        if(accountbook ==null)
+            return ;
+        mACCOUNTBOOK =accountbook ;
+        List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(mACCOUNTBOOK .getId());
+        loadBookSubjectlist(list);
+    }
+
+    private void BookSubject_ItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+        ACCOUNTSUBJECT accountsubject =(ACCOUNTSUBJECT )this.mSpnSubject .getSelectedItem() ;
+        if(accountsubject ==null)
+            return ;
+        mACCOUNTSUBJECT  =accountsubject ;
+    }
 
     private  void loadBookTypelist(List<ACCOUNTBOOK > booklist)
     {
         ArrayAdapter<ACCOUNTBOOK> adp=new ArrayAdapter<ACCOUNTBOOK>(this , R.layout.support_simple_spinner_dropdown_item,booklist);
         mSpinnerTitle .setAdapter(adp);
+    }
+
+    private void loadBookSubjectlist(List<ACCOUNTSUBJECT> booksubjectlist)
+    {
+        ArrayAdapter<ACCOUNTSUBJECT> adp = new ArrayAdapter<ACCOUNTSUBJECT>(this, R.layout.support_simple_spinner_dropdown_item, booksubjectlist );
+        this.mSpnSubject.setAdapter(adp);
     }
 
 
@@ -155,9 +196,35 @@ public class DoaccountActivity extends AppCompatActivity
                 UploadAccount_Click(v);
             }
         }) ;
+        this.mSpinnerTitle .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                AccountBook_ItemSelected(parent ,view,position ,id );
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        }) ;
+        this.mSpnSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                BookSubject_ItemSelected(parent ,view,position ,id );
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        }) ;
     }
-
-
 
 
     private void LoadView()
