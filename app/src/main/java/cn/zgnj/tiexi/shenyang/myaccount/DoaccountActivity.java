@@ -27,6 +27,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTSUBJECT;
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
+import cn.zgnj.tiexi.shenyang.myaccount.utility.Toolkit;
 
 public class DoaccountActivity extends AppCompatActivity
 {
@@ -92,9 +93,15 @@ public class DoaccountActivity extends AppCompatActivity
         startActivityForResult(i,RETURN_CREATE_ACCOUNTBOOK) ;
     }
 
-    private void AccountBookCreate_Closed(Intent data)
+    private void AccountBookCreate_Closed(Intent data,int resultCode)
     {
-        Intent a =data ;
+        loadBookTypelist(USERINFO.getOne(mUserID).getACCOUNTBOOKList()) ;
+        if(BookcreateActivity .SUCCESS ==resultCode )
+        {
+            Bundle bundle =data.getBundleExtra("booklistid");
+            int booklistid =Integer .parseInt(bundle .getString("index") ) ;
+            mSpinnerTitle.setSelection(booklistid) ;
+        }
     }
 
     private void AccountBook_ItemSelected(AdapterView<?> parent, View view, int position, long id)
@@ -309,12 +316,9 @@ public class DoaccountActivity extends AppCompatActivity
         }
         if(RETURN_CREATE_ACCOUNTBOOK ==requestCode)
         {
-            AccountBookCreate_Closed(data);
+            AccountBookCreate_Closed(data,resultCode );
         }
-
     }
-
-
 
 
     //endregion
