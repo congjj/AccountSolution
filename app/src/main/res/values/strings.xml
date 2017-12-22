@@ -37,7 +37,6 @@
     <string name="title_activity_loginsys">个人记账系统和</string>
 
 
-
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

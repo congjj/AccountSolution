@@ -32,6 +32,7 @@ public class DoaccountActivity extends AppCompatActivity
 {
 
     private final int RETURN_CREATE_ACCOUNTSUBJECT=100;
+    private final int RETURN_CREATE_ACCOUNTBOOK=200;
     private long mUserID;
     private ACCOUNTBOOK mACCOUNTBOOK ;
     private ACCOUNTSUBJECT mACCOUNTSUBJECT;
@@ -84,7 +85,16 @@ public class DoaccountActivity extends AppCompatActivity
 
     private void CreateAccountbook()
     {
+        Intent i=new Intent(this,BookcreateActivity.class );
+        Bundle bundle = new Bundle() ;
+        bundle .putLong("user_ID",mUserID) ;
+        i.putExtra("sendBookType",bundle);
+        startActivityForResult(i,RETURN_CREATE_ACCOUNTBOOK) ;
+    }
 
+    private void AccountBookCreate_Closed(Intent data)
+    {
+        Intent a =data ;
     }
 
     private void AccountBook_ItemSelected(AdapterView<?> parent, View view, int position, long id)
@@ -297,8 +307,14 @@ public class DoaccountActivity extends AppCompatActivity
         {
             AccountSubjectCreate_Closed(data);
         }
+        if(RETURN_CREATE_ACCOUNTBOOK ==requestCode)
+        {
+            AccountBookCreate_Closed(data);
+        }
 
     }
+
+
 
 
     //endregion
