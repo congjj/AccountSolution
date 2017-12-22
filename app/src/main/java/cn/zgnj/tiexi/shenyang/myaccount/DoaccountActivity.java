@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.security.PublicKey;
 import java.util.List;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
@@ -30,6 +31,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.utility.DateSelected;
 public class DoaccountActivity extends AppCompatActivity
 {
 
+    private final int RETURN_CREATE_ACCOUNTSUBJECT=100;
     private long mUserID;
     private ACCOUNTBOOK mACCOUNTBOOK ;
     private ACCOUNTSUBJECT mACCOUNTSUBJECT;
@@ -70,9 +72,15 @@ public class DoaccountActivity extends AppCompatActivity
         bundle .putString("remark",mACCOUNTBOOK .getREMARK()) ;
         bundle .putLong("book_ID",mACCOUNTBOOK  .getId()) ;
         i.putExtra("sendBookType",bundle);
-        startActivity(i);
+        startActivityForResult(i,RETURN_CREATE_ACCOUNTSUBJECT) ;
+        //startActivity(i);
     }
 
+    private void AccountSubjectCreate_Closed(Intent data)
+    {
+        List<ACCOUNTSUBJECT> list = ACCOUNTSUBJECT.getList4Book(mACCOUNTBOOK .getId());
+        loadBookSubjectlist(list);
+    }
 
     private void CreateAccountbook()
     {
@@ -281,6 +289,16 @@ public class DoaccountActivity extends AppCompatActivity
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(RETURN_CREATE_ACCOUNTSUBJECT ==requestCode)
+        {
+            AccountSubjectCreate_Closed(data);
+        }
+
+    }
 
 
     //endregion

@@ -4,12 +4,13 @@
       tools:context="cn.zgnj.tiexi.shenyang.myaccount.DoaccountActivity">
     <item
         android:id="@+id/itemaddaccountbook"
+        android:icon="@mipmap/accountbook_add"
         android:orderInCategory="100"
-        android:title="@string/app_name"
+        android:title="@string/createbook"
         app:showAsAction="never"/>
     <item
         android:id="@+id/itemaccountsubject"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         android:title="@string/createsubject"
-        app:showAsAction="never"/>
+        />
 </menu>
