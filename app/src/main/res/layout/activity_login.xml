@@ -66,20 +66,21 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/name"
                 android:textSize="24sp"/>
 
             <EditText
                 android:id="@+id/etxtUserName"
+                style="@style/Widget.AppCompat.EditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:textColor="@color/colorBlue"
                 android:textSize="20sp"
-                android:textStyle="normal"/>
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="447dp"/>
 
         </LinearLayout>
 
@@ -129,6 +130,6 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/titlelogo"/>
+        app:srcCompat="@mipmap/logo3"/>
 
 </android.support.constraint.ConstraintLayout>

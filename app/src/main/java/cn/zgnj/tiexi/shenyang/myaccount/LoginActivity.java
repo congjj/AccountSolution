@@ -8,9 +8,13 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +28,8 @@ import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
 public class LoginActivity extends AppCompatActivity
 {
 
-
     private TelephonyManager _TelephInfo;
+    private  USERINFO userinfo;
 
     private void Load(Bundle savedInstanceState)
     {
@@ -34,13 +38,29 @@ public class LoginActivity extends AppCompatActivity
         {
             //设置权限
             Permissionhelper.startActivityForResult(this, READ_PHONE_REQUEST_CODE, Manifest.permission.READ_PHONE_STATE);
-            ;
+            
         }
         _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
         String simcode = _TelephInfo.getSubscriberId();
         mtxvTelNO.setText(simcode);
-        USERINFO userinfo = USERINFO.getOne(simcode);
+        userinfo = USERINFO.getOne(simcode);
+        localLogin();
+        mRadioButtonLocal .setChecked(true ) ;
+    }
+
+    private void webLogin()
+    {
+        this.mEditTextUserName .setInputType(EditorInfo .TYPE_CLASS_TEXT|EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
+        mTextViewName .setText(R.string .password) ;
+        this.mEditTextUserName .setEnabled(true) ;
+        this.mEditTextUserName .setText("") ;
+    }
+
+    private void localLogin()
+    {
+        this.mEditTextUserName .setInputType(EditorInfo.TYPE_CLASS_TEXT |EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
+        mTextViewName .setText(R.string .name) ;
         if (userinfo == null)
         {
             this.mEditTextUserName.setText("");
@@ -86,13 +106,11 @@ public class LoginActivity extends AppCompatActivity
                 return;
             }
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-            IModelHelper a = new USERINFO("", username, _TelephInfo.getLine1Number(),
-                    _TelephInfo.getSubscriberId(), "", df.format(new Date()), df.format(new Date()), "", "", "");
+            IModelHelper a = new USERINFO("", username, _TelephInfo.getLine1Number(), _TelephInfo.getSubscriberId(),
+                    "", df.format(new Date()), df.format(new Date()), "", "", "");
             long returnid = a._Insert();
             Toast.makeText(this, "登录成功-欢迎试用", Toast.LENGTH_LONG).show();
 
-           // Intent i = new Intent(this, OperateActivity.class);
             Intent i = new Intent(this, DoaccountActivity .class);
             i.putExtra("sendUserID", returnid);
             startActivity(i);
@@ -120,6 +138,9 @@ public class LoginActivity extends AppCompatActivity
     private Button mbtnLogin;
     private TextView mtxvTelNO;
     private EditText mEditTextUserName;
+    private RadioButton mRadioButtonLocal;
+    private RadioButton mRadioButtonWeb;
+    private TextView mTextViewName;
 
     private void LoadView()
     {
@@ -133,7 +154,9 @@ public class LoginActivity extends AppCompatActivity
         mtxvTelNO = (TextView) findViewById(R.id.txvTelNO);
         mEditTextUserName =(EditText )findViewById(R.id.etxtUserName) ;
 
-
+        mRadioButtonLocal =(RadioButton) findViewById(R.id.radioButton2) ;
+        mRadioButtonWeb =(RadioButton)  findViewById(R.id.radioButton) ;
+        mTextViewName =(TextView) findViewById(R.id.textView11) ;
         ConstraintLayout myLayout = (ConstraintLayout) findViewById(R.id.backConstraintLayout);
         myLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.mintcream));
     }
@@ -153,6 +176,32 @@ public class LoginActivity extends AppCompatActivity
                 Login(view);
             }
         });
+
+        this.mRadioButtonLocal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                mRadioButtonWeb .setChecked(!isChecked ) ;
+                if(isChecked )
+                {
+                    localLogin();
+                }
+            }
+        }) ;
+
+        this.mRadioButtonWeb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+               mRadioButtonLocal .setChecked(!isChecked) ;
+               if(isChecked)
+               {
+                   webLogin();
+               }
+            }
+        }) ;
     }
 
 
