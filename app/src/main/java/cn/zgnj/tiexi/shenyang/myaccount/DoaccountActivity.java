@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cjj.tiexi.shenyang.library.messageutility.DialogResult;
+import cjj.tiexi.shenyang.library.messageutility.MessageDialog;
 import cjj.tiexi.shenyang.library.xloading.xloading;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBILL;
 import cn.zgnj.tiexi.shenyang.myaccount.model.ACCOUNTBOOK;
@@ -258,9 +260,27 @@ public class DoaccountActivity extends AppCompatActivity
                         startActivity(i);
                     }
                 }
-
             }
         };
+    }
+
+
+    private void Test()
+    {
+         MessageDialog dialog =new MessageDialog(this) ;
+        dialog .Show("a","b",DialogResult .DialogButton .YESNO ) ;
+        dialog .SetOnAfterPressButtonListener = new MessageDialog.DialogButtonPressInterface()
+        {
+            @Override
+            public void ButtonPress_After(DialogResult.Result result)
+            {
+                if(result ==DialogResult .Result .YES )
+                {
+                    String a ="jjj";
+                }
+            }
+        };
+
     }
 
     private void CreateAccountSubject()
@@ -556,9 +576,17 @@ public class DoaccountActivity extends AppCompatActivity
             CreateAccountbook();
             return true;
         }
+        
+        if(id==R.id.itemtest)
+        {
+            Test();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
     @Override

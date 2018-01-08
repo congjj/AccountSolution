@@ -8,8 +8,14 @@
         android:title="@string/createbook"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/itemtest"
+        android:title="Item"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/itemaccountsubject"
         android:orderInCategory="101"
         android:title="@string/createsubject"
-        app:showAsAction="never"/>
+        />
+
+
 </menu>
