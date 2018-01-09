@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cjj.tiexi.shenyang.library.messageutility.DialogResult;
 import cjj.tiexi.shenyang.library.messageutility.MessageDialog;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.*;
 
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity
 
             if (mRadioButtonWeb.isChecked())
             {
-
+                new MessageDialog(this) .Show("错误","获取本机识别码失败或访问本机存储失败！", DialogResult.DialogIcon .Error ) ;
             }
             else
             {
@@ -120,7 +121,7 @@ public class LoginActivity extends AppCompatActivity
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
                 {
-                    new MessageDialog(this) .Show("错误","获取本机识别码失败或访问本机存储失败！") ;
+                    new MessageDialog(this) .Show("错误","获取本机识别码失败或访问本机存储失败！", DialogResult.DialogIcon .Error ) ;
                     finish() ;
                 }
                 IModelHelper a = new USERINFO("", username, _TelephInfo.getLine1Number(), _TelephInfo.getSubscriberId(),
