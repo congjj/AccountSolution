@@ -267,8 +267,9 @@ public class DoaccountActivity extends AppCompatActivity
 
     private void Test()
     {
-         MessageDialog dialog =new MessageDialog(this) ;
-        dialog .Show("a","b",DialogResult .DialogButton .YESNO ) ;
+
+        MessageDialog dialog =new MessageDialog(this) ;
+        dialog .Show("信息","免费版不支持此功能！",DialogResult .DialogButton .YESNO, DialogResult.DialogIcon .Information ) ;
         dialog .SetOnAfterPressButtonListener = new MessageDialog.DialogButtonPressInterface()
         {
             @Override

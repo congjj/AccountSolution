@@ -9,7 +9,7 @@
         app:showAsAction="never"/>
     <item
         android:id="@+id/itemtest"
-        android:title="Item"
+        android:title="@string/bakaccount"
         app:showAsAction="never"/>
     <item
         android:id="@+id/itemaccountsubject"

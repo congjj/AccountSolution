@@ -3,12 +3,13 @@ package cn.zgnj.tiexi.shenyang.myaccount;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
-import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cjj.tiexi.shenyang.library.messageutility.MessageDialog;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.*;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
@@ -29,38 +31,42 @@ public class LoginActivity extends AppCompatActivity
 {
 
     private TelephonyManager _TelephInfo;
-    private  USERINFO userinfo;
+    private USERINFO userinfo;
 
     private void Load(Bundle savedInstanceState)
     {
-        //无权限是设置权限
-        if (new PermissionsChecker(this).lacksPermissions(Manifest.permission.READ_PHONE_STATE))
+//        //无权限是设置权限
+//        if (new PermissionsChecker(this).lacksPermissions(Manifest.permission.READ_PHONE_STATE))
+//        {
+//            //设置权限
+//            Permissionhelper.startActivityForResult(this, READ_PHONE_REQUEST_CODE, Manifest.permission.READ_PHONE_STATE);
+//        }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
         {
-            //设置权限
-            Permissionhelper.startActivityForResult(this, READ_PHONE_REQUEST_CODE, Manifest.permission.READ_PHONE_STATE);
-            
+            new MessageDialog(this) .Show("错误","获取本机识别码失败！") ;
+            finish() ;
         }
         _TelephInfo = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-
         String simcode = _TelephInfo.getSubscriberId();
         mtxvTelNO.setText(simcode);
         userinfo = USERINFO.getOne(simcode);
         localLogin();
-        mRadioButtonLocal .setChecked(true ) ;
+        mRadioButtonLocal.setChecked(true);
     }
 
     private void webLogin()
     {
-        this.mEditTextUserName .setInputType(EditorInfo .TYPE_CLASS_TEXT|EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
-        mTextViewName .setText(R.string .password) ;
-        this.mEditTextUserName .setEnabled(true) ;
-        this.mEditTextUserName .setText("") ;
+        this.mEditTextUserName.setInputType(EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
+        mTextViewName.setText(R.string.password);
+        this.mEditTextUserName.setEnabled(true);
+        this.mEditTextUserName.setText("");
     }
 
     private void localLogin()
     {
-        this.mEditTextUserName .setInputType(EditorInfo.TYPE_CLASS_TEXT |EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
-        mTextViewName .setText(R.string .name) ;
+        this.mEditTextUserName.setInputType(EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
+        mTextViewName.setText(R.string.name);
         if (userinfo == null)
         {
             this.mEditTextUserName.setText("");
@@ -81,7 +87,7 @@ public class LoginActivity extends AppCompatActivity
         {
             finish();
         }
-        if ( resultCode == Permissionhelper.PERMISSIONS_DENIED)
+        if (resultCode == Permissionhelper.PERMISSIONS_DENIED)
         {
             finish();
         }
@@ -92,28 +98,40 @@ public class LoginActivity extends AppCompatActivity
     {
         try
         {
-            //无权限是设置权限
-            if (new PermissionsChecker(this).lacksPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-            {
-                //设置权限
-                Permissionhelper.startActivityForResult(this, READ_PHONE_REQUEST_CODE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            }
+//            //无权限是设置权限
+//            if (new PermissionsChecker(this).lacksPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+//            {
+//                //设置权限
+//                Permissionhelper.startActivityForResult(this, READ_PHONE_REQUEST_CODE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//            }
 
-            String username = this.mEditTextUserName.getText().toString();
-            if (username.trim().length() == 0)
+            if (mRadioButtonWeb.isChecked())
             {
-                Toast.makeText(this, "请填写姓名！", Toast.LENGTH_LONG).show();
-                return;
-            }
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            IModelHelper a = new USERINFO("", username, _TelephInfo.getLine1Number(), _TelephInfo.getSubscriberId(),
-                    "", df.format(new Date()), df.format(new Date()), "", "", "");
-            long returnid = a._Insert();
-            Toast.makeText(this, "登录成功-欢迎试用", Toast.LENGTH_LONG).show();
 
-            Intent i = new Intent(this, DoaccountActivity .class);
-            i.putExtra("sendUserID", returnid);
-            startActivity(i);
+            }
+            else
+            {
+                String username = this.mEditTextUserName.getText().toString();
+                if (username.trim().length() == 0)
+                {
+                    Toast.makeText(this, "请填写姓名！", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
+                {
+                    new MessageDialog(this) .Show("错误","获取本机识别码失败或访问本机存储失败！") ;
+                    finish() ;
+                }
+                IModelHelper a = new USERINFO("", username, _TelephInfo.getLine1Number(), _TelephInfo.getSubscriberId(),
+                        "", df.format(new Date()), df.format(new Date()), "", "", "");
+                long returnid = a._Insert();
+                Toast.makeText(this, "登录成功-欢迎试用", Toast.LENGTH_LONG).show();
+
+                Intent i = new Intent(this, DoaccountActivity.class);
+                i.putExtra("sendUserID", returnid);
+                startActivity(i);
+            }
         }
         catch (Exception ex)
         {
