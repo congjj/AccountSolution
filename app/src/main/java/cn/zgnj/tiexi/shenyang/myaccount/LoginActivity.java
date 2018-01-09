@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,11 +20,17 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.ksoap2.serialization.SoapObject;
+
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cjj.tiexi.shenyang.library.messageutility.DialogResult;
 import cjj.tiexi.shenyang.library.messageutility.MessageDialog;
+import cjj.tiexi.shenyang.library.security.MD5;
+import cjj.tiexi.shenyang.library.webservice.WebServiceHelper;
+import cn.zgnj.tiexi.shenyang.myaccount.model.SYSCONFIG;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.*;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
@@ -108,6 +115,18 @@ public class LoginActivity extends AppCompatActivity
 
             if (mRadioButtonWeb.isChecked())
             {
+                boolean a = SYSCONFIG .addWebUrlConfig("http://172.16.40.189:9981/MyAccount/AccountManager.asmx") ;
+                String weburl = SYSCONFIG .getWEBURL() ;
+                if(weburl .trim() .length() ==0)
+                {
+
+                }
+                        //"http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
+                String na = "http://bayuquan.cn/";
+                String me = "Test";
+                WebServiceHelper serviceHelper =WebServiceHelper .getInstance(weburl ,na ) ;
+                SoapObject soapObject =serviceHelper .callSoapObject(me,null) ;
+
                 new MessageDialog(this) .Show("错误","获取本机识别码失败或访问本机存储失败！", DialogResult.DialogIcon .Error ) ;
             }
             else
@@ -136,7 +155,20 @@ public class LoginActivity extends AppCompatActivity
         }
         catch (Exception ex)
         {
-            throw ex;
+            try
+            {
+                Toast.makeText(this, ex.getMessage() , Toast.LENGTH_LONG).show();
+                throw ex;
+            }
+            catch (NoSuchAlgorithmException e)
+            {
+                Toast.makeText(this, e.getMessage() , Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } catch (Exception e)
+            {
+                Toast.makeText(this, e.getMessage() , Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
         }
     }
 
@@ -147,9 +179,13 @@ public class LoginActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //-------让 webservice 强制在 Main UI 主线程中运行！！！不建议使用
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        //====================================================================================
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         this.InitializeComponent(savedInstanceState);
     }
 
@@ -193,6 +229,7 @@ public class LoginActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Login(view);
+
             }
         });
 
