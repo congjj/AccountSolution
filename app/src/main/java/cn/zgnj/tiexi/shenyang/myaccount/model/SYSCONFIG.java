@@ -15,8 +15,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
 
 public class SYSCONFIG extends SugarRecord implements Serializable,IModelHelper
 {
-    @Ignore
-    private static final String WEBURL="WEBURL";
+
 
     @Column(name = "FLAG", notNull = true)
     private  String Flag;
@@ -27,6 +26,8 @@ public class SYSCONFIG extends SugarRecord implements Serializable,IModelHelper
     @Column(name = "Remark", notNull = true)
     private  String Remark;
 
+    @Ignore
+    private static final String WEBURL="WEBURL";
 
     public SYSCONFIG () {}
     public SYSCONFIG (String flag  ,String values ,String remark)
