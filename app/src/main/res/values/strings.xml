@@ -34,10 +34,12 @@
     <string name="title_activity_settingwebservice">SettingwebserviceActivity</string>
     <string name="scanQRcode">扫码获取服务器地址</string>
     <string name="connserviceStr">连接服务器失败，请扫描二维码获取服务器地址，二维码可在《个人记账系统》的PC端获取！</string>
+    <string name="serverStr">请扫描二维码或手工输入获取服务器地址</string>
     <string name="title_activity_loginsys">个人记账系统和</string>
     <string name="password">密码：</string>
     <string name="bakaccount">备份账本</string>
-
+    <string name="serversetting">服务器设定</string>
+    <string name="saoma">扫码</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

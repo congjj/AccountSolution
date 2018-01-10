@@ -28,9 +28,9 @@ import java.util.Date;
 
 import cjj.tiexi.shenyang.library.messageutility.DialogResult;
 import cjj.tiexi.shenyang.library.messageutility.MessageDialog;
-import cjj.tiexi.shenyang.library.security.MD5;
 import cjj.tiexi.shenyang.library.webservice.WebServiceHelper;
 import cn.zgnj.tiexi.shenyang.myaccount.model.SYSCONFIG;
+import cn.zgnj.tiexi.shenyang.myaccount.networkedition.SettingsysserverActivity;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.*;
 
 import cn.zgnj.tiexi.shenyang.myaccount.model.USERINFO;
@@ -115,19 +115,24 @@ public class LoginActivity extends AppCompatActivity
 
             if (mRadioButtonWeb.isChecked())
             {
-                boolean a = SYSCONFIG .addWebUrlConfig("http://172.16.40.189:9981/MyAccount/AccountManager.asmx") ;
+               // boolean a = SYSCONFIG .addWebUrlConfig("http://172.16.40.189:9981/MyAccount/AccountManager.asmx") ;
                 String weburl = SYSCONFIG .getWEBURL() ;
                 if(weburl .trim() .length() ==0)
                 {
-
+                    Intent i=new Intent(this  ,SettingsysserverActivity.class );
+                    Bundle bundle = new Bundle() ;
+//                    bundle.putLong("book_ID",accountBookID) ;
+//                    bundle .putLong("user_ID",userinfoID) ;
+                    i.putExtra("SettingsysserverActivity",bundle);
+                    startActivity(i);
                 }
                         //"http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
                 String na = "http://bayuquan.cn/";
                 String me = "Test";
                 WebServiceHelper serviceHelper =WebServiceHelper .getInstance(weburl ,na ) ;
                 SoapObject soapObject =serviceHelper .callSoapObject(me,null) ;
-
-                new MessageDialog(this) .Show("错误","获取本机识别码失败或访问本机存储失败！", DialogResult.DialogIcon .Error ) ;
+//
+//                new MessageDialog(this) .Show("错误","获取本机识别码失败或访问本机存储失败！", DialogResult.DialogIcon .Error ) ;
             }
             else
             {

@@ -3,6 +3,7 @@ package cn.zgnj.tiexi.shenyang.myaccount.model;
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
 import com.orm.dsl.Ignore;
+import com.orm.dsl.Table;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +14,7 @@ import cn.zgnj.tiexi.shenyang.myaccount.IModelHelper;
  * Created by CJJ on 2018/1/9.
  */
 
+@Table
 public class SYSCONFIG extends SugarRecord implements Serializable,IModelHelper
 {
 
@@ -20,20 +22,20 @@ public class SYSCONFIG extends SugarRecord implements Serializable,IModelHelper
     @Column(name = "FLAG", notNull = true)
     private  String Flag;
 
-    @Column(name = "VALUES", notNull = true)
-    private  String Values;
+    @Column(name = "CONFIGVALUES", notNull = true)
+    private  String ConfigValues;
 
-    @Column(name = "Remark", notNull = true)
+    @Column(name = "REMARK", notNull = true)
     private  String Remark;
 
     @Ignore
     private static final String WEBURL="WEBURL";
 
     public SYSCONFIG () {}
-    public SYSCONFIG (String flag  ,String values ,String remark)
+    public SYSCONFIG (String flag  ,String configValues  ,String remark)
     {
         this.Flag  =flag;
-        this.Values  =values ;
+        this.ConfigValues   =configValues  ;
         this.Remark =remark;
     }
 
@@ -73,7 +75,7 @@ public class SYSCONFIG extends SugarRecord implements Serializable,IModelHelper
         }
         else
         {
-            return ((SYSCONFIG )sysconfiglist .toArray() [0]).Values;
+            return ((SYSCONFIG )sysconfiglist .toArray() [0]).ConfigValues;
         }
     }
 
