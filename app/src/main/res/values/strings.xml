@@ -41,7 +41,7 @@
     <string name="serversetting">服务器设定</string>
     <string name="saoma">扫码</string>
     <string name="servername">服务器：</string>
-
+    <string name="regionuser">注 册</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

@@ -1,7 +1,6 @@
 package cn.zgnj.tiexi.shenyang.myaccount;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import cjj.tiexi.shenyang.library.messageutility.DialogResult;
 import cjj.tiexi.shenyang.library.messageutility.MessageDialog;
 import cjj.tiexi.shenyang.library.security.MD5;
@@ -116,6 +114,7 @@ public class LoginActivity extends AppCompatActivity
         }
     }
 
+
     private void localLogin()
     {
         this.mEditTextUserName.setInputType(EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
@@ -131,21 +130,6 @@ public class LoginActivity extends AppCompatActivity
         }
     }
 
-    //用户设置权限后的操作
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
-        if (requestCode == READ_PHONE_REQUEST_CODE && resultCode == Permissionhelper.PERMISSIONS_DENIED)
-        {
-            finish();
-        }
-        if (resultCode == Permissionhelper.PERMISSIONS_DENIED)
-        {
-            finish();
-        }
-    }
 
 
     private void Login(View view)
@@ -161,7 +145,7 @@ public class LoginActivity extends AppCompatActivity
                 Dialog dialog = null;
                 if( mEditTextUserName.getText() .toString() .length() ==0)
                 {
-                    new MessageDialog(this) .Show("错误","请输入登录的密码！", DialogResult.DialogIcon .Error ) ;
+                    new MessageDialog(this) .Show("错误","请输入登录的密码！", DialogResult.DialogIcon .Error);
                     return ;
                 }
                 try
@@ -360,7 +344,21 @@ public class LoginActivity extends AppCompatActivity
         }) ;
     }
 
-
+    //用户设置权限后的操作
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
+        if (requestCode == READ_PHONE_REQUEST_CODE && resultCode == Permissionhelper.PERMISSIONS_DENIED)
+        {
+            finish();
+        }
+        if (resultCode == Permissionhelper.PERMISSIONS_DENIED)
+        {
+            finish();
+        }
+    }
     //endregion
 
 
