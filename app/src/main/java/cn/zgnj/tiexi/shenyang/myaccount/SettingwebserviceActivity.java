@@ -90,54 +90,6 @@ public class SettingwebserviceActivity extends AppCompatActivity
                             }
                         }
                     };
-//                    new Thread()
-//                    {
-//                        @Override
-//                        public void run()
-//                        {
-//                            Message msg = new Message();
-//
-//                            try
-//                            {
-//                                String sername = webser .getSererName() ;
-//                                if(!sername .equals(""))
-//                                {
-//                                    msg.what = 1;
-//                                    Bundle bundle = new Bundle();
-//                                    bundle .putString("servername",sername) ;
-//                                    bundle .putLong("userid",userID) ;
-//                                    bundle .putString("serUrl",serUrl );
-//                                    msg.setData(bundle) ;
-//
-//                                    handler.sendMessage(msg);
-//                                }
-//                                else
-//                                {
-//                                    msg.what = 0;
-//                                    handler.sendMessage(msg);
-//                                }
-//                            }
-//                            catch (IOException e)
-//                            {
-//                                msg.what = 0;
-//                                handler.sendMessage(msg);
-//                            }
-//                            catch (XmlPullParserException e)
-//                            {
-//                                msg.what = 0;
-//                                handler.sendMessage(msg);
-//                            }
-//                        }
-//                    }.start();
-
-
-//                    Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-//                    //用默认浏览器打开扫描得到的地址
-//                    Intent intent = new Intent();
-//                    intent.setAction("android.intent.action.VIEW");
-//                    Uri content_url = Uri.parse(result.toString());
-//                    intent.setData(content_url);
-//                    startActivity(intent);
                 }
                 else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED)
                 {

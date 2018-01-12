@@ -38,6 +38,10 @@ import cn.zgnj.tiexi.shenyang.myaccount.utility.bzip2.CBZip2OutputStream;
 
 public class Toolkit
 {
+    public final static String SERVERNAMESPACE="http://bayuquan.cn/";
+
+
+
     /**
      * bitmap 转换到字节流
      * @param bitmap
