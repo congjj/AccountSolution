@@ -8,9 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import org.ksoap2.serialization.SoapObject;
-
 import cjj.tiexi.shenyang.library.messageutility.DialogResult;
 import cjj.tiexi.shenyang.library.messageutility.MessageDialog;
 import cjj.tiexi.shenyang.library.qrcode.activity.CaptureActivity;
@@ -34,7 +32,7 @@ public class SettingsysserverActivity extends AppCompatActivity
         Dialog dialog = null;
         try
         {
-            String na = Toolkit .SERVERNAMESPACE ;
+            String na = Toolkit.SERVERNAMESPACE ;
             String me = "Test";
             final String weburl =mEditTextServerUrl .getText().toString() ;
             dialog = xloading.showWaitDialog(this,"验证服务器中……",false ,false );

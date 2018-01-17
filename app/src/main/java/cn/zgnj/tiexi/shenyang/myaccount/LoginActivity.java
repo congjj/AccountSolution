@@ -34,6 +34,7 @@ import cjj.tiexi.shenyang.library.security.MD5;
 import cjj.tiexi.shenyang.library.webservice.WebServiceHelper;
 import cjj.tiexi.shenyang.library.xloading.xloading;
 import cn.zgnj.tiexi.shenyang.myaccount.model.SYSCONFIG;
+import cn.zgnj.tiexi.shenyang.myaccount.networkedition.RegisterActivity;
 import cn.zgnj.tiexi.shenyang.myaccount.networkedition.SettingsysserverActivity;
 import cn.zgnj.tiexi.shenyang.myaccount.utility.*;
 
@@ -99,7 +100,6 @@ public class LoginActivity extends AppCompatActivity
                         {
                             e.printStackTrace();
                         }
-
                     }
                 }
             };
@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity
                 String na = Toolkit .SERVERNAMESPACE ;
                 String me = "LoginSystem_Mobile";
                 String weburl = SYSCONFIG .getWEBURL() ;
-                Dialog dialog = null;
+                final Dialog dialog ;
                 if( mEditTextUserName.getText() .toString() .length() ==0)
                 {
                     new MessageDialog(this) .Show("错误","请输入登录的密码！", DialogResult.DialogIcon .Error);
@@ -157,12 +157,14 @@ public class LoginActivity extends AppCompatActivity
                     Map <String ,Object > map = new HashMap<String,  Object >() ;
                     map.put("code",code) ;
                     map.put("password",MD5 .getMD5(password));
+                    map .put("flog",2) ;
                     serviceHelper.RunService(me,map) ;
                     serviceHelper .SetOnAfterRunService =new WebServiceHelper.AfterRunServicListener()
                     {
                         @Override
                         public void RunService_After(String s, SoapObject soapObject)
                         {
+                            xloading .closeDialog(dialog) ;
                             if(soapObject ==null)
                             {
                                 setWebServiceUrl();
@@ -181,7 +183,11 @@ public class LoginActivity extends AppCompatActivity
                                         {
                                             if(DialogResult.Result.YES ==result)
                                             {
-
+                                                Intent i=new Intent(LoginActivity.this  ,RegisterActivity.class );
+                                                Bundle bundle = new Bundle() ;
+                                                bundle .putString("userid",mtxvTelNO .getText() .toString()) ;
+                                                i.putExtra("RegisterActivity",bundle);
+                                                startActivityForResult(i,2000) ;
                                             }
                                         }
                                     };
@@ -199,10 +205,6 @@ public class LoginActivity extends AppCompatActivity
                 catch (Exception ex)
                 {
                     setWebServiceUrl() ;
-                }
-                finally
-                {
-                    xloading .closeDialog(dialog) ;
                 }
 
                         //"http://172.16.40.189:9981/MyAccount/AccountManager.asmx";
@@ -253,7 +255,7 @@ public class LoginActivity extends AppCompatActivity
         Intent i=new Intent(this  ,SettingsysserverActivity.class );
         Bundle bundle = new Bundle() ;
         i.putExtra("SettingsysserverActivity",bundle);
-        startActivity(i);
+        startActivityForResult(i,3000) ;
     }
 
 
