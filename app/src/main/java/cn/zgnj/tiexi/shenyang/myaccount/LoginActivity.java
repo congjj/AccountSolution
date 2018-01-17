@@ -194,10 +194,16 @@ public class LoginActivity extends AppCompatActivity
                                 }
                                 else
                                 {
+                                    if(result .equals("密码错误！"))
+                                    {
+                                        Toast.makeText(LoginActivity .this, result, Toast.LENGTH_LONG).show();
+                                    }
+                                    else
+                                    {
 
+                                    }
                                 }
                             }
-                            //new MessageDialog(LoginActivity.this) .Show("OK",aaa .getProperty(0).toString(), DialogResult.DialogIcon.Information ) ;
                         }
                     };
 
@@ -359,6 +365,14 @@ public class LoginActivity extends AppCompatActivity
         if (resultCode == Permissionhelper.PERMISSIONS_DENIED)
         {
             finish();
+        }
+        if(requestCode ==2000)
+        {
+            webLogin();
+        }
+        if(requestCode ==3000)
+        {
+            mRadioButtonLocal .setChecked(true) ;
         }
     }
     //endregion
