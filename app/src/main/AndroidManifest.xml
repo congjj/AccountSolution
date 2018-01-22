@@ -96,6 +96,8 @@
         </activity>
         <activity android:name=".networkedition.RegisterActivity">
         </activity>
+        <activity android:name=".networkedition.WebaccountActivity">
+        </activity>
     </application>
 
 </manifest>
